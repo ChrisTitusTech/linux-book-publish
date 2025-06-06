@@ -1,1 +1,407 @@
-/home/titus/github/linux-book/book/html/chapter3-bootloaders.html
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Chapter 3: Bootloaders - The Linux Desktop Guide</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./theme/catppuccin.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "frappe";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Linux Desktop Guide</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="chapter-3---bootloaders-how-linux-is-loaded"><a class="header" href="#chapter-3---bootloaders-how-linux-is-loaded">Chapter 3 - Bootloaders: How Linux is Loaded</a></h1>
+<p>There are many bootloaders available, but this chapter focuses on the two most widely used: GRUB 2 and systemd-boot.</p>
+<h2 id="grub-2---the-most-widely-used"><a class="header" href="#grub-2---the-most-widely-used">GRUB 2 - The Most Widely Used</a></h2>
+<p>GRUB 2 is the most popular bootloader for Linux, offering extensive functionality. It supports themes, multiboot setups, and various other features that make it highly versatile. For Windows/Linux multiboot systems, GRUB 2 is my recommended choice.</p>
+<ul>
+<li><strong>GRUB Manual Table of Contents:</strong> <a href="https://www.gnu.org/software/grub/manual/grub/html_node/index.html">https://www.gnu.org/software/grub/manual/grub/html_node/index.html</a></li>
+</ul>
+<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
+<p>Before installing or updating GRUB, you need to create configuration files. One of the best resources for understanding GRUB is the <a href="https://wiki.gentoo.org/wiki/GRUB2">https://wiki.gentoo.org/wiki/GRUB2</a>.</p>
+<h4 id="files-used-for-configuration"><a class="header" href="#files-used-for-configuration">Files Used for Configuration</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>File Location</th><th style="text-align: center">Editable</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>/boot/grub/grub.cfg</code></td><td style="text-align: center">No</td><td>Generated by <code>grub-mkconfig</code> and will be overwritten. Do not edit directly.</td></tr>
+<tr><td><code>/etc/grub.d/*</code></td><td style="text-align: center">Yes</td><td>Contains scripts processed in numerical order (e.g., <code>10-boot</code>, <code>11-os</code>).</td></tr>
+<tr><td><code>/etc/default/grub</code></td><td style="text-align: center">Yes</td><td>Primary configuration file for GRUB edits. Start here for modifications.</td></tr>
+</tbody></table>
+</div>
+<h4 id="editing-grub-configuration-in-etcdefaultgrub"><a class="header" href="#editing-grub-configuration-in-etcdefaultgrub">Editing GRUB Configuration in <code>/etc/default/grub</code></a></h4>
+<p>Below are common configuration entries in <code>/etc/default/grub</code>:</p>
+<ul>
+<li><strong><code>GRUB_DEFAULT</code></strong>: Specifies the default boot entry. Typically set to <code>0</code> for the first entry. Use <code>1</code> for the second entry, <code>2</code> for the third, and so on.</li>
+<li><strong><code>GRUB_TIMEOUT_STYLE</code></strong>: Determines whether to display a menu (<code>MENU</code>) or hide it (<code>HIDDEN</code>). If hidden, the <code>GRUB_HIDDEN_TIMEOUT</code> variable controls the splash screen display.</li>
+<li><strong><code>GRUB_TIMEOUT</code></strong>: Sets the menu display duration. If set to <code>-1</code>, the menu will never timeout and will wait for user input.</li>
+<li><strong><code>GRUB_CMDLINE_LINUX_DEFAULT</code></strong>: Adds kernel options. Common examples:
+<ul>
+<li><code>quiet splash</code>: Hides verbose text output during boot.</li>
+<li><code>nomodeset</code>: Bypasses modesetting, useful for booting NVIDIA systems to install drivers.</li>
+<li><code>single</code>: Boots into single-user mode, useful for system modifications or resetting user passwords.</li>
+<li>Variable declarations: Add system-specific variables, such as <code>keymap</code> or <code>vfio</code> for PCI passthrough.</li>
+</ul>
+</li>
+<li><strong><code>GRUB_DISABLE_RECOVERY</code></strong>: Disables recovery entries. Setting this to <code>true</code> is recommended if recovery entries are rarely needed. You can edit GRUB directly during boot by pressing <code>e</code> when the menu appears.</li>
+</ul>
+<p>For a complete list of GRUB configuration variables, refer to the <a href="https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html">https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html</a>.</p>
+<h4 id="sample-grub-configuration-etcdefaultgrub"><a class="header" href="#sample-grub-configuration-etcdefaultgrub">Sample GRUB Configuration (<code>/etc/default/grub</code>)</a></h4>
+<p>Here’s an example configuration with no menu:</p>
+<pre><code>GRUB_DEFAULT="0"
+GRUB_TIMEOUT_STYLE="hidden"
+GRUB_TIMEOUT="0"
+GRUB_DISTRIBUTOR="`lsb_release -i -s 2&gt; /dev/null || echo Debian`"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX=""
+GRUB_DISABLE_RECOVERY="true"
+GRUB_DISABLE_LINUX_RECOVERY="true"
+</code></pre>
+<h4 id="make-configuration-files"><a class="header" href="#make-configuration-files">Make Configuration files</a></h4>
+<p>Make the configuration files with <code>grub-mkconfig</code> or <code>update-grub</code> on debian-based systems.</p>
+<pre><code>grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
+<p>Manual page for grub-mkconfig: <a href="https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html#Simple-configuration">https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html#Simple-configuration</a></p>
+<p>OR</p>
+<pre><code>update-grub
+</code></pre>
+<p>Manual page for update-grub: <a href="https://manpages.debian.org/buster/grub-legacy/update-grub.8.en.html">https://manpages.debian.org/buster/grub-legacy/update-grub.8.en.html</a></p>
+<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
+<p>Once your configuration files are created, you can install GRUB onto your hard disk for booting. First, determine whether the installation is EFI or Legacy BIOS.</p>
+<p>To check if you are using EFI:</p>
+<pre><code>ls /sys/firmware/efi
+</code></pre>
+<p><em>If files are listed with the ls command you are on EFI</em></p>
+<h4 id="efi-installation"><a class="header" href="#efi-installation">EFI Installation</a></h4>
+<p>Efi installations consist of two partitions where Legacy BIOS can have one. This makes it unique, but can also cause a multiple problems when using manual partitioning. Prior to running these commands you need to make sure the partition is mounted!</p>
+<p>Next, we need to install EFI to this partition with this command</p>
+<pre><code>grub-install --efi-directory=/boot/efi
+</code></pre>
+<h4 id="bios-legacy-installation"><a class="header" href="#bios-legacy-installation">BIOS Legacy Installation</a></h4>
+<p>Typically in a BIOS legacy setup you have one main partition mounted to / and you run the following command to install GRUB. <strong>Note: DO NOT USE Legacy where you can use EFI!</strong></p>
+<pre><code>grub-install 
+</code></pre>
+<p>You can also do a variation of this if you have multiple drives or are dual booting. Find the drive you are installing it on using the command <code>lsblk</code> OR <code>blkid</code> as these give more information about your drive setup</p>
+<p>Example usage when specifying a drive:</p>
+<pre><code>grub-install /dev/sda
+</code></pre>
+<p>For the full usage of grub-install here is the manual page: <a href="https://www.gnu.org/software/grub/manual/grub/html_node/Installing-GRUB-using-grub_002dinstall.html">https://www.gnu.org/software/grub/manual/grub/html_node/Installing-GRUB-using-grub_002dinstall.html</a></p>
+<h3 id="grub-videos"><a class="header" href="#grub-videos">GRUB Videos</a></h3>
+<p>These are the videos I've done on GRUB via YouTube:</p>
+<ul>
+<li>How to Repair Linux With Boot Failure: <a href="https://youtu.be/9D3hvnnby9A">https://youtu.be/9D3hvnnby9A</a></li>
+<li>Fix Multi-Boot Systems running GRUB and Windows: <a href="https://youtu.be/3oQfnNhk7qU">https://youtu.be/3oQfnNhk7qU</a></li>
+<li>Using SuperGRUBDisk to repair GRUB: <a href="https://youtu.be/gEB6JEYZekE">https://youtu.be/gEB6JEYZekE</a></li>
+<li>Custom Bootloader Themes Project: <a href="https://youtu.be/BAyzHP1Cqb0">https://youtu.be/BAyzHP1Cqb0</a></li>
+<li>Using GRUB Rescue: <a href="https://youtu.be/r7meKJsjqfY">https://youtu.be/r7meKJsjqfY</a></li>
+<li>Using GRUB Customizer for automated GRUB Building: <a href="https://youtu.be/3s7qBJ-H7vw">https://youtu.be/3s7qBJ-H7vw</a></li>
+</ul>
+<h2 id="systemd-boot---minimal-built-in-boot"><a class="header" href="#systemd-boot---minimal-built-in-boot">Systemd Boot - Minimal Built-In boot</a></h2>
+<p>Many distributions are now starting to ship with systemd boot instead of GRUB (PopOS! is one example) and is an interesting boot manager when you don't want a menu or extra packages to boot into your Linux.</p>
+<p><em>Note: systemd boot has the capabilities of menus and dual boot, but setting this up is much more cumbersome and why I recommend using GRUB instead of doing this</em></p>
+<p>Systemd-boot is also an <em>EFI ONLY</em> bootloader. So if you aren't booted in using UEFI, you can NOT install systemd-boot. Verify that you are in efi mode using <code>ls /sys/firmware/efi</code></p>
+<p>Systemd has a dedicated site for documentation. Check it out @ <a href="https://systemd.io/">https://systemd.io/</a> and look at the Booting Section for systemd-boot. Another good source for systemd-boot information is the Arch Wiki @ <a href="https://wiki.archlinux.org/title/systemd-boot">https://wiki.archlinux.org/title/systemd-boot</a></p>
+<h3 id="configuraiton"><a class="header" href="#configuraiton">Configuraiton</a></h3>
+<p>Here is the directory breakdown for systemd-boot</p>
+<ul>
+<li>Main Directory: /boot/efi (Sometimes this can be /boot in rare instances and some systems it adds a EFI subdirectory, ex. /boot/efi/EFI)</li>
+<li>Configuration files: /boot/efi/loader (General configuration in loader.conf)</li>
+<li>OS Entries: /boot/efi/loader/entries (Each .conf is a boot entry)</li>
+</ul>
+<h4 id="general-configuration"><a class="header" href="#general-configuration">General Configuration</a></h4>
+<p>The general configuration will be the loader.conf in the root of the <code>/loader</code> directory. Here is the syntax:</p>
+<ul>
+<li>default – Default boot option and it can be a wildcard like arch-*.conf.</li>
+<li>timeout – menu timeout in seconds before the default entry is booted. If this is not set, the menu will only be shown on key press during boot.</li>
+<li>editor – yes is default, but this allows editing boot entries and can be used to reset password or get system level access. Set to no if security is a concern.</li>
+<li>auto-entries – shows automatic entries for Windows, EFI Shell, and Default Loader if set to 1 (default), 0 to hide;</li>
+<li>auto-firmware – shows entry for rebooting into UEFI firmware settings if set to 1 (default), 0 to hide;</li>
+<li>console-mode – changes UEFI console mode:
+<ul>
+<li>0 for 80x25</li>
+<li>1 for 80x50</li>
+<li>2 and above for non-standard modes provided by the device firmware</li>
+<li>auto picks a suitable mode automatically</li>
+<li>max for highest available mode</li>
+<li>keep (default) for the firmware selected mode.</li>
+</ul>
+</li>
+</ul>
+<p><em>boot/efi/loader/loader.conf</em> example</p>
+<pre><code>default  arch.conf
+timeout  4
+console-mode max
+editor   no
+</code></pre>
+<h4 id="adding-boot-entries"><a class="header" href="#adding-boot-entries">Adding Boot Entries</a></h4>
+<p>Every boot entry will be loaded from the <code>/loader/entries</code> directory. Here is that syntax:</p>
+<ul>
+<li>
+<p>title – operating system name. Required.</p>
+</li>
+<li>
+<p>version – kernel version. Optional.</p>
+</li>
+<li>
+<p>machine-id – machine identifier from /etc/machine-id. Optional.</p>
+</li>
+<li>
+<p>efi – EFI program to start. Either this parameter or linux is <em>required</em>.</p>
+</li>
+<li>
+<p>options – space-separated command line options to pass to the EFI program or kernel parameters. <code>root="UUID=3255683f-53a2-4fdf-91cf" OR root="LABEL=OS Label"</code> is required for booting Linux. Here are common options:</p>
+<ul>
+<li>rw = Read-Write needed for most installs</li>
+<li>root = UUID or Label used for identifying the root partition</li>
+<li>silent = do NOT display any console output</li>
+<li>splash = display OS Splash screen</li>
+<li>nomodeset = disable Kernel mode setting. Often needed if using NVIDIA cards and you do not have the drivers installed.</li>
+<li>S = run in single mode (often required for resetting root password or modifying root file system)</li>
+</ul>
+<p>Q: How do you find the UUID?
+A: The command <code>sudo blkid</code></p>
+<p>_Note: To identify specific drive labels I recommend <code>sudo lsblk</code> which gives a readout of all drives and where they are mounted. When used in conjunction with <code>blkid</code> you will be able to tell what each drive is.</p>
+</li>
+</ul>
+<p>Check all kernel parameters @ <a href="https://www.kernel.org/doc/html/v5.13/admin-guide/kernel-parameters.html">https://www.kernel.org/doc/html/v5.13/admin-guide/kernel-parameters.html</a></p>
+<p>Example Arch Linux Entry <code>/boot/efi/loader/entries/arch.conf</code></p>
+<pre><code>title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux.img
+options root="LABEL=arch" rw
+</code></pre>
+<p>Example Windows 10 Entry <code>/boot/efi/loader/entries/win10.conf</code></p>
+<pre><code>title Windows 10
+efi /EFI/Microsoft/Boot/bootmgfw.efi
+</code></pre>
+<p>Automatic EFI Entry creation with the <code>efibootmgr</code> package - You can check to see what efi options are installed to you with <code>efibootmgr -v</code>.</p>
+<pre><code>efibootmgr --create --disk /dev/sda --part 1 --loader "\EFI\systemd\systemd-bootx64.efi" --label "Linux OS" --verbose
+</code></pre>
+<p><em>Note: This command is used if your Linux EFI system partition is located @ /dev/sda1 and the EFI file located @ /boot/efi/EFI/systemd/systemd-bootx64.efi</em></p>
+<h3 id="installation-1"><a class="header" href="#installation-1">Installation</a></h3>
+<p>The default install is very easy once configuration is done. You simply type <code>bootctl install</code> and you are done!</p>
+<p>There are configurations with multiple boot partitions, but I do not recommend using systemd-boot for this.</p>
+<p>In most instances this will auto update when boot options change, but you can force an update if you manually add more entries with <code>bootctl update</code></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter2-linuxmadeof.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter4-servercli.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter2-linuxmadeof.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter4-servercli.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

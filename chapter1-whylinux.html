@@ -1,1 +1,288 @@
-/home/titus/github/linux-book/book/html/chapter1-whylinux.html
+<!DOCTYPE HTML>
+<html lang="en" class="latte sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Chapter 1: Why Linux - The Linux Desktop Guide</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./theme/catppuccin.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "latte";
+            const default_dark_theme = "frappe";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('latte')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Linux Desktop Guide</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="chapter-1---starting-linux"><a class="header" href="#chapter-1---starting-linux">Chapter 1 - Starting Linux</a></h1>
+<p>Linux is a powerful and versatile operating system that gives you complete control over your computer. Whether you're looking for stability, security, or customization, Linux has something to offer for everyone. In this chapter, we'll explore the basics of Linux, including its distributions, release types, and modularity.</p>
+<p>Why Choose Linux over Windows or MacOS?: https://youtu.be/DNg2M88_Hl0</p>
+<h2 id="distributions"><a class="header" href="#distributions">Distributions</a></h2>
+<p>Linux by itself doesn't include programs and things to make a fully function computer. So we have Linux distributions. There are many Distributions, in fact, hundreds of them that can be rather confusing. However there are three main branches that comprise the most amount of users and will be the focus of this book.</p>
+<p>Overview of All Distributions on Linux: https://youtu.be/DKFnqAtEOvc</p>
+<h3 id="debian-based-distributions"><a class="header" href="#debian-based-distributions">Debian-Based Distributions</a></h3>
+<p>These are the majority of Linux users and most online guides are written with them in mind. They typically are very stable and long term support. When you hear Ubuntu, Linux Mint, Pop OS, Elementary OS, KDE Neon, Peppermint, and much more... they are all based around Debian. This means how you install programs and the package manger is all the same. This is typically where most users start from. Anytime you see the command <em>apt install</em> or <em>.deb</em> package the installation instructions are geared for a this distribution branch.</p>
+<h3 id="rhel-based-distributions"><a class="header" href="#rhel-based-distributions">RHEL-Based Distributions</a></h3>
+<p>RedHat Enterprise Linux is what RHEL stands for. This is the backbone of many Linux servers as any RHEL based distribution is built with security and stability in mind. There are 3 distributions that most think of when it comes to the RHEL category. RedHat Enterprise Linux (Subscription-Based), CentOS (RHEL clone but no subscription), and Fedora. The package manager for these distributions is <em>dnf install</em> or <em>yum install</em> and utilizing the <em>.rpm</em> packages you download from sites.</p>
+<h3 id="arch-based-distributions"><a class="header" href="#arch-based-distributions">Arch-Based Distributions</a></h3>
+<p>Arch Linux is a user created distribution that isn't backed by any company and has some unique features as a result. The main distributions you hear about in this category are Arch Linux and Manjaro. It's package manager syntax looks like <em>pacman -S packagename</em> and doesn't have downloadable packages like Debian or RHEL distros. It does however have a unique feature called the AUR (Arch User Repository) and is able to build programs on the fly. While this is incredibly powerful, it can also be dangerous as these aren't vetted and sometimes have old packages that are out of date. So if using the AUR always check the site to make sure it is up to date and is a legitimate source.</p>
+<div class="table-wrapper"><table><thead><tr><th>Distribution Type</th><th>Examples</th><th>Package Manager Syntax</th><th>Key Features</th></tr></thead><tbody>
+<tr><td>Debian-Based</td><td>Ubuntu, Linux Mint, Pop OS</td><td><code>apt install</code></td><td>Stable, beginner-friendly</td></tr>
+<tr><td>RHEL-Based</td><td>CentOS, Fedora</td><td><code>dnf install</code> / <code>yum install</code></td><td>Secure, server-focused</td></tr>
+<tr><td>Arch-Based</td><td>Arch Linux, Manjaro</td><td><code>pacman -S</code></td><td>Rolling release, highly customizable</td></tr>
+</tbody></table>
+</div>
+<h2 id="release-types"><a class="header" href="#release-types">Release Types</a></h2>
+<p>Lets go over the two types of distribution releases you will encounter Rolling and Stable. Both have their pros and cons, but depending on how you use your PC one might better than the other for you.</p>
+<p>LTS vs Rolling Release: https://youtu.be/B-NG5gW5QnM</p>
+<h3 id="rolling-release"><a class="header" href="#rolling-release">Rolling Release</a></h3>
+<p>Arch Linux is what is called a rolling release, which is a version of Linux that isn't tied to a single version of the Linux kernel. By comparison, Ubuntu does 6 month releases where it will not update major system components. Arch can update the Linux kernel and other core system components every week or everyday in some instances. This is a double edged sword, as you get the latest and greatest features, but you are also prone to more bugs.</p>
+<h3 id="stable-lts-release"><a class="header" href="#stable-lts-release">Stable LTS Release</a></h3>
+<p>Debian and RHEL based distributions are typically using a proven release cycle. Each distribution can have different release schedules and vary from a couple months to several years. The distributions that are specifically called LTS (Long Term Support) are made with longevity in mind. The support structure can range from 5 years (Ubuntu LTS) to 10 Years (CentOS Versions). The downside to using stable releases is the packages are sometimes considered old and are not as up to date. However, these versions will run for years and are extremely stable.</p>
+<h2 id="modularity"><a class="header" href="#modularity">Modularity</a></h2>
+<p>The power of Linux is that no matter what distribution you choose, it is modular. You can modify and make massive changes to drastically change the user experience. This gives you the power to make Linux operate how ever you see fit and you are the only thing holding it back.</p>
+<p>Linux's modularity allows you to tailor your system to your needs. Whether you're building a lightweight system for an old laptop or a high-performance gaming rig, Linux gives you the tools to make it happen. Here are some examples:</p>
+<ul>
+<li><strong>Server Setup:</strong> Install only essential server packages and skip the desktop environment.</li>
+<li><strong>Lightweight Desktop:</strong> Use LXDE or XFCE for older hardware.</li>
+<li><strong>Gaming System:</strong> Install Steam, Proton, and GPU drivers for a complete gaming experience.</li>
+</ul>
+<h2 id="what-distribution-should-you-use"><a class="header" href="#what-distribution-should-you-use">What Distribution Should You Use</a></h2>
+<p>I don't consider Linux complex, but more of a rabbit hole of infinite possibilities. This is very overwhelming for a new user and often misunderstood. That is why I always recommend popular distributions with widespread support and resembling the operating system they are coming from. For Windows Users, I recommend starting with Linux Mint and for MacOS users I recommend Pop OS! as it has more Mac feel out of the box.</p>
+<h3 id="tips-for-choosing-a-distribution"><a class="header" href="#tips-for-choosing-a-distribution">Tips for Choosing a Distribution</a></h3>
+<ul>
+<li><strong>Windows Users:</strong> Start with Linux Mint for a familiar experience.</li>
+<li><strong>MacOS Users:</strong> Try Pop OS for a sleek and modern interface.</li>
+<li><strong>New Gaming Users:</strong> Bazzite gives an controlled environment with lots of gaming support by default. System shouldn't be</li>
+<li><strong>Advanced Gaming Users:</strong> Nobara is made by Glorius Eggroll and is a gaming focused distribution with many tweaks and optimizations for gaming out of the box. It also allows for lots of system customization.</li>
+<li><strong>Advanced Users:</strong> Explore Arch Linux or Fedora for more control and cutting-edge features.</li>
+</ul>
+<h3 id="useful-links"><a class="header" href="#useful-links">Useful Links</a></h3>
+<ul>
+<li><a href="https://linuxmint.com">Linux Mint Official Site</a></li>
+<li><a href="https://pop.system76.com">Pop OS Official Site</a></li>
+<li><a href="https://bazzite.gg">Bazzite Official Site</a></li>
+<li><a href="https://nobaraproject.org">Nobara Official Site</a></li>
+<li><a href="https://wiki.archlinux.org">Arch Linux Wiki</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="forward.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter2-linuxmadeof.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="forward.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter2-linuxmadeof.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
