@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rsync -avP ../linux-book/book/html/* .
+rsync -avP /home/titus/github/linux-book/book/html/* /home/titus/github/linux-book-publish/
 git add .
 git commit -m "Update book content"
 git push

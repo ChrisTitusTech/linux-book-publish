@@ -64,7 +64,7 @@
                 }
             });
         </script>
-    <div style="display: none"><a href="#forward">forward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a></div>
+    <div style="display: none"><a href="#forward">forward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a><a href="#chapter5-drives">chapter5-drives</a></div>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
     </head>
@@ -724,6 +724,74 @@ pw-mon               # Monitor Pipewire events in real-time
 <li><code>wireplumber</code> - Session manager for Pipewire</li>
 </ul>
 <p><em>Note: Do NOT use pipewire-media-session, as it is deprecated and replaced by wireplumber.</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="chapter-5-drives-and-filesystems"><a class="header" href="#chapter-5-drives-and-filesystems">Chapter 5: Drives and Filesystems</a></h2>
+<p>This chapter focuses on managing drives and filesystems in Linux, including mounting and unmounting drives, understanding filesystems, and using tools like <code>fdisk</code>, <code>mkfs</code>, and <code>fsck</code>.</p>
+<h3 id="understanding-drives-and-filesystems"><a class="header" href="#understanding-drives-and-filesystems">Understanding Drives and Filesystems</a></h3>
+<p>In Linux, drives and filesystems are fundamental components that allow the operating system to store and retrieve data. Each drive can have one or more partitions, and each partition can be formatted with a specific filesystem type.</p>
+<h4 id="common-filesystem-types"><a class="header" href="#common-filesystem-types">Common Filesystem Types</a></h4>
+<ul>
+<li><strong>ext4</strong>: The most common filesystem for Linux, known for its performance and reliability.</li>
+<li><strong>xfs</strong>: A high-performance filesystem often used for large files and high-capacity storage.</li>
+<li><strong>btrfs</strong>: A modern filesystem with advanced features like snapshots and dynamic resizing.</li>
+<li><strong>vfat</strong>: A filesystem compatible with Windows, often used for USB drives, external storage, and EFI boot partitions.</li>
+<li><strong>ntfs</strong>: The Windows NT filesystem, used for compatibility with Windows systems.</li>
+<li><strong>swap</strong>: A special filesystem used for swap space, which is used when the system runs out of RAM.</li>
+</ul>
+<h3 id="mounting-and-unmounting-drives"><a class="header" href="#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a></h3>
+<p>Mounting and unmounting drives is a common task in Linux, especially when dealing with external storage devices or network shares.</p>
+<h4 id="fstab-configuration"><a class="header" href="#fstab-configuration">Fstab Configuration</a></h4>
+<p>The <code>/etc/fstab</code> file is used to define how disk partitions, network shares, and other file systems are mounted at boot time. Each line in the file represents a file system and its mount options.</p>
+<p>Fstab structure:</p>
+<ul>
+<li>Device: usually the given name or UUID of the mounted device (sda1/sda2/etc).</li>
+<li>Mount Point: designates the directory where the device is/will be mounted.</li>
+<li>File System Type: nothing trick here, shows the type of filesystem in use.
+Options: lists any active mount options. If using multiple options they must be separated by commas.</li>
+<li>Backup Operation: (the first digit) this is a binary system where 1 = dump utility backup of a partition. 0 = no backup. This is an outdated backup method and should <strong>NOT</strong> be used.</li>
+<li>File System Check Order: (second digit) Here we can see three possible outcomes.  0 means that fsck will not check the filesystem. Numbers higher than this represent the check order. The root filesystem should be set to 1 and other partitions set to 2.</li>
+</ul>
+<p>Stntax:</p>
+<pre><code># &lt;device&gt; &lt;mount point&gt; &lt;file system type&gt; &lt;options&gt; &lt;backup operation&gt; &lt;fsck order&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>UUID=1234-5678 /mnt/data  ext4 defaults 0 2
+/dev/sdb1      /media/usb vfat defaults,nofail 0 0
+</code></pre>
+<p>Options:</p>
+<ul>
+<li><code>defaults</code>: Use default mount options.</li>
+<li><code>nofail</code>: Ignore errors when mounting the filesystem.</li>
+<li><code>noauto</code>: Do not mount automatically at boot.</li>
+<li><code>user</code>: Allow non-root users to mount the filesystem.</li>
+<li><code>rw</code>: Mount the filesystem as read-write.</li>
+<li><code>ro</code>: Mount the filesystem as read-only.</li>
+<li><code>exec</code>: Allow execution of binaries on the filesystem.</li>
+<li><code>noexec</code>: Prevent execution of binaries on the filesystem.</li>
+<li><code>sync</code>: All I/O operations are done synchronously.</li>
+<li><code>async</code>: All I/O operations are done asynchronously.</li>
+<li><code>uid=1000</code>: Set the owner of the mounted filesystem to user ID 1000.</li>
+<li><code>gid=1000</code>: Set the group of the mounted filesystem to group ID 1000.</li>
+<li><code>umask=022</code>: Set the default permissions for files and directories on the mounted filesystem.</li>
+<li><code>dmask=027</code>: Set the default permissions for directories on the mounted filesystem.</li>
+<li><code>fmask=133</code>: Set the default permissions for files on the mounted filesystem.</li>
+</ul>
+<p>My fstab file with NFS mounts and multiple drives:</p>
+<pre><code># Static information about the filesystems.
+# See fstab(5) for details.
+
+# &lt;file system&gt; &lt;dir&gt; &lt;type&gt; &lt;options&gt; &lt;dump&gt; &lt;pass&gt;
+# /dev/nvme1n1p2
+UUID=1188f001-7a26-4d75-819f-202e4ef2da96	/         	ext4      	rw,relatime	0 1
+
+# /dev/nvme1n1p1
+UUID=3337-A669      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+# /dev/nvme1n1p3
+UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
+
+# Network Drives
+10.0.0.2:/volume2/Images		/media/images	nfs	x-systemd.after=network-online.target,x-systemd.automount,x-systemd.mount-timeout=90,_netdev 0 0
+</code></pre>
 
                     </main>
 
