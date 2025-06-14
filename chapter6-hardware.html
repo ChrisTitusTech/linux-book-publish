@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - The Linux Desktop Guide</title>
-        <base href="/">
+        <title>Chapter 6: Hardware Compatibility - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -168,13 +167,43 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="linux-hardware-compatibility"><a class="header" href="#linux-hardware-compatibility">Linux Hardware Compatibility</a></h1>
+<p>The biggest myth told by the Linux community is that Linux works on all hardware. This is not true, and it is a common misconception that leads to many users being disappointed when they try to install Linux on their machines. The reality is that while Linux supports a wide range of hardware, there are still many devices that do not work well or at all with Linux.</p>
+<h2 id="incompatible-hardware"><a class="header" href="#incompatible-hardware">Incompatible Hardware</a></h2>
+<p>Some hardware is simply not compatible with Linux. This can be due to a lack of drivers, proprietary firmware, or other issues. For example, some Wi-Fi adapters, graphics cards, and printers may not work properly on Linux. Before installing Linux, it is essential to check the compatibility of your hardware.</p>
+<p>Hardware I've personally had issues with includes:</p>
+<ul>
+<li><strong>NVIDIA Graphics Cards</strong>: While NVIDIA provides proprietary drivers for Linux, they can be difficult to install and may not work with all distributions. Open-source alternatives like Nouveau exist but often lack performance and features. This is getting better with each kernel release, and nVidia open sourcing their drives, but still is a common issue. I've had issues with obscure Wayland configurations, Custom Linux Kernels, and certain desktop environments that do not play well with NVIDIA drivers. AMD graphics is still the best option for Linux users by a large margin.</li>
+<li><strong>Broadcom Wi-Fi Adapters</strong>: Many Broadcom Wi-Fi adapters require proprietary drivers that are not included in the Linux kernel by default. This can lead to connectivity issues.</li>
+<li><strong>Certain Printers</strong>: Some printers, especially those from manufacturers like HP and Canon, may not have Linux drivers available or may require additional configuration to work correctly.</li>
+<li><strong>Fingerprint Readers</strong>: Many fingerprint readers do not have Linux support, making them unusable for authentication purposes.</li>
+<li><strong>Webcams</strong>: Some webcams, particularly older models, may not be recognized by Linux or may require additional drivers to function correctly.</li>
+<li><strong>Bluetooth Adapters</strong>: Some Bluetooth adapters may not work out of the box and require additional drivers or configuration.</li>
+<li><strong>Touchpads</strong>: Some touchpads, especially those with advanced features, may not work correctly without additional configuration or drivers.</li>
+<li><strong>Audio Devices</strong>: Some audio devices, particularly those with proprietary drivers, may not work correctly on Linux.</li>
+<li><strong>Gaming Peripherals</strong>: Many gaming mice and keyboards may not have full functionality on Linux, especially those with customizable features.</li>
+<li><strong>Virtual Reality Headsets</strong>: Many VR headsets do not have Linux support, making them unusable for gaming or other applications.</li>
+</ul>
+<h2 id="checking-compatibility"><a class="header" href="#checking-compatibility">Checking Compatibility</a></h2>
+<p>Before installing Linux, it is crucial to check the compatibility of your hardware. Here are some resources to help you determine if your hardware is compatible with Linux:</p>
+<ul>
+<li><strong>Linux Hardware Compatibility Lists</strong>: Websites like <a href="https://linux-hardware.org/">Linux Hardware</a> provide lists of hardware that is known to work well with Linux.</li>
+<li><strong>Distribution-Specific Compatibility Lists</strong>: Many Linux distributions maintain their own hardware compatibility lists. For example, <a href="https://wiki.ubuntu.com/HardwareSupport">Ubuntu's Hardware Compatibility</a> page provides information on supported devices.</li>
+<li><strong>Forums and Communities</strong>: Online forums and communities, such as the <a href="https://www.linuxquestions.org/">LinuxQuestions.org</a> or the <a href="https://www.reddit.com/r/linux4noobs/">Linux 4 Noobs Subreddit</a>, can be valuable resources for checking hardware compatibility. Users often share their experiences with specific hardware and Linux distributions.</li>
+<li><strong>Manufacturer Websites</strong>: Some hardware manufacturers provide information on Linux compatibility for their products. Check the manufacturer's website for any available drivers or support documentation.</li>
+<li><strong>Distro-Specific Tools</strong>: Some Linux distributions come with tools that can help you check hardware compatibility. <code>lshw</code> (List Hardware) is a command-line utility that provides detailed information about your system's hardware. You can use it to check if your hardware is recognized by the Linux kernel.</li>
+<li><strong>Live USB Testing</strong>: Before installing Linux, you can create a live USB of the distribution you want to try. Booting from the live USB allows you to test hardware compatibility without making any changes to your system. This is a great way to see if your hardware works well with Linux before committing to an installation.</li>
+</ul>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter5-drives.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
 
                         <div style="clear: both"></div>
@@ -183,6 +212,9 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter5-drives.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
             </nav>
 
