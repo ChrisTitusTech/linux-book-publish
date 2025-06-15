@@ -206,7 +206,10 @@
 </ul>
 <h2 id="special-features-of-this-book"><a class="header" href="#special-features-of-this-book">Special Features of This Book</a></h2>
 <p>Throughout this book, you will find links to videos designed to enhance the learning experience. Some concepts are better demonstrated visually than explained in text, and these resources will help you better understand the topics discussed. This book serves as a guide to accelerate your learning, allowing you to absorb knowledge efficiently without needing to watch hundreds of hours of videos.</p>
-<footer id="last-change">Last change: 2025-06-14</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1---starting-linux"><a class="header" href="#chapter-1---starting-linux">Chapter 1 - Starting Linux</a></h1>
+<h2 id="before-you-begin"><a class="header" href="#before-you-begin">Before you Begin</a></h2>
+<p>Before diving into the content, understand that Linux works very differently from Windows or macOS. It is not just a different operating system; it is a different way of thinking about how computers work. This book will help you transition to this new mindset, but it will take time to adjust. Be patient with yourself and embrace the learning process.</p>
+<p>Also, when referring to ANY resources the date of the resource is important. This book is designed to be a living document, meaning it will be updated with new information and resources as they become available. Always check the date of the resources you are using to ensure they are still relevant and accurate. Linux moves quickly, and what was true yesterday may not be true today. This book will help you stay up-to-date with the latest information and resources available, but check the last updated date on the resources you are using to ensure they are still relevant and accurate. Each chapter will have a last updated date at the end of the chapter, and you can find the latest version of this book at <a href="https://thelinuxbook.com">https://thelinuxbook.com</a>.</p>
+<footer id="last-change">Last change: 2025-06-15</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1---starting-linux"><a class="header" href="#chapter-1---starting-linux">Chapter 1 - Starting Linux</a></h1>
 <p>Linux is a powerful and versatile operating system that gives you complete control over your computer. Whether you're looking for stability, security, or customization, Linux has something to offer for everyone. In this chapter, we'll explore the basics of Linux, including its distributions, release types, and modularity.</p>
 <p>Why Choose Linux over Windows or MacOS?: <a href="https://youtu.be/DNg2M88_Hl0">https://youtu.be/DNg2M88_Hl0</a></p>
 <h2 id="distributions"><a class="header" href="#distributions">Distributions</a></h2>
@@ -738,8 +741,70 @@ pw-mon               # Monitor Pipewire events in real-time
 <li><strong>ntfs</strong>: The Windows NT filesystem, used for compatibility with Windows systems.</li>
 <li><strong>swap</strong>: A special filesystem used for swap space, which is used when the system runs out of RAM.</li>
 </ul>
+<p>Personally, I use <code>ext4</code> for most of my drives, <code>xfs</code> for large data storage, and <code>vfat</code> for USB drives and EFI partitions. I avoid <code>btrfs</code> due to its complexity and potential issues with data integrity, although it has improved significantly in recent years. If you are interested in using <code>btrfs</code> check out this article and video I wrote about it: <a href="https://christitus.com/btrfs-guide/">https://christitus.com/btrfs-guide/</a>. The biggest advantage of <code>btrfs</code> is its ability to take snapshots, which can be useful for backups and system recovery. However, it requires more advanced knowledge to manage effectively.</p>
+<h4 id="drive-management-tools"><a class="header" href="#drive-management-tools">Drive Management Tools</a></h4>
+<ul>
+<li><strong>fdisk</strong>: A command-line utility for managing disk partitions. It allows you to create, delete, and modify partitions on a disk.</li>
+<li><strong>parted</strong>: A more advanced command-line utility for managing disk partitions, supporting larger disks and more complex partitioning schemes.</li>
+<li><strong>lsblk</strong>: A command-line utility that lists block devices, including drives and partitions, along with their mount points and filesystem types.</li>
+<li><strong>blkid</strong>: A command-line utility that displays information about block devices, including their UUIDs and filesystem types.</li>
+<li><strong>df</strong>: A command-line utility that displays disk space usage for mounted filesystems.</li>
+<li><strong>du</strong>: A command-line utility that estimates file and directory space usage.</li>
+<li><strong>mount</strong>: A command-line utility that mounts filesystems to specific directories, allowing access to the data stored on those filesystems.</li>
+<li><strong>umount</strong>: A command-line utility that unmounts filesystems, making them inaccessible until remounted.</li>
+<li><strong>mkfs</strong>: A command-line utility that creates a filesystem on a partition or disk.</li>
+<li><strong>fsck</strong>: A command-line utility that checks and repairs filesystems for errors.</li>
+<li><strong>lsusb</strong>: A command-line utility that lists USB devices connected to the system, useful for identifying external drives and other USB peripherals.</li>
+<li><strong>lspci</strong>: A command-line utility that lists PCI devices, including internal drives and controllers.</li>
+<li><strong>smartctl</strong>: A command-line utility that monitors the health of hard drives and SSDs using S.M.A.R.T. (Self-Monitoring, Analysis, and Reporting Technology) data.</li>
+<li><strong>hdparm</strong>: A command-line utility that allows you to configure and manage hard drives, including setting power management options and testing drive performance.</li>
+<li><strong>gparted</strong>: A graphical partition editor that allows you to create, delete, and modify partitions on a disk using a user-friendly interface.</li>
+</ul>
 <h3 id="mounting-and-unmounting-drives"><a class="header" href="#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a></h3>
 <p>Mounting and unmounting drives is a common task in Linux, especially when dealing with external storage devices or network shares.</p>
+<p>Mount commands:</p>
+<pre><code class="language-bash"># Mount a filesystem
+sudo mount /dev/sdX1 /mnt/mydrive
+# Unmount a filesystem
+sudo umount /mnt/mydrive
+</code></pre>
+<h4 id="mounting-drives"><a class="header" href="#mounting-drives">Mounting Drives</a></h4>
+<p>To mount a drive, you need to specify the device (e.g., <code>/dev/sda1</code>) and the mount point (e.g., <code>/mnt/mydrive</code>). The mount point is a directory where the contents of the drive will be accessible.
+You can also specify the filesystem type and mount options if needed. For example, to mount an ext4 filesystem with read-write permissions, you can use:</p>
+<pre><code class="language-bash">sudo mount -t ext4 -o rw /dev/sdX1 /mnt/mydrive
+</code></pre>
+<p>Where <code>-t</code> specifies the filesystem type and <code>-o</code> specifies mount options.</p>
+<h4 id="unmounting-drives"><a class="header" href="#unmounting-drives">Unmounting Drives</a></h4>
+<p>To unmount a drive, you can use the <code>umount</code> command followed by the mount point or device name. For example:</p>
+<pre><code class="language-bash">sudo umount /mnt/mydrive
+</code></pre>
+<p>If the drive is busy or in use, you may need to close any open files or processes using it before unmounting. You can also use the <code>-l</code> option to perform a lazy unmount, which detaches the filesystem but allows it to be cleaned up later:</p>
+<pre><code class="language-bash">sudo umount -l /mnt/mydrive
+</code></pre>
+<h3 id="filesystem-management"><a class="header" href="#filesystem-management">Filesystem Management</a></h3>
+<p>Managing filesystems in Linux involves creating, formatting, and checking filesystems on drives and partitions. This section covers the essential commands and tools for filesystem management.</p>
+<h4 id="creating-filesystems"><a class="header" href="#creating-filesystems">Creating Filesystems</a></h4>
+<p><strong>WARNING: Creating a filesystem will erase and format all data on the partition. Ensure you have backups of any important data before proceeding.</strong></p>
+<p>To create a filesystem on a partition, you can use the <code>mkfs</code> command followed by the filesystem type and the device name. For example, to create an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
+<pre><code class="language-bash">sudo mkfs.ext4 /dev/sdX1
+</code></pre>
+<p>You can also specify other filesystem types, such as <code>mkfs.xfs</code> for XFS or <code>mkfs.fat -F 32</code> for FAT32. For example:</p>
+<pre><code class="language-bash">sudo mkfs.xfs /dev/sdX1
+sudo mkfs.fat -F 32 /dev/sdX1
+</code></pre>
+<p><em>Note: When dealing with EFI System Partitions (ESP), I recommend referring to the this docuumentation: <a href="https://wiki.archlinux.org/title/EFI_system_partition">https://wiki.archlinux.org/title/EFI_system_partition</a> for the most up-to-date information on creating and managing ESPs.</em></p>
+<h4 id="checking-filesystems"><a class="header" href="#checking-filesystems">Checking Filesystems</a></h4>
+<p>To check a filesystem for errors, you can use the <code>fsck</code> command followed by the device name. For example, to check an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
+<pre><code class="language-bash">sudo fsck.ext4 /dev/sdX1
+</code></pre>
+<p>If you want to automatically fix errors, you can use the <code>-y</code> option:</p>
+<pre><code class="language-bash">sudo fsck.ext4 -y /dev/sdX1
+</code></pre>
+<h4 id="viewing-filesystem-information"><a class="header" href="#viewing-filesystem-information">Viewing Filesystem Information</a></h4>
+<p>To view information about filesystems, you can use the <code>df</code> command, which displays disk space usage for mounted filesystems. For example:</p>
+<pre><code class="language-bash">df -h
+</code></pre>
+<p>This command shows the disk space usage in a human-readable format, including the total size, used space, available space, and mount points for each filesystem.</p>
 <h4 id="fstab-configuration"><a class="header" href="#fstab-configuration">Fstab Configuration</a></h4>
 <p>The <code>/etc/fstab</code> file is used to define how disk partitions, network shares, and other file systems are mounted at boot time. Each line in the file represents a file system and its mount options.</p>
 <p>Fstab structure:</p>
@@ -793,13 +858,13 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 # Network Drives
 10.0.0.2:/volume2/Images		/media/images	nfs	x-systemd.after=network-online.target,x-systemd.automount,x-systemd.mount-timeout=90,_netdev 0 0
 </code></pre>
-<footer id="last-change">Last change: 2025-06-10</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-hardware-compatibility"><a class="header" href="#linux-hardware-compatibility">Linux Hardware Compatibility</a></h1>
+<footer id="last-change">Last change: 2025-06-15</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-hardware-compatibility"><a class="header" href="#linux-hardware-compatibility">Linux Hardware Compatibility</a></h1>
 <p>The biggest myth told by the Linux community is that Linux works on all hardware. This is not true, and it is a common misconception that leads to many users being disappointed when they try to install Linux on their machines. The reality is that while Linux supports a wide range of hardware, there are still many devices that do not work well or at all with Linux.</p>
 <h2 id="incompatible-hardware"><a class="header" href="#incompatible-hardware">Incompatible Hardware</a></h2>
 <p>Some hardware is simply not compatible with Linux. This can be due to a lack of drivers, proprietary firmware, or other issues. For example, some Wi-Fi adapters, graphics cards, and printers may not work properly on Linux. Before installing Linux, it is essential to check the compatibility of your hardware.</p>
 <p>Hardware I've personally had issues with includes:</p>
 <ul>
-<li><strong>NVIDIA Graphics Cards</strong>: While NVIDIA provides proprietary drivers for Linux, they can be difficult to install and may not work with all distributions. Open-source alternatives like Nouveau exist but often lack performance and features. This is getting better with each kernel release, and nVidia open sourcing their drives, but still is a common issue. I've had issues with obscure Wayland configurations, Custom Linux Kernels, and certain desktop environments that do not play well with NVIDIA drivers. AMD graphics is still the best option for Linux users by a large margin.</li>
+<li><strong>NVIDIA Graphics Cards</strong>: While NVIDIA provides proprietary drivers for Linux, they can be difficult to install and may not work with all distributions. Open-source alternatives like Nouveau exist but often lack performance and features. This is getting better with each kernel release, and nVidia open sourcing their drives, but still is a common issue. I've had issues with obscure Wayland configurations, Custom Linux Kernels, and certain desktop environments that do not play well with NVIDIA drivers. AMD graphics is still the best option for Linux users by a large margin. Keep an eye on the official NVIDIA open source drivers with the package <code>nvidia-open</code> for your distribution, as they are improving over time. Arch Linux users will be the first to see these improvements, as they are the first to implement new features. Debian and Ubuntu users typically see these improvements about 6 months later, and Fedora users about 3 months later. However, LTS releases will take longer to update.</li>
 <li><strong>Broadcom Wi-Fi Adapters</strong>: Many Broadcom Wi-Fi adapters require proprietary drivers that are not included in the Linux kernel by default. This can lead to connectivity issues.</li>
 <li><strong>Certain Printers</strong>: Some printers, especially those from manufacturers like HP and Canon, may not have Linux drivers available or may require additional configuration to work correctly.</li>
 <li><strong>Fingerprint Readers</strong>: Many fingerprint readers do not have Linux support, making them unusable for authentication purposes.</li>
@@ -822,7 +887,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 </ul>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
-<footer id="last-change">Last change: 2025-06-14</footer>
+<footer id="last-change">Last change: 2025-06-15</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
