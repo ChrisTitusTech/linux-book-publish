@@ -210,6 +210,28 @@
 <p>Before diving into the content, understand that Linux works very differently from Windows or macOS. It is not just a different operating system; it is a different way of thinking about how computers work. This book will help you transition to this new mindset, but it will take time to adjust. Be patient with yourself and embrace the learning process.</p>
 <p>Also, when referring to ANY resources the date of the resource is important. This book is designed to be a living document, meaning it will be updated with new information and resources as they become available. Always check the date of the resources you are using to ensure they are still relevant and accurate. Linux moves quickly, and what was true yesterday may not be true today. This book will help you stay up-to-date with the latest information and resources available, but check the last updated date on the resources you are using to ensure they are still relevant and accurate. Each chapter will have a last updated date at the end of the chapter, and you can find the latest version of this book at <a href="https://thelinuxbook.com">https://thelinuxbook.com</a>.</p>
 <footer id="last-change">Last change: 2025-06-15</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="starting-linux"><a class="header" href="#starting-linux">Starting Linux</a></h1>
+<ul>
+<li><a href="chapter1-whylinux.html#distributions">Distributions</a>
+<ul>
+<li><a href="chapter1-whylinux.html#debian-based-distributions">Debian-Based Distributions</a></li>
+<li><a href="chapter1-whylinux.html#rhel-based-distributions">RHEL-Based Distributions</a></li>
+<li><a href="chapter1-whylinux.html#arch-based-distributions">Arch-Based Distributions</a></li>
+</ul>
+</li>
+<li><a href="chapter1-whylinux.html#release-types">Release Types</a>
+<ul>
+<li><a href="chapter1-whylinux.html#rolling-release">Rolling Release</a></li>
+<li><a href="chapter1-whylinux.html#stable-lts-release">Stable LTS Release</a></li>
+</ul>
+</li>
+<li><a href="chapter1-whylinux.html#modularity">Modularity</a></li>
+<li><a href="chapter1-whylinux.html#what-distribution-should-you-use">What Distribution Should You Use</a>
+<ul>
+<li><a href="chapter1-whylinux.html#tips-for-choosing-a-distribution">Tips for Choosing a Distribution</a></li>
+<li><a href="chapter1-whylinux.html#useful-links">Useful Links</a></li>
+</ul>
+</li>
+</ul>
 <p>Linux is a powerful and versatile operating system that gives you complete control over your computer. Whether you're looking for stability, security, or customization, Linux has something to offer for everyone. In this chapter, we'll explore the basics of Linux, including its distributions, release types, and modularity.</p>
 <p>Why Choose Linux over Windows or MacOS?: <a href="https://youtu.be/DNg2M88_Hl0">https://youtu.be/DNg2M88_Hl0</a></p>
 <h2 id="distributions"><a class="header" href="#distributions">Distributions</a></h2>
@@ -261,6 +283,49 @@
 <li>Arch Linux Wiki - <a href="https://wiki.archlinux.org">https://wiki.archlinux.org</a></li>
 </ul>
 <footer id="last-change">Last change: 2025-06-16</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-a-linux-distribution-made-of"><a class="header" href="#what-is-a-linux-distribution-made-of">What is a Linux Distribution Made of?</a></h1>
+<ul>
+<li><a href="chapter2-linuxmadeof.html#bootloader">Bootloader</a></li>
+<li><a href="chapter2-linuxmadeof.html#display-renderer">Display Renderer</a></li>
+<li><a href="chapter2-linuxmadeof.html#display-manager">Display Manager</a>
+<ul>
+<li><a href="chapter2-linuxmadeof.html#sddm">SDDM</a></li>
+<li><a href="chapter2-linuxmadeof.html#gdm">GDM</a></li>
+<li><a href="chapter2-linuxmadeof.html#lightdm">LightDM</a></li>
+<li><a href="chapter2-linuxmadeof.html#none">None</a></li>
+</ul>
+</li>
+<li><a href="chapter2-linuxmadeof.html#desktop-environments">Desktop Environments</a>
+<ul>
+<li><a href="chapter2-linuxmadeof.html#kde">KDE</a></li>
+<li><a href="chapter2-linuxmadeof.html#gnome">GNOME</a></li>
+<li><a href="chapter2-linuxmadeof.html#cinnamon">Cinnamon</a></li>
+<li><a href="chapter2-linuxmadeof.html#mate">MATE</a></li>
+<li><a href="chapter2-linuxmadeof.html#xfce">XFCE</a></li>
+<li><a href="chapter2-linuxmadeof.html#lxqt--lxde">LXQt / LXDE</a></li>
+<li><a href="chapter2-linuxmadeof.html#deepin">Deepin</a></li>
+<li><a href="chapter2-linuxmadeof.html#others">Others</a></li>
+</ul>
+</li>
+<li><a href="chapter2-linuxmadeof.html#window-managers">Window Managers</a></li>
+<li><a href="chapter2-linuxmadeof.html#package-manager">Package Manager</a>
+<ul>
+<li><a href="chapter2-linuxmadeof.html#apt">APT</a></li>
+<li><a href="chapter2-linuxmadeof.html#dnf--yum">DNF / YUM</a></li>
+<li><a href="chapter2-linuxmadeof.html#pacman">Pacman</a></li>
+<li><a href="chapter2-linuxmadeof.html#others-1">Others</a></li>
+<li><a href="chapter2-linuxmadeof.html#flatpak--appimage--snapd">Flatpak / AppImage / SnapD</a></li>
+<li><a href="chapter2-linuxmadeof.html#misconceptions">Misconceptions</a></li>
+</ul>
+</li>
+<li><a href="chapter2-linuxmadeof.html#types-of-linux-installations">Types of Linux Installations</a>
+<ul>
+<li><a href="chapter2-linuxmadeof.html#beginner-installation">Beginner Installation</a></li>
+<li><a href="chapter2-linuxmadeof.html#intermediate-installation">Intermediate Installation</a></li>
+<li><a href="chapter2-linuxmadeof.html#expert-installation">Expert Installation</a></li>
+</ul>
+</li>
+<li><a href="chapter2-linuxmadeof.html#progression">Progression</a></li>
+</ul>
 <p>A Linux distribution comprises the same components that make up any operating system. Every Linux distribution has the following components, many of which can be customized to great effect. This is why there are so many options in Linux. With that in mind, here are the components of Linux:</p>
 <h2 id="bootloader"><a class="header" href="#bootloader">Bootloader</a></h2>
 <p>The bootloader is what boots the machine. There are two types of boot processes for any operating system: EFI and Legacy boot. Most Linux distributions use a package called <em>GRUB</em> to handle this process. However, some newer distributions have started using <em>systemd-boot</em> instead of GRUB.</p>
@@ -330,6 +395,38 @@
 <p>The progression you will go through in Linux is much more than these types of installations, but I wanted to give you a path as you explore and move through these types of installations.</p>
 <p>Build What You Want Video: <a href="https://youtu.be/fWHKAn5W2CA">https://youtu.be/fWHKAn5W2CA</a></p>
 <footer id="last-change">Last change: 2025-06-16</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="bootloaders-how-linux-is-loaded"><a class="header" href="#bootloaders-how-linux-is-loaded">Bootloaders: How Linux is Loaded</a></h1>
+<ul>
+<li><a href="chapter3-bootloaders.html#grub-2---the-most-widely-used">GRUB 2 - The Most Widely Used</a>
+<ul>
+<li><a href="chapter3-bootloaders.html#configuration">Configuration</a>
+<ul>
+<li><a href="chapter3-bootloaders.html#files-used-for-configuration">Files Used for Configuration</a></li>
+<li><a href="chapter3-bootloaders.html#editing-grub-configuration-in-etcdefaultgrub">Editing GRUB Configuration in <code>/etc/default/grub</code></a></li>
+<li><a href="chapter3-bootloaders.html#sample-grub-configuration-etcdefaultgrub">Sample GRUB Configuration (<code>/etc/default/grub</code>)</a></li>
+<li><a href="chapter3-bootloaders.html#make-configuration-files">Make Configuration files</a></li>
+</ul>
+</li>
+<li><a href="chapter3-bootloaders.html#installation">Installation</a>
+<ul>
+<li><a href="chapter3-bootloaders.html#efi-installation">EFI Installation</a></li>
+<li><a href="chapter3-bootloaders.html#bios-legacy-installation">BIOS Legacy Installation</a></li>
+</ul>
+</li>
+<li><a href="chapter3-bootloaders.html#grub-videos">GRUB Videos</a></li>
+</ul>
+</li>
+<li><a href="chapter3-bootloaders.html#systemd-boot---minimal-built-in-boot">Systemd Boot - Minimal Built-In boot</a>
+<ul>
+<li><a href="chapter3-bootloaders.html#configuraiton">Configuraiton</a>
+<ul>
+<li><a href="chapter3-bootloaders.html#general-configuration">General Configuration</a></li>
+<li><a href="chapter3-bootloaders.html#adding-boot-entries">Adding Boot Entries</a></li>
+</ul>
+</li>
+<li><a href="chapter3-bootloaders.html#installation-1">Installation</a></li>
+</ul>
+</li>
+</ul>
 <p>There are many bootloaders available, but this chapter focuses on the two most widely used: GRUB 2 and systemd-boot.</p>
 <h2 id="grub-2---the-most-widely-used"><a class="header" href="#grub-2---the-most-widely-used">GRUB 2 - The Most Widely Used</a></h2>
 <p>GRUB 2 is the most popular bootloader for Linux, offering extensive functionality. It supports themes, multiboot setups, and various other features that make it highly versatile. For Windows/Linux multiboot systems, GRUB 2 is my recommended choice.</p>
@@ -500,6 +597,64 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
 <p>There are configurations with multiple boot partitions, but I do not recommend using systemd-boot for this.</p>
 <p>In most instances this will auto update when boot options change, but you can force an update if you manually add more entries with <code>bootctl update</code></p>
 <footer id="last-change">Last change: 2025-06-16</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="server-command-line-interface-mastering-the-terminal"><a class="header" href="#server-command-line-interface-mastering-the-terminal">Server Command Line Interface: Mastering the Terminal</a></h1>
+<ul>
+<li><a href="chapter4-servercli.html#navigating-the-command-line-interface">Navigating the Command Line Interface</a>
+<ul>
+<li><a href="chapter4-servercli.html#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></li>
+<li><a href="chapter4-servercli.html#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></li>
+</ul>
+</li>
+<li><a href="chapter4-servercli.html#system-services-and-configuration">System Services and Configuration</a>
+<ul>
+<li><a href="chapter4-servercli.html#controlling-services-and-units">Controlling Services and Units</a>
+<ul>
+<li><a href="chapter4-servercli.html#common-systemctl-commands">Common <code>systemctl</code> Commands:</a></li>
+</ul>
+</li>
+<li><a href="chapter4-servercli.html#unit-file-locations">Unit File Locations</a></li>
+<li><a href="chapter4-servercli.html#example-system-unit-file">Example System Unit File</a></li>
+<li><a href="chapter4-servercli.html#user-based-systemd-services-and-unit-files">User-Based Systemd Services and Unit Files</a>
+<ul>
+<li><a href="chapter4-servercli.html#example-command">Example Command:</a></li>
+<li><a href="chapter4-servercli.html#example-user-unit-file">Example User Unit File:</a></li>
+</ul>
+</li>
+<li><a href="chapter4-servercli.html#bluetooth-configuration">Bluetooth Configuration</a>
+<ul>
+<li><a href="chapter4-servercli.html#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></li>
+<li><a href="chapter4-servercli.html#example-usage">Example Usage:</a></li>
+</ul>
+</li>
+<li><a href="chapter4-servercli.html#audio-configuration">Audio Configuration</a>
+<ul>
+<li><a href="chapter4-servercli.html#pulseaudio-commands-pactl">PulseAudio Commands (<code>pactl</code>)</a></li>
+<li><a href="chapter4-servercli.html#alsa-mixer-alsamixer">ALSA Mixer (<code>alsamixer</code>)</a></li>
+<li><a href="chapter4-servercli.html#common-audio-troubleshooting-commands">Common Audio Troubleshooting Commands</a></li>
+<li><a href="chapter4-servercli.html#audio-device-management-with-pavucontrol">Audio Device Management with <code>pavucontrol</code></a></li>
+<li><a href="chapter4-servercli.html#pipewire-audio-system">Pipewire Audio System</a></li>
+</ul>
+</li>
+<li><a href="chapter4-servercli.html#remote-access-and-ssh">Remote Access and SSH</a>
+<ul>
+<li><a href="chapter4-servercli.html#setting-up-ssh">Setting Up SSH</a></li>
+<li><a href="chapter4-servercli.html#connecting-to-a-remote-server">Connecting to a Remote Server</a></li>
+<li><a href="chapter4-servercli.html#common-ssh-options">Common SSH Options</a></li>
+<li><a href="chapter4-servercli.html#ssh-configuration-file">SSH Configuration File</a></li>
+<li><a href="chapter4-servercli.html#remote-file-transfer-with-scp-and-sftp">Remote File Transfer with SCP and SFTP</a></li>
+<li><a href="chapter4-servercli.html#remote-desktop-access">Remote Desktop Access</a></li>
+</ul>
+</li>
+<li><a href="chapter4-servercli.html#lamp-stack-linux-apache-mysql-php-website-setup">LAMP Stack (Linux, Apache, MySQL, PHP) Website Setup</a>
+<ul>
+<li><a href="chapter4-servercli.html#installing-the-lamp-stack">Installing the LAMP Stack</a></li>
+<li><a href="chapter4-servercli.html#testing-the-lamp-stack">Testing the LAMP Stack</a></li>
+</ul>
+</li>
+<li><a href="chapter4-servercli.html#finding-ip-address-and-hostname">Finding IP Address and Hostname</a></li>
+<li><a href="chapter4-servercli.html#find-hostname">Find hostname</a></li>
+</ul>
+</li>
+</ul>
 <p>This chapter covers the most important aspect of Linux: <strong>the terminal</strong>. The terminal is the beating heart of Linux, enabling you to accomplish virtually anything. For the first eight years I used Linux, I relied exclusively on the terminal, never even considering a graphical interface. The terminal is reliable, quick, and efficient, making it an indispensable tool for Linux users.</p>
 <p><strong>Pro Tip:</strong> The terminal is always accessible. If you're stuck on a black screen or graphical interface, press <code>Ctrl + Alt + F2</code> or <code>Ctrl + Alt + F3</code> to switch to a terminal. To return to the graphical interface, press <code>Ctrl + Alt + F7</code>.</p>
 <hr />
@@ -1151,11 +1306,33 @@ ip route get 1  # Get the default route and associated IP address
 # Find private IP address
 hostname -I  # Get the private IP address(es) of the server
 </code></pre>
-<h1 id="find-hostname"><a class="header" href="#find-hostname">Find hostname</a></h1>
+<h3 id="find-hostname"><a class="header" href="#find-hostname">Find hostname</a></h3>
 <pre><code class="language-bash">hostname  # Get the hostname
 hostname -f  # Get the fully qualified domain name (FQDN)
 </code></pre>
 <footer id="last-change">Last change: 2025-06-16</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="drives-and-filesystems"><a class="header" href="#drives-and-filesystems">Drives and Filesystems</a></h1>
+<ul>
+<li><a href="chapter5-drives.html#understanding-drives-and-filesystems">Understanding Drives and Filesystems</a>
+<ul>
+<li><a href="chapter5-drives.html#common-filesystem-types">Common Filesystem Types</a></li>
+<li><a href="chapter5-drives.html#drive-management-tools">Drive Management Tools</a></li>
+</ul>
+</li>
+<li><a href="chapter5-drives.html#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a>
+<ul>
+<li><a href="chapter5-drives.html#mounting-drives">Mounting Drives</a></li>
+<li><a href="chapter5-drives.html#unmounting-drives">Unmounting Drives</a></li>
+</ul>
+</li>
+<li><a href="chapter5-drives.html#filesystem-management">Filesystem Management</a>
+<ul>
+<li><a href="chapter5-drives.html#creating-filesystems">Creating Filesystems</a></li>
+<li><a href="chapter5-drives.html#checking-filesystems">Checking Filesystems</a></li>
+<li><a href="chapter5-drives.html#viewing-filesystem-information">Viewing Filesystem Information</a></li>
+<li><a href="chapter5-drives.html#fstab-configuration">Fstab Configuration</a></li>
+</ul>
+</li>
+</ul>
 <p>This chapter focuses on managing drives and filesystems in Linux, including mounting and unmounting drives, understanding filesystems, and using tools like <code>fdisk</code>, <code>mkfs</code>, and <code>fsck</code>.</p>
 <h2 id="understanding-drives-and-filesystems"><a class="header" href="#understanding-drives-and-filesystems">Understanding Drives and Filesystems</a></h2>
 <p>In Linux, drives and filesystems are fundamental components that allow the operating system to store and retrieve data. Each drive can have one or more partitions, and each partition can be formatted with a specific filesystem type.</p>
@@ -1286,6 +1463,11 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 10.0.0.2:/volume2/Images		/media/images	nfs	x-systemd.after=network-online.target,x-systemd.automount,x-systemd.mount-timeout=90,_netdev 0 0
 </code></pre>
 <footer id="last-change">Last change: 2025-06-16</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-hardware-compatibility"><a class="header" href="#linux-hardware-compatibility">Linux Hardware Compatibility</a></h1>
+<ul>
+<li><a href="chapter6-hardware.html#incompatible-hardware">Incompatible Hardware</a></li>
+<li><a href="chapter6-hardware.html#checking-compatibility">Checking Compatibility</a></li>
+<li><a href="chapter6-hardware.html#conclusion">Conclusion</a></li>
+</ul>
 <p>The biggest myth told by the Linux community is that Linux works on all hardware. This is not true, and it is a common misconception that leads to many users being disappointed when they try to install Linux on their machines. The reality is that while Linux supports a wide range of hardware, there are still many devices that do not work well or at all with Linux.</p>
 <h2 id="incompatible-hardware"><a class="header" href="#incompatible-hardware">Incompatible Hardware</a></h2>
 <p>Some hardware is simply not compatible with Linux. This can be due to a lack of drivers, proprietary firmware, or other issues. For example, some Wi-Fi adapters, graphics cards, and printers may not work properly on Linux. Before installing Linux, it is essential to check the compatibility of your hardware.</p>
@@ -1314,7 +1496,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 </ul>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
-<footer id="last-change">Last change: 2025-06-15</footer>
+<footer id="last-change">Last change: 2025-06-16</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

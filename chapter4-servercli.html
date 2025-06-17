@@ -169,6 +169,64 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="server-command-line-interface-mastering-the-terminal"><a class="header" href="#server-command-line-interface-mastering-the-terminal">Server Command Line Interface: Mastering the Terminal</a></h1>
+<ul>
+<li><a href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a>
+<ul>
+<li><a href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></li>
+<li><a href="#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></li>
+</ul>
+</li>
+<li><a href="#system-services-and-configuration">System Services and Configuration</a>
+<ul>
+<li><a href="#controlling-services-and-units">Controlling Services and Units</a>
+<ul>
+<li><a href="#common-systemctl-commands">Common <code>systemctl</code> Commands:</a></li>
+</ul>
+</li>
+<li><a href="#unit-file-locations">Unit File Locations</a></li>
+<li><a href="#example-system-unit-file">Example System Unit File</a></li>
+<li><a href="#user-based-systemd-services-and-unit-files">User-Based Systemd Services and Unit Files</a>
+<ul>
+<li><a href="#example-command">Example Command:</a></li>
+<li><a href="#example-user-unit-file">Example User Unit File:</a></li>
+</ul>
+</li>
+<li><a href="#bluetooth-configuration">Bluetooth Configuration</a>
+<ul>
+<li><a href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></li>
+<li><a href="#example-usage">Example Usage:</a></li>
+</ul>
+</li>
+<li><a href="#audio-configuration">Audio Configuration</a>
+<ul>
+<li><a href="#pulseaudio-commands-pactl">PulseAudio Commands (<code>pactl</code>)</a></li>
+<li><a href="#alsa-mixer-alsamixer">ALSA Mixer (<code>alsamixer</code>)</a></li>
+<li><a href="#common-audio-troubleshooting-commands">Common Audio Troubleshooting Commands</a></li>
+<li><a href="#audio-device-management-with-pavucontrol">Audio Device Management with <code>pavucontrol</code></a></li>
+<li><a href="#pipewire-audio-system">Pipewire Audio System</a></li>
+</ul>
+</li>
+<li><a href="#remote-access-and-ssh">Remote Access and SSH</a>
+<ul>
+<li><a href="#setting-up-ssh">Setting Up SSH</a></li>
+<li><a href="#connecting-to-a-remote-server">Connecting to a Remote Server</a></li>
+<li><a href="#common-ssh-options">Common SSH Options</a></li>
+<li><a href="#ssh-configuration-file">SSH Configuration File</a></li>
+<li><a href="#remote-file-transfer-with-scp-and-sftp">Remote File Transfer with SCP and SFTP</a></li>
+<li><a href="#remote-desktop-access">Remote Desktop Access</a></li>
+</ul>
+</li>
+<li><a href="#lamp-stack-linux-apache-mysql-php-website-setup">LAMP Stack (Linux, Apache, MySQL, PHP) Website Setup</a>
+<ul>
+<li><a href="#installing-the-lamp-stack">Installing the LAMP Stack</a></li>
+<li><a href="#testing-the-lamp-stack">Testing the LAMP Stack</a></li>
+</ul>
+</li>
+<li><a href="#finding-ip-address-and-hostname">Finding IP Address and Hostname</a></li>
+<li><a href="#find-hostname">Find hostname</a></li>
+</ul>
+</li>
+</ul>
 <p>This chapter covers the most important aspect of Linux: <strong>the terminal</strong>. The terminal is the beating heart of Linux, enabling you to accomplish virtually anything. For the first eight years I used Linux, I relied exclusively on the terminal, never even considering a graphical interface. The terminal is reliable, quick, and efficient, making it an indispensable tool for Linux users.</p>
 <p><strong>Pro Tip:</strong> The terminal is always accessible. If you're stuck on a black screen or graphical interface, press <code>Ctrl + Alt + F2</code> or <code>Ctrl + Alt + F3</code> to switch to a terminal. To return to the graphical interface, press <code>Ctrl + Alt + F7</code>.</p>
 <hr />
@@ -820,7 +878,7 @@ ip route get 1  # Get the default route and associated IP address
 # Find private IP address
 hostname -I  # Get the private IP address(es) of the server
 </code></pre>
-<h1 id="find-hostname"><a class="header" href="#find-hostname">Find hostname</a></h1>
+<h3 id="find-hostname"><a class="header" href="#find-hostname">Find hostname</a></h3>
 <pre><code class="language-bash">hostname  # Get the hostname
 hostname -f  # Get the fully qualified domain name (FQDN)
 </code></pre>
