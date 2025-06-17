@@ -217,7 +217,7 @@
 <p>The bootloader is what boots the machine. There are two types of boot processes for any operating system: EFI and Legacy boot. Most Linux distributions use a package called <em>GRUB</em> to handle this process. However, some newer distributions have started using <em>systemd-boot</em> instead of GRUB.</p>
 <h2 id="display-renderer"><a class="header" href="#display-renderer">Display Renderer</a></h2>
 <p>For graphical elements to appear on the screen, either Xorg or Wayland is required to render the graphics. Both have their pros and cons. Xorg has been around since the beginning and is feature-rich, but its structure is messy. Wayland is newer and offers cleaner code. Personally, I use Xorg on most distributions because it does everything I need. However, most Linux distributions going forward will package Wayland by default and Xorg will eventually go away. Most servers don't need graphics and omit these packages altogether, relying only on a CLI (Command Line Interface).</p>
-<p>Xorg vs Wayland: <a href="https://youtu.be/U_MBJcD3SFI">https://youtu.be/U_MBJcD3SFI</a></p>
+<p>Xorg vs Wayland: <a href="https://links.thelinuxbook.com/xvswayland">https://links.thelinuxbook.com/xvswayland</a></p>
 <h2 id="display-manager"><a class="header" href="#display-manager">Display Manager</a></h2>
 <p>The display manager is essentially the login manager that boots into your desktop environment or window manager.</p>
 <h3 id="sddm"><a class="header" href="#sddm">SDDM</a></h3>
@@ -226,25 +226,25 @@
 <p>This is the display manager for GNOME. Much like SDDM, lots of themes and support for both Wayland and Xorg.</p>
 <h3 id="lightdm"><a class="header" href="#lightdm">LightDM</a></h3>
 <p>This is a more universal display manager that multiple desktop environments use because it is lightweight. Xorg Only, but is very lightweight and still widely used.</p>
-<p>LightDM Customization: <a href="https://youtu.be/_dYqisDIcC0">https://youtu.be/_dYqisDIcC0</a></p>
+<p>LightDM Customization: <a href="https://links.thelinuxbook.com/lightdmcustomization">https://links.thelinuxbook.com/lightdmcustomization</a></p>
 <h3 id="none"><a class="header" href="#none">None</a></h3>
 <p>You technically don't need a display manager, but this means you will boot into a CLI (Command Line Interface) prompt with no graphics. Alternatively, you could set a window manager or desktop environment to auto-launch without requiring a login.</p>
 <h2 id="desktop-environments"><a class="header" href="#desktop-environments">Desktop Environments</a></h2>
 <p>Desktop environments are the bread and butter of many distributions. These are typically an assortment of programs that dictate how programs are launched, displayed, and configured. Think of these as the look and feel of Linux.</p>
-<p>Overview of Desktop Environments: <a href="https://youtu.be/mZa8AMWsYdQ">https://youtu.be/mZa8AMWsYdQ</a></p>
+<p>Overview of Desktop Environments: <a href="https://links.thelinuxbook.com/desktopenvironments">https://links.thelinuxbook.com/desktopenvironments</a></p>
 <h3 id="kde"><a class="header" href="#kde">KDE</a></h3>
 <p>This is a Windows-style desktop environment with a start menu, taskbar, and basic floating window management. The workflow is very similar to Microsoft Windows. It has extensive theming capabilities, desktop widgets, and a vast array of built-in tools.</p>
-<p>KDE Customization Video: <a href="https://youtu.be/nRtyFtpf5yU">https://youtu.be/nRtyFtpf5yU</a></p>
+<p>KDE Customization Video: <a href="https://links.thelinuxbook.com/kdecustomization">https://links.thelinuxbook.com/kdecustomization</a></p>
 <h3 id="gnome"><a class="header" href="#gnome">GNOME</a></h3>
 <p>GNOME has a unique workflow with window animations and extensions to expand its capabilities. It is unlike any other Desktop Environment out there but has great utility. Its strengths include robust system settings and support for scaling and tablet-style computers.</p>
 <h3 id="cinnamon"><a class="header" href="#cinnamon">Cinnamon</a></h3>
 <p>This is another Windows-style desktop environment, but it is more simplistic than KDE. The menus are more intuitive, and it has everything the user needs without bundling a ton of applications. This is my first recommendation for Windows users converting to Linux.</p>
-<p>Cinnamon Customization Video: <a href="https://youtu.be/ZWA4F95A0Vc">https://youtu.be/ZWA4F95A0Vc</a> (Note: Cinnamon is made by the Linux Mint team.)</p>
+<p>Cinnamon Customization Video: <a href="https://links.thelinuxbook.com/cinnamoncustomization">https://links.thelinuxbook.com/cinnamoncustomization</a> (Note: Cinnamon is made by the Linux Mint team.)</p>
 <h3 id="mate"><a class="header" href="#mate">MATE</a></h3>
 <p>MATE is based on GNOME 2 from the past. It looks a bit dated out of the box, but its minimal design makes it lightweight and functional. It has a traditional menu system, unlike the latest version of GNOME, and can be tweaked to the user's needs without using many resources.</p>
 <h3 id="xfce"><a class="header" href="#xfce">XFCE</a></h3>
 <p>Minimal, simplistic, and modular—that is XFCE's ethos, and it does a good job of it. It is one of my favorites, even though, like MATE, it is very ugly out of the box. After customization, it can look fantastic.</p>
-<p>XFCE Customization Video: <a href="https://youtu.be/Y_x5svD2sZQ">https://youtu.be/Y_x5svD2sZQ</a></p>
+<p>XFCE Customization Video: <a href="https://links.thelinuxbook.com/xfcecustomization">https://links.thelinuxbook.com/xfcecustomization</a></p>
 <h3 id="lxqt--lxde"><a class="header" href="#lxqt--lxde">LXQt / LXDE</a></h3>
 <p>LXQt is a very minimal desktop environment with a limited feature set. It is one of the lightest desktop environments on this list and is my recommendation for those using an old PC. Using nearly no resources, it simply gets the job done. LXDE is the older version before it morphed into LXQt.</p>
 <h3 id="deepin"><a class="header" href="#deepin">Deepin</a></h3>
@@ -279,8 +279,8 @@
 <p>Much like intermediate installation, this method advances to not using desktop environments or bundles that install multiple packages. While this method can be tedious, it results in the most minimal installation, as it avoids installing unnecessary packages. However, it requires an extreme skill level to achieve. Often, the user is building packages or even compiling the base Linux kernel.</p>
 <h2 id="progression"><a class="header" href="#progression">Progression</a></h2>
 <p>The progression you will go through in Linux is much more than these types of installations, but I wanted to give you a path as you explore and move through these types of installations.</p>
-<p>Build What You Want Video: <a href="https://youtu.be/fWHKAn5W2CA">https://youtu.be/fWHKAn5W2CA</a></p>
-<footer id="last-change">Last change: 2025-06-16</footer>
+<p>Build What You Want Video: <a href="https://links.thelinuxbook.com/buildanything">https://links.thelinuxbook.com/buildanything</a></p>
+<footer id="last-change">Last change: 2025-06-17</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
