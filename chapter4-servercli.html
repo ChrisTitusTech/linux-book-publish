@@ -168,43 +168,165 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-4---server-command-line-interface-mastering-the-terminal"><a class="header" href="#chapter-4---server-command-line-interface-mastering-the-terminal">Chapter 4 - Server Command Line Interface: Mastering the Terminal</a></h1>
+                        <h1 id="server-command-line-interface-mastering-the-terminal"><a class="header" href="#server-command-line-interface-mastering-the-terminal">Server Command Line Interface: Mastering the Terminal</a></h1>
+<ul>
+<li><a href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a>
+<ul>
+<li><a href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></li>
+<li><a href="#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></li>
+</ul>
+</li>
+<li><a href="#system-services-and-configuration">System Services and Configuration</a>
+<ul>
+<li><a href="#controlling-services-and-units">Controlling Services and Units</a>
+<ul>
+<li><a href="#common-systemctl-commands">Common <code>systemctl</code> Commands:</a></li>
+</ul>
+</li>
+<li><a href="#unit-file-locations">Unit File Locations</a></li>
+<li><a href="#example-system-unit-file">Example System Unit File</a></li>
+<li><a href="#user-based-systemd-services-and-unit-files">User-Based Systemd Services and Unit Files</a>
+<ul>
+<li><a href="#example-command">Example Command:</a></li>
+<li><a href="#example-user-unit-file">Example User Unit File:</a></li>
+</ul>
+</li>
+<li><a href="#bluetooth-configuration">Bluetooth Configuration</a>
+<ul>
+<li><a href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></li>
+<li><a href="#example-usage">Example Usage:</a></li>
+</ul>
+</li>
+<li><a href="#audio-configuration">Audio Configuration</a>
+<ul>
+<li><a href="#pulseaudio-commands-pactl">PulseAudio Commands (<code>pactl</code>)</a></li>
+<li><a href="#alsa-mixer-alsamixer">ALSA Mixer (<code>alsamixer</code>)</a></li>
+<li><a href="#common-audio-troubleshooting-commands">Common Audio Troubleshooting Commands</a></li>
+<li><a href="#audio-device-management-with-pavucontrol">Audio Device Management with <code>pavucontrol</code></a></li>
+<li><a href="#pipewire-audio-system">Pipewire Audio System</a></li>
+</ul>
+</li>
+<li><a href="#remote-access-and-ssh">Remote Access and SSH</a>
+<ul>
+<li><a href="#setting-up-ssh">Setting Up SSH</a></li>
+<li><a href="#connecting-to-a-remote-server">Connecting to a Remote Server</a></li>
+<li><a href="#common-ssh-options">Common SSH Options</a></li>
+<li><a href="#ssh-configuration-file">SSH Configuration File</a></li>
+<li><a href="#remote-file-transfer-with-scp-and-sftp">Remote File Transfer with SCP and SFTP</a></li>
+<li><a href="#remote-desktop-access">Remote Desktop Access</a></li>
+</ul>
+</li>
+<li><a href="#lamp-stack-linux-apache-mysql-php-website-setup">LAMP Stack (Linux, Apache, MySQL, PHP) Website Setup</a>
+<ul>
+<li><a href="#installing-the-lamp-stack">Installing the LAMP Stack</a></li>
+<li><a href="#testing-the-lamp-stack">Testing the LAMP Stack</a></li>
+</ul>
+</li>
+<li><a href="#finding-ip-address-and-hostname">Finding IP Address and Hostname</a></li>
+<li><a href="#find-hostname">Find hostname</a></li>
+</ul>
+</li>
+</ul>
 <p>This chapter covers the most important aspect of Linux: <strong>the terminal</strong>. The terminal is the beating heart of Linux, enabling you to accomplish virtually anything. For the first eight years I used Linux, I relied exclusively on the terminal, never even considering a graphical interface. The terminal is reliable, quick, and efficient, making it an indispensable tool for Linux users.</p>
 <p><strong>Pro Tip:</strong> The terminal is always accessible. If you're stuck on a black screen or graphical interface, press <code>Ctrl + Alt + F2</code> or <code>Ctrl + Alt + F3</code> to switch to a terminal. To return to the graphical interface, press <code>Ctrl + Alt + F7</code>.</p>
 <hr />
 <h2 id="navigating-the-command-line-interface"><a class="header" href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a></h2>
+<p>Videos:</p>
 <h3 id="directory-movement-commands-and-examples"><a class="header" href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></h3>
 <ul>
-<li>
-<p><code>cd</code> (change directory):</p>
+<li><code>cd</code> (change directory):
 <ul>
 <li><code>cd ..</code> (move up a directory)</li>
 <li><code>cd name</code> (move into the specified directory)</li>
 <li><code>cd /</code> (move to the root directory)</li>
 <li><code>cd ~</code> (move to the home directory, e.g., <code>/home/titus</code>)</li>
-<li><code>zoxide</code> - A better package for navigating the file system, using fuzzy finding and remembering past directories.</li>
+<li><code>zoxide</code> - A better package for navigating the file system, using fuzzy finding and remembering past directories.
+_Note: <code>zoxide</code> is a third-party tool that can be installed via your package manager. Watch the video I did on Zoxide: <a href="https://links.thelinuxbook.com/zoxide">https://links.thelinuxbook.com/zoxide</a></li>
 </ul>
 </li>
-<li>
-<p><code>ls</code> (list files):</p>
+<li><code>ls</code> (list files):
 <ul>
 <li><code>ls -a</code> (show all files, including hidden ones)</li>
 <li><code>ls -l</code> (long listing format showing permissions)</li>
 </ul>
 </li>
-<li>
-<p><code>rm</code> (remove files):</p>
+<li><code>rm</code> (remove files):
 <ul>
 <li><code>rm -rf</code> (remove files/directories recursively and forcefully)</li>
 <li><code>rmdir</code> (remove empty directories)</li>
 <li><code>trash-cli</code> - An alternative to <code>rm</code> that moves files to the trash instead of permanently deleting them.</li>
 </ul>
 </li>
-<li>
-<p><code>cp</code> (copy files):</p>
+<li><code>cp</code> (copy files):
 <ul>
 <li><code>cp -r</code> (copy files and subdirectories recursively)</li>
 <li><code>rsync</code> - A more efficient tool for copying or syncing large amounts of files.</li>
+</ul>
+</li>
+<li><code>mv</code> (move files):
+<ul>
+<li><code>mv file1.txt file2.txt</code> (rename or move files)</li>
+<li><code>mv /path/to/file /new/path/</code> (move a file to a new location)</li>
+</ul>
+</li>
+<li><code>pwd</code> (print working directory):
+<ul>
+<li>Displays the current directory path.</li>
+</ul>
+</li>
+<li><code>find</code> (search for files):
+<ul>
+<li><code>find /path/to/search -name "filename"</code> (search for a file by name)</li>
+<li><code>find /path/to/search -type d -name "dirname"</code> (search for a directory by name)</li>
+<li><code>fd</code> - A faster alternative to <code>find</code> with a simpler syntax.</li>
+</ul>
+</li>
+<li><code>locate</code> (find files by name):
+<ul>
+<li><code>locate filename</code> (find files by name using a pre-built index)</li>
+<li><code>updatedb</code> (update the locate database, usually run automatically by the system)</li>
+</ul>
+</li>
+<li><code>tree</code> (display directory structure):
+<ul>
+<li><code>tree</code> (display the directory structure in a tree-like format)</li>
+<li><code>tree -L 2</code> (limit the depth of the tree display to 2 levels)</li>
+</ul>
+</li>
+<li><code>ln</code> (create links):
+<ul>
+<li><code>ln -s /path/to/original /path/to/link</code> (create a symbolic link)</li>
+<li><code>ln /path/to/original /path/to/link</code> (create a hard link)</li>
+</ul>
+</li>
+<li><code>chmod</code> (change file permissions):
+<ul>
+<li><code>chmod 755 file</code> (set permissions to read, write, and execute for owner, and read and execute for group and others)</li>
+<li><code>chmod +x script.sh</code> (make a script executable)</li>
+</ul>
+</li>
+<li><code>chown</code> (change file ownership):
+<ul>
+<li><code>chown user:group file</code> (change ownership of a file to a specific user and group)</li>
+<li><code>chown -R user:group /path/to/directory</code> (change ownership recursively for a directory)</li>
+</ul>
+</li>
+<li><code>stat</code> (display file or filesystem status):
+<ul>
+<li><code>stat file</code> (show detailed information about a file, including size, permissions, and timestamps)</li>
+<li><code>stat /path/to/directory</code> (show information about a directory)</li>
+</ul>
+</li>
+<li><code>du</code> (disk usage):
+<ul>
+<li><code>du -h</code> (display disk usage in human-readable format)</li>
+<li><code>du -sh /path/to/directory</code> (show total size of a directory)</li>
+</ul>
+</li>
+<li><code>df</code> (disk space usage):
+<ul>
+<li><code>df -h</code> (display disk space usage in human-readable format)</li>
+<li><code>df -i</code> (show inode usage instead of disk space)</li>
 </ul>
 </li>
 </ul>
@@ -269,7 +391,7 @@ Type=forking
 [Install]
 WantedBy=default.target
 </code></pre>
-<p>For a full reference, visit: <a href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html">Systemd Unit Documentation</a>.</p>
+<p>For a full reference, Systemd Unit Documentation <a href="https://links.thelinuxbook.com/systemd">https://links.thelinuxbook.com/systemd</a>.</p>
 <hr />
 <h3 id="user-based-systemd-services-and-unit-files"><a class="header" href="#user-based-systemd-services-and-unit-files">User-Based Systemd Services and Unit Files</a></h3>
 <p>User-specific unit files are stored in the <code>~/.config/systemd/user/</code> directory. These files can be managed using the <code>--user</code> option with <code>systemctl</code>.</p>
@@ -397,7 +519,370 @@ pw-mon               # Monitor Pipewire events in real-time
 <li><code>wireplumber</code> - Session manager for Pipewire</li>
 </ul>
 <p><em>Note: Do NOT use pipewire-media-session, as it is deprecated and replaced by wireplumber.</em></p>
-<footer id="last-change">Last change: 2025-06-04</footer>
+<h3 id="remote-access-and-ssh"><a class="header" href="#remote-access-and-ssh">Remote Access and SSH</a></h3>
+<p>Remote access is a crucial aspect of server management. The most common method for remote access in Linux is through SSH (Secure Shell). SSH allows you to securely connect to a remote machine and execute commands as if you were physically present.</p>
+<h4 id="setting-up-ssh"><a class="header" href="#setting-up-ssh">Setting Up SSH</a></h4>
+<p>To set up SSH on your Linux server, follow these steps:</p>
+<ol>
+<li>
+<p><strong>Install OpenSSH Server</strong>:</p>
+<pre><code class="language-bash">sudo apt install openssh-server  # Debian/Ubuntu
+sudo dnf install openssh-server  # Fedora/RHEL
+sudo pacman -S openssh            # Arch Linux
+</code></pre>
+</li>
+<li>
+<p><strong>Start and Enable the SSH Service</strong>:</p>
+<pre><code class="language-bash">sudo systemctl start sshd         # Start the SSH service
+sudo systemctl enable sshd        # Enable SSH to start on boot
+</code></pre>
+</li>
+<li>
+<p><strong>Check SSH Status</strong>:</p>
+<pre><code class="language-bash">sudo systemctl status sshd        # Check the status of the SSH service
+</code></pre>
+</li>
+<li>
+<p><strong>Configure SSH</strong>:
+Edit the SSH configuration file located at <code>/etc/ssh/sshd_config</code> to customize settings such as port number, allowed users, and authentication methods.</p>
+<pre><code class="language-bash">sudo nano /etc/ssh/sshd_config
+</code></pre>
+<p>Common configurations include:</p>
+<ul>
+<li><code>Port 22</code> (change to a different port for security)</li>
+<li><code>PermitRootLogin no</code> (disable root login for security)</li>
+<li><code>PasswordAuthentication yes/no</code> (enable or disable password authentication)</li>
+</ul>
+</li>
+<li>
+<p><strong>Restart SSH Service</strong>:</p>
+<pre><code class="language-bash">sudo systemctl restart sshd       # Restart the SSH service to apply changes
+</code></pre>
+<p>For more advanced SSH configurations, you can set up key-based authentication, which is more secure than password-based authentication. To do this, generate an SSH key pair on your local machine and copy the public key to the server:</p>
+</li>
+</ol>
+<pre><code class="language-bash">ssh-keygen
+</code></pre>
+<p>This command generates a public/private key pair. You can then copy the public key to the server using:
+<em>Note: id_rsa.pub is the default public key file generated by ssh-keygen with default options.</em></p>
+<pre><code class="language-bash">ssh-copy-id user@server_ip -i ~/.ssh/id_rsa.pub
+</code></pre>
+<p>This command copies your public key to the server's <code>~/.ssh/authorized_keys</code> file, allowing you to log in without a password.</p>
+<h4 id="connecting-to-a-remote-server"><a class="header" href="#connecting-to-a-remote-server">Connecting to a Remote Server</a></h4>
+<p>To connect to a remote server using SSH, use the following command:</p>
+<pre><code class="language-bash">ssh user@server_ip
+</code></pre>
+<p>Replace <code>user</code> with your username on the remote server and <code>server_ip</code> with the server's IP address or hostname. If you changed the SSH port, use the <code>-p</code> option:</p>
+<pre><code class="language-bash">ssh -p port_number user@server_ip
+</code></pre>
+<h4 id="common-ssh-options"><a class="header" href="#common-ssh-options">Common SSH Options</a></h4>
+<ul>
+<li><code>-i /path/to/private_key</code>: Specify a private key file for authentication.</li>
+<li><code>-X</code>: Enable X11 forwarding to run graphical applications over SSH.</li>
+<li><code>-C</code>: Enable compression for faster transfers.</li>
+<li><code>-v</code>: Enable verbose mode for debugging connection issues.</li>
+</ul>
+<h4 id="ssh-configuration-file"><a class="header" href="#ssh-configuration-file">SSH Configuration File</a></h4>
+<p>You can create a configuration file at <code>~/.ssh/config</code> to simplify SSH connections. Here’s an example configuration:</p>
+<pre><code>Host myserver
+    HostName server_ip
+    User user
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+</code></pre>
+<p>This allows you to connect to the server using:</p>
+<pre><code class="language-bash">ssh myserver
+</code></pre>
+<h4 id="remote-file-transfer-with-scp-and-sftp"><a class="header" href="#remote-file-transfer-with-scp-and-sftp">Remote File Transfer with SCP and SFTP</a></h4>
+<p>To transfer files between your local machine and a remote server, you can use <code>scp</code> (Secure Copy Protocol) or <code>sftp</code> (SSH File Transfer Protocol).</p>
+<h5 id="using-scp"><a class="header" href="#using-scp">Using SCP</a></h5>
+<p>To copy a file from your local machine to a remote server:</p>
+<pre><code class="language-bash">scp /path/to/local/file user@server_ip:/path/to/remote/directory
+</code></pre>
+<p>To copy a file from a remote server to your local machine:</p>
+<pre><code class="language-bash">scp user@server_ip:/path/to/remote/file /path/to/local/directory
+</code></pre>
+<h5 id="using-sftp"><a class="header" href="#using-sftp">Using SFTP</a></h5>
+<p>To start an SFTP session with a remote server:</p>
+<pre><code class="language-bash">sftp user@server_ip
+</code></pre>
+<p>Once connected, you can use commands like <code>get</code>, <code>put</code>, <code>ls</code>, and <code>cd</code> to navigate and transfer files:</p>
+<pre><code class="language-bash">get remote_file.txt          # Download a file from the server
+put local_file.txt           # Upload a file to the server
+ls                            # List files in the current directory
+cd /path/to/directory        # Change directory on the server
+</code></pre>
+<h4 id="remote-desktop-access"><a class="header" href="#remote-desktop-access">Remote Desktop Access</a></h4>
+<p>For graphical remote access, you can use tools like VNC (Virtual Network Computing) or RDP (Remote Desktop Protocol). These tools allow you to access the graphical desktop environment of a remote server.</p>
+<p>VNC allows you to remotely control a graphical desktop environment. To set up a VNC server, you can use TigerVNC or x11vnc.</p>
+<h5 id="debianubuntu"><a class="header" href="#debianubuntu">Debian/Ubuntu</a></h5>
+<pre><code class="language-bash">sudo apt update
+sudo apt install tigervnc-standalone-server tigervnc-common
+</code></pre>
+<h5 id="fedora"><a class="header" href="#fedora">Fedora</a></h5>
+<pre><code class="language-bash">sudo dnf install tigervnc-server tigervnc-server-module
+</code></pre>
+<h5 id="arch-linux"><a class="header" href="#arch-linux">Arch Linux</a></h5>
+<pre><code class="language-bash">sudo pacman -S tigervnc
+</code></pre>
+<h5 id="configuration"><a class="header" href="#configuration">Configuration</a></h5>
+<h6 id="1-set-vnc-password"><a class="header" href="#1-set-vnc-password">1. Set VNC Password</a></h6>
+<pre><code class="language-bash">vncpasswd
+</code></pre>
+<h6 id="2-create-vnc-service-configuration"><a class="header" href="#2-create-vnc-service-configuration">2. Create VNC Service Configuration</a></h6>
+<h6 id="for-debianubuntu-and-arch"><a class="header" href="#for-debianubuntu-and-arch">For Debian/Ubuntu and Arch:</a></h6>
+<p>Create a systemd service file:</p>
+<pre><code class="language-bash">sudo nano /etc/systemd/system/vncserver@.service
+</code></pre>
+<p>Add the following content:</p>
+<pre><code class="language-ini">[Unit]
+Description=Start TigerVNC server at startup
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=your-username
+Group=your-username
+WorkingDirectory=/home/your-username
+
+PIDFile=/home/your-username/.vnc/%H:%i.pid
+ExecStartPre=-/usr/bin/vncserver -kill :%i &gt; /dev/null 2&gt;&amp;1
+ExecStart=/usr/bin/vncserver -depth 24 -geometry 1024x768 -localhost :%i
+ExecStop=/usr/bin/vncserver -kill :%i
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h6 id="for-fedora"><a class="header" href="#for-fedora">For Fedora:</a></h6>
+<p>Copy the example service file:</p>
+<pre><code class="language-bash">sudo cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service
+</code></pre>
+<p>Edit the service file:</p>
+<pre><code class="language-bash">sudo nano /etc/systemd/system/vncserver@:1.service
+</code></pre>
+<p>Replace <code>&lt;USER&gt;</code> with your username in the file.</p>
+<h6 id="3-configure-vnc-startup-script"><a class="header" href="#3-configure-vnc-startup-script">3. Configure VNC Startup Script</a></h6>
+<p>Create or edit the VNC startup script:</p>
+<pre><code class="language-bash">nano ~/.vnc/xstartup
+</code></pre>
+<p>Add the following content:</p>
+<pre><code class="language-bash">#!/bin/bash
+xrdb $HOME/.Xresources
+startxfce4 &amp;
+</code></pre>
+<p>Make it executable:</p>
+<pre><code class="language-bash">chmod +x ~/.vnc/xstartup
+</code></pre>
+<h5 id="starting-vnc-server"><a class="header" href="#starting-vnc-server">Starting VNC Server</a></h5>
+<h6 id="manual-start"><a class="header" href="#manual-start">Manual Start</a></h6>
+<pre><code class="language-bash">vncserver :1 -geometry 1024x768 -depth 24 -localhost
+</code></pre>
+<h6 id="using-systemd-recommended"><a class="header" href="#using-systemd-recommended">Using Systemd (recommended)</a></h6>
+<pre><code class="language-bash"># Enable and start the service
+sudo systemctl enable vncserver@:1.service
+sudo systemctl start vncserver@:1.service
+
+# Check status
+sudo systemctl status vncserver@:1.service
+</code></pre>
+<h5 id="connecting-to-vnc"><a class="header" href="#connecting-to-vnc">Connecting to VNC</a></h5>
+<h6 id="local-connection"><a class="header" href="#local-connection">Local Connection</a></h6>
+<pre><code class="language-bash">vncviewer localhost:5901
+</code></pre>
+<h6 id="ssh-tunnel-recommended-for-remote-access"><a class="header" href="#ssh-tunnel-recommended-for-remote-access">SSH Tunnel (recommended for remote access)</a></h6>
+<pre><code class="language-bash">ssh -L 5901:localhost:5901 username@remote-server
+# Then connect to localhost:5901
+</code></pre>
+<h5 id="security-considerations"><a class="header" href="#security-considerations">Security Considerations</a></h5>
+<ol>
+<li><strong>Always use SSH tunneling</strong> for remote connections</li>
+<li><strong>Bind to localhost only</strong> using the <code>-localhost</code> option</li>
+<li><strong>Use strong passwords</strong> with <code>vncpasswd</code></li>
+<li><strong>Consider using x11vnc</strong> for sharing existing X sessions instead of creating new ones</li>
+</ol>
+<h5 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h5>
+<h6 id="check-vnc-server-status"><a class="header" href="#check-vnc-server-status">Check VNC server status</a></h6>
+<pre><code class="language-bash">vncserver -list
+</code></pre>
+<h6 id="kill-vnc-session"><a class="header" href="#kill-vnc-session">Kill VNC session</a></h6>
+<pre><code class="language-bash">vncserver -kill :1
+</code></pre>
+<h6 id="view-vnc-logs"><a class="header" href="#view-vnc-logs">View VNC logs</a></h6>
+<pre><code class="language-bash">tail -f ~/.vnc/*.log
+</code></pre>
+<h6 id="common-issues"><a class="header" href="#common-issues">Common Issues</a></h6>
+<ol>
+<li><strong>Display not starting</strong>: Check <code>~/.vnc/xstartup</code> permissions and desktop environment availability</li>
+<li><strong>Connection refused</strong>: Verify firewall settings and that VNC is listening on the correct port</li>
+<li><strong>Black screen</strong>: Ensure your desktop environment is properly configured in the startup script</li>
+</ol>
+<h5 id="alternative-x11vnc-for-existing-sessions"><a class="header" href="#alternative-x11vnc-for-existing-sessions">Alternative: x11vnc for Existing Sessions</a></h5>
+<p>If you want to share your current desktop session instead of creating a new one:</p>
+<h6 id="installation"><a class="header" href="#installation">Installation</a></h6>
+<pre><code class="language-bash"># Debian/Ubuntu
+sudo apt install x11vnc
+
+# Fedora
+sudo dnf install x11vnc
+
+# Arch
+sudo pacman -S x11vnc
+</code></pre>
+<h6 id="usage"><a class="header" href="#usage">Usage</a></h6>
+<pre><code class="language-bash">x11vnc -display :0 -auth ~/.Xauthority -localhost -rfbauth ~/.vnc/passwd
+</code></pre>
+<h3 id="lamp-stack-linux-apache-mysql-php-website-setup"><a class="header" href="#lamp-stack-linux-apache-mysql-php-website-setup">LAMP Stack (Linux, Apache, MySQL, PHP) Website Setup</a></h3>
+<p>The LAMP stack is a popular web server configuration that includes Linux, Apache, MySQL (or MariaDB), and PHP. This stack is widely used for hosting dynamic websites and web applications.</p>
+<h4 id="installing-the-lamp-stack"><a class="header" href="#installing-the-lamp-stack">Installing the LAMP Stack</a></h4>
+<h5 id="debianubuntu-1"><a class="header" href="#debianubuntu-1">Debian/Ubuntu</a></h5>
+<pre><code class="language-bash"># Update package index
+sudo apt update
+
+# Install Apache
+sudo apt install apache2
+
+# Install MariaDB (MySQL alternative)
+sudo apt install mariadb-server
+
+# Install PHP and common modules
+sudo apt install php libapache2-mod-php php-mysql php-cli php-curl php-gd php-mbstring php-xml php-zip
+
+# Enable Apache modules
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+
+# Secure MariaDB installation
+sudo mysql_secure_installation
+
+# Start and enable services
+sudo systemctl enable apache2
+sudo systemctl enable mariadb
+sudo systemctl start apache2
+sudo systemctl start mariadb
+</code></pre>
+<h5 id="fedorarhel"><a class="header" href="#fedorarhel">Fedora/RHEL</a></h5>
+<pre><code class="language-bash"># Update system
+sudo dnf update
+
+# Install Apache
+sudo dnf install httpd
+
+# Install MariaDB
+sudo dnf install mariadb-server
+
+# Install PHP and modules
+sudo dnf install php php-mysqlnd php-cli php-curl php-gd php-mbstring php-xml php-zip
+
+# Start and enable services
+sudo systemctl enable httpd
+sudo systemctl enable mariadb
+sudo systemctl start httpd
+sudo systemctl start mariadb
+
+# Secure MariaDB installation
+sudo mysql_secure_installation
+
+# Configure firewall
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+</code></pre>
+<h5 id="arch-linux-1"><a class="header" href="#arch-linux-1">Arch Linux</a></h5>
+<pre><code class="language-bash"># Update system
+sudo pacman -Syu
+
+# Install Apache
+sudo pacman -S apache
+
+# Install MariaDB
+sudo pacman -S mariadb
+
+# Install PHP and modules
+sudo pacman -S php php-apache php-mysql php-gd php-curl
+
+# Initialize MariaDB
+sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+# Configure PHP with Apache
+sudo nano /etc/httpd/conf/httpd.conf
+# Add these lines:
+# LoadModule php_module modules/libphp.so
+# AddHandler php-script .php
+# Include conf/extra/php_module.conf
+
+# Start and enable services
+sudo systemctl enable httpd
+sudo systemctl enable mariadb
+sudo systemctl start httpd
+sudo systemctl start mariadb
+
+# Secure MariaDB installation
+sudo mysql_secure_installation
+</code></pre>
+<h4 id="testing-the-lamp-stack"><a class="header" href="#testing-the-lamp-stack">Testing the LAMP Stack</a></h4>
+<h5 id="test-php-installation"><a class="header" href="#test-php-installation">Test PHP installation</a></h5>
+<p>echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php</p>
+<h5 id="create-a-test-database-optional"><a class="header" href="#create-a-test-database-optional">Create a test database (optional)</a></h5>
+<pre><code>sudo mysql -u root -p
+# CREATE DATABASE testdb;
+# CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
+# GRANT ALL PRIVILEGES ON testdb.* TO 'testuser'@'localhost';
+# FLUSH PRIVILEGES;
+# EXIT;
+</code></pre>
+<p><strong>Set proper permissions</strong></p>
+<pre><code class="language-bash"># Set ownership of the web directory
+sudo chown -R www-data:www-data /var/www/html  # Debian/Ubuntu
+sudo chown -R apache:apache /var/www/html      # Fedora/Arch
+</code></pre>
+<h5 id="access-the-test-page"><a class="header" href="#access-the-test-page">Access the test page</a></h5>
+<p>Open a web browser and navigate to <code>http://your_server_ip/info.php</code>. You should see the PHP information page, confirming that PHP is working correctly with Apache.</p>
+<h5 id="remove-the-test-page"><a class="header" href="#remove-the-test-page">Remove the test page</a></h5>
+<pre><code class="language-bash">sudo rm /var/www/html/info.php
+</code></pre>
+<h5 id="enable-https-in-apache"><a class="header" href="#enable-https-in-apache">Enable HTTPS in Apache</a></h5>
+<p>To enable HTTPS, you need to install an SSL certificate. You can use Let's Encrypt for free SSL certificates.</p>
+<h5 id="install-certbot"><a class="header" href="#install-certbot">Install Certbot</a></h5>
+<pre><code class="language-bash"># Debian/Ubuntu
+sudo apt install certbot python3-certbot-apache
+# Fedora/RHEL
+sudo dnf install certbot python3-certbot-apache
+# Arch Linux
+sudo pacman -S certbot certbot-apache
+</code></pre>
+<h5 id="obtain-and-install-ssl-certificate"><a class="header" href="#obtain-and-install-ssl-certificate">Obtain and Install SSL Certificate</a></h5>
+<pre><code class="language-bash">sudo certbot --apache -d your_domain.com -d www.your_domain.com
+</code></pre>
+<p>This command will automatically configure Apache to use the SSL certificate. Follow the prompts to complete the installation.</p>
+<h5 id="verify-ssl-configuration"><a class="header" href="#verify-ssl-configuration">Verify SSL Configuration</a></h5>
+<p>After obtaining the SSL certificate, you can verify the configuration by accessing your website using <code>https://your_domain.com</code>. You should see a secure connection with a padlock icon in the browser's address bar.</p>
+<h5 id="renew-ssl-certificate"><a class="header" href="#renew-ssl-certificate">Renew SSL Certificate</a></h5>
+<p>Let's Encrypt certificates are valid for 90 days. To renew the certificate automatically, you can set up a cron job or use the systemd timer.</p>
+<pre><code class="language-bash"># Test renewal process
+sudo certbot renew --dry-run
+</code></pre>
+<h5 id="set-up-a-cron-job-for-automatic-renewal"><a class="header" href="#set-up-a-cron-job-for-automatic-renewal">Set up a cron job for automatic renewal</a></h5>
+<pre><code class="language-bash"># Open the crontab editor
+crontab -e
+# Add the following line to run the renewal command daily
+0 0 * * * /usr/bin/certbot renew --quiet
+</code></pre>
+<h3 id="finding-ip-address-and-hostname"><a class="header" href="#finding-ip-address-and-hostname">Finding IP Address and Hostname</a></h3>
+<p>To find your server's IP address and hostname, you can use the following commands:</p>
+<pre><code class="language-bash"># Find IP address
+curl ifconfig.me  # Get the public IP address
+curl ipinfo.io/ip  # Another way to get the public IP address
+ip addr show  # Show all network interfaces and their IP addresses
+ip a  # Shorter version of the above command
+ip route get 1  # Get the default route and associated IP address
+# Find private IP address
+hostname -I  # Get the private IP address(es) of the server
+</code></pre>
+<h3 id="find-hostname"><a class="header" href="#find-hostname">Find hostname</a></h3>
+<pre><code class="language-bash">hostname  # Get the hostname
+hostname -f  # Get the fully qualified domain name (FQDN)
+</code></pre>
+<footer id="last-change">Last change: 2025-06-18</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

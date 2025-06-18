@@ -168,12 +168,44 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-3---bootloaders-how-linux-is-loaded"><a class="header" href="#chapter-3---bootloaders-how-linux-is-loaded">Chapter 3 - Bootloaders: How Linux is Loaded</a></h1>
+                        <h1 id="bootloaders-how-linux-is-loaded"><a class="header" href="#bootloaders-how-linux-is-loaded">Bootloaders: How Linux is Loaded</a></h1>
+<ul>
+<li><a href="#grub-2---the-most-widely-used">GRUB 2 - The Most Widely Used</a>
+<ul>
+<li><a href="#configuration">Configuration</a>
+<ul>
+<li><a href="#files-used-for-configuration">Files Used for Configuration</a></li>
+<li><a href="#editing-grub-configuration-in-etcdefaultgrub">Editing GRUB Configuration in <code>/etc/default/grub</code></a></li>
+<li><a href="#sample-grub-configuration-etcdefaultgrub">Sample GRUB Configuration (<code>/etc/default/grub</code>)</a></li>
+<li><a href="#make-configuration-files">Make Configuration files</a></li>
+</ul>
+</li>
+<li><a href="#installation">Installation</a>
+<ul>
+<li><a href="#efi-installation">EFI Installation</a></li>
+<li><a href="#bios-legacy-installation">BIOS Legacy Installation</a></li>
+</ul>
+</li>
+<li><a href="#grub-videos">GRUB Videos</a></li>
+</ul>
+</li>
+<li><a href="#systemd-boot---minimal-built-in-boot">Systemd Boot - Minimal Built-In boot</a>
+<ul>
+<li><a href="#configuraiton">Configuraiton</a>
+<ul>
+<li><a href="#general-configuration">General Configuration</a></li>
+<li><a href="#adding-boot-entries">Adding Boot Entries</a></li>
+</ul>
+</li>
+<li><a href="#installation-1">Installation</a></li>
+</ul>
+</li>
+</ul>
 <p>There are many bootloaders available, but this chapter focuses on the two most widely used: GRUB 2 and systemd-boot.</p>
 <h2 id="grub-2---the-most-widely-used"><a class="header" href="#grub-2---the-most-widely-used">GRUB 2 - The Most Widely Used</a></h2>
 <p>GRUB 2 is the most popular bootloader for Linux, offering extensive functionality. It supports themes, multiboot setups, and various other features that make it highly versatile. For Windows/Linux multiboot systems, GRUB 2 is my recommended choice.</p>
 <ul>
-<li><strong>GRUB Manual Table of Contents:</strong> <a href="https://www.gnu.org/software/grub/manual/grub/html_node/index.html">https://www.gnu.org/software/grub/manual/grub/html_node/index.html</a></li>
+<li><strong>GRUB Manual Table of Contents:</strong> <a href="https://links.thelinuxbook.com/grubtoc">https://links.thelinuxbook.com/grubtoc</a></li>
 </ul>
 <h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
 <p>Before installing or updating GRUB, you need to create configuration files. One of the best resources for understanding GRUB is the <a href="https://wiki.gentoo.org/wiki/GRUB2">https://wiki.gentoo.org/wiki/GRUB2</a>.</p>
@@ -200,7 +232,7 @@
 </li>
 <li><strong><code>GRUB_DISABLE_RECOVERY</code></strong>: Disables recovery entries. Setting this to <code>true</code> is recommended if recovery entries are rarely needed. You can edit GRUB directly during boot by pressing <code>e</code> when the menu appears.</li>
 </ul>
-<p>For a complete list of GRUB configuration variables, refer to the <a href="https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html">https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html</a>.</p>
+<p>For a complete list of GRUB configuration variables, refer to the <a href="https://links.thelinuxbook.com/grubconfig">https://links.thelinuxbook.com/grubconfig</a>.</p>
 <h4 id="sample-grub-configuration-etcdefaultgrub"><a class="header" href="#sample-grub-configuration-etcdefaultgrub">Sample GRUB Configuration (<code>/etc/default/grub</code>)</a></h4>
 <p>Here’s an example configuration with no menu:</p>
 <pre><code>GRUB_DEFAULT="0"
@@ -244,12 +276,11 @@ GRUB_DISABLE_LINUX_RECOVERY="true"
 <h3 id="grub-videos"><a class="header" href="#grub-videos">GRUB Videos</a></h3>
 <p>These are the videos I've done on GRUB via YouTube:</p>
 <ul>
-<li>How to Repair Linux With Boot Failure: <a href="https://youtu.be/9D3hvnnby9A">https://youtu.be/9D3hvnnby9A</a></li>
-<li>Fix Multi-Boot Systems running GRUB and Windows: <a href="https://youtu.be/3oQfnNhk7qU">https://youtu.be/3oQfnNhk7qU</a></li>
-<li>Using SuperGRUBDisk to repair GRUB: <a href="https://youtu.be/gEB6JEYZekE">https://youtu.be/gEB6JEYZekE</a></li>
-<li>Custom Bootloader Themes Project: <a href="https://youtu.be/BAyzHP1Cqb0">https://youtu.be/BAyzHP1Cqb0</a></li>
-<li>Using GRUB Rescue: <a href="https://youtu.be/r7meKJsjqfY">https://youtu.be/r7meKJsjqfY</a></li>
-<li>Using GRUB Customizer for automated GRUB Building: <a href="https://youtu.be/3s7qBJ-H7vw">https://youtu.be/3s7qBJ-H7vw</a></li>
+<li>How to Repair Linux With Boot Failure: <a href="https://links.thelinuxbook.com/repairgrubbootfail">https://links.thelinuxbook.com/repairgrubbootfail</a></li>
+<li>Fix Multi-Boot Systems running GRUB and Windows: <a href="https://links.thelinuxbook.com/fixmultiboot">https://links.thelinuxbook.com/fixmultiboot</a></li>
+<li>Using SuperGRUBDisk to repair GRUB: <a href="https://links.thelinuxbook.com/supergrub">https://links.thelinuxbook.com/supergrub</a></li>
+<li>Custom Bootloader Themes Project: <a href="https://links.thelinuxbook.com/bootloaderthemes">https://links.thelinuxbook.com/bootloaderthemes</a></li>
+<li>Using GRUB Rescue: <a href="https://links.thelinuxbook.com/grubrescue">https://links.thelinuxbook.com/grubrescue</a></li>
 </ul>
 <h2 id="systemd-boot---minimal-built-in-boot"><a class="header" href="#systemd-boot---minimal-built-in-boot">Systemd Boot - Minimal Built-In boot</a></h2>
 <p>Many distributions are now starting to ship with systemd boot instead of GRUB (PopOS! is one example) and is an interesting boot manager when you don't want a menu or extra packages to boot into your Linux.</p>
@@ -318,7 +349,7 @@ A: The command <code>sudo blkid</code></p>
 <p>_Note: To identify specific drive labels I recommend <code>sudo lsblk</code> which gives a readout of all drives and where they are mounted. When used in conjunction with <code>blkid</code> you will be able to tell what each drive is.</p>
 </li>
 </ul>
-<p>Check all kernel parameters @ <a href="https://www.kernel.org/doc/html/v5.13/admin-guide/kernel-parameters.html">https://www.kernel.org/doc/html/v5.13/admin-guide/kernel-parameters.html</a></p>
+<p>Check all kernel parameters @ <a href="https://links.thelinuxbook.com/kernelparameters">https://links.thelinuxbook.com/kernelparameters</a></p>
 <p>Example Arch Linux Entry <code>/boot/efi/loader/entries/arch.conf</code></p>
 <pre><code>title   Arch Linux
 linux   /vmlinuz-linux
@@ -338,7 +369,7 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
 <p>The default install is very easy once configuration is done. You simply type <code>bootctl install</code> and you are done!</p>
 <p>There are configurations with multiple boot partitions, but I do not recommend using systemd-boot for this.</p>
 <p>In most instances this will auto update when boot options change, but you can force an update if you manually add more entries with <code>bootctl update</code></p>
-<footer id="last-change">Last change: 2025-06-06</footer>
+<footer id="last-change">Last change: 2025-06-17</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
