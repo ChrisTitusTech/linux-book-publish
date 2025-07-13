@@ -65,7 +65,7 @@
                 }
             });
         </script>
-    <div style="display: none"><a href="#foreward">foreward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a><a href="#chapter5-drives">chapter5-drives</a><a href="#chapter6-hardware">chapter6-hardware</a></div>
+    <div style="display: none"><a href="#foreward">foreward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a><a href="#chapter5-drives">chapter5-drives</a><a href="#chapter6-hardware">chapter6-hardware</a><a href="#chapter7-linuxprograms">chapter7-linuxprograms</a></div>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
     </head>
@@ -599,6 +599,11 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
 <ul>
 <li><a href="chapter4-servercli.html#navigating-the-command-line-interface">Navigating the Command Line Interface</a>
 <ul>
+<li><a href="chapter4-servercli.html#types-of-terminals">Types of Terminals</a>
+<ul>
+<li><a href="chapter4-servercli.html#recommended-gui-terminals">Recommended GUI Terminals:</a></li>
+</ul>
+</li>
 <li><a href="chapter4-servercli.html#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></li>
 <li><a href="chapter4-servercli.html#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></li>
 </ul>
@@ -658,7 +663,27 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
 <p><strong>Pro Tip:</strong> The terminal is always accessible. If you're stuck on a black screen or graphical interface, press <code>Ctrl + Alt + F2</code> or <code>Ctrl + Alt + F3</code> to switch to a terminal. To return to the graphical interface, press <code>Ctrl + Alt + F7</code>.</p>
 <hr />
 <h2 id="navigating-the-command-line-interface"><a class="header" href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a></h2>
-<p>Videos:</p>
+<p>Videos: How to Make Bash Terminal look and feel GREAT! <a href="https://links.thelinuxbook.com/prettybash">https://links.thelinuxbook.com/prettybash</a></p>
+<h3 id="types-of-terminals"><a class="header" href="#types-of-terminals">Types of Terminals</a></h3>
+<ul>
+<li><strong>TTY</strong>: A terminal connected to a physical device, such as a keyboard and monitor</li>
+<li><strong>GUI Terminal</strong>: A terminal emulator that provides a graphical interface for command-line operations, such as GNOME Terminal, Konsole, or xterm</li>
+</ul>
+<p>TTY is used for direct interaction with the system, while GUI terminals provide a more user-friendly experience with features like tabs, copy-paste, and customizable appearance. TTY is often used for system recovery or when the graphical interface is unavailable or malfunctioning.</p>
+<p>To access a TTY terminal, you can use the following key combinations:</p>
+<ul>
+<li><code>Ctrl + Alt + F1</code> to <code>Ctrl + Alt + F6</code>: Switch to different TTY terminals (TTY1 to TTY6)</li>
+<li><code>Ctrl + Alt + F7</code>: Return to the graphical interface (usually TTY7)</li>
+</ul>
+<p>GUI Terminals are typically launched from the applications menu or by pressing <code>Ctrl + Alt + T</code> in most desktop environments or hotkey like <code>Super + Enter</code> in many Tiled Window Managers (TWM).</p>
+<h4 id="recommended-gui-terminals"><a class="header" href="#recommended-gui-terminals">Recommended GUI Terminals:</a></h4>
+<ul>
+<li><strong>GNOME Terminal</strong>: Default terminal for GNOME desktop environments, supports tabs and profiles</li>
+<li><strong>Konsole</strong>: Default terminal for KDE Plasma, highly customizable with split views and profiles</li>
+<li><strong>Alacritty</strong>: A fast, GPU-accelerated terminal emulator with a focus on performance and simplicity</li>
+<li><strong>Kitty</strong>: A feature-rich terminal emulator with support for graphics</li>
+<li><strong>Terminator</strong>: Allows multiple terminal windows in a single window, with customizable layouts</li>
+</ul>
 <h3 id="directory-movement-commands-and-examples"><a class="header" href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></h3>
 <ul>
 <li><code>cd</code> (change directory):
@@ -668,7 +693,7 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
 <li><code>cd /</code> (move to the root directory)</li>
 <li><code>cd ~</code> (move to the home directory, e.g., <code>/home/titus</code>)</li>
 <li><code>zoxide</code> - A better package for navigating the file system, using fuzzy finding and remembering past directories.
-_Note: <code>zoxide</code> is a third-party tool that can be installed via your package manager. Watch the video I did on Zoxide: <a href="https://youtu.be/XE1f7Tr0suo">https://youtu.be/XE1f7Tr0suo</a></li>
+_Note: <code>zoxide</code> is a third-party tool that can be installed via your package manager. Watch the video I did on Zoxide: <a href="https://links.thelinuxbook.com/zoxide">https://links.thelinuxbook.com/zoxide</a></li>
 </ul>
 </li>
 <li><code>ls</code> (list files):
@@ -818,7 +843,7 @@ Type=forking
 [Install]
 WantedBy=default.target
 </code></pre>
-<p>For a full reference, visit: <a href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html">Systemd Unit Documentation</a>.</p>
+<p>For a full reference, Systemd Unit Documentation <a href="https://links.thelinuxbook.com/systemd">https://links.thelinuxbook.com/systemd</a>.</p>
 <hr />
 <h3 id="user-based-systemd-services-and-unit-files"><a class="header" href="#user-based-systemd-services-and-unit-files">User-Based Systemd Services and Unit Files</a></h3>
 <p>User-specific unit files are stored in the <code>~/.config/systemd/user/</code> directory. These files can be managed using the <code>--user</code> option with <code>systemctl</code>.</p>
@@ -1309,7 +1334,7 @@ hostname -I  # Get the private IP address(es) of the server
 <pre><code class="language-bash">hostname  # Get the hostname
 hostname -f  # Get the fully qualified domain name (FQDN)
 </code></pre>
-<footer id="last-change">Last change: 2025-06-16</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="drives-and-filesystems"><a class="header" href="#drives-and-filesystems">Drives and Filesystems</a></h1>
+<footer id="last-change">Last change: 2025-06-24</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="drives-and-filesystems"><a class="header" href="#drives-and-filesystems">Drives and Filesystems</a></h1>
 <ul>
 <li><a href="chapter5-drives.html#understanding-drives-and-filesystems">Understanding Drives and Filesystems</a>
 <ul>
@@ -1495,7 +1520,8 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 </ul>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
-<footer id="last-change">Last change: 2025-06-16</footer>
+<footer id="last-change">Last change: 2025-06-18</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-7-linux-programs"><a class="header" href="#chapter-7-linux-programs">Chapter 7: Linux Programs</a></h1>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

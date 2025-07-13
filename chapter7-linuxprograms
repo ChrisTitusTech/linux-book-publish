@@ -1,0 +1,90 @@
+# Linux Programs
+
+Many windows and macOS users try to use all their favorite programs on Linux, but this is not always possible. Some programs are not available for Linux, while others may have limited functionality or require additional configuration to work correctly. This section covers some common Linux programs and alternatives to popular Windows and macOS applications.
+
+## Common Linux Programs
+Linux has a wide range of programs available for various tasks, including productivity, multimedia, development, and more. For an exhaustive list of programs built and maintained by the Linux community: <https://github.com/luong-komorebi/Awesome-Linux-Software>, but here are some common Linux programs I use and recommend:
+
+### Communication and Messaging:
+- **Discord**: A communication platform designed for gamers that is available on Linux. It allows you to chat, voice call, and video call with friends and communities.
+- **Signal**: A privacy-focused messaging app that is available on Linux. It provides end-to-end encryption for secure messaging and voice calls.
+- **Slack**: A collaboration and communication platform that is available on Linux. It allows teams to communicate, share files, and collaborate on projects.
+- **Telegram**: A messaging app that is available on Linux. It provides secure messaging, file sharing, and group chats.
+- **Thunderbird**: An email client developed by Mozilla, similar to Microsoft Outlook. It supports multiple email accounts, RSS feeds, and newsgroups.
+- **Zoom**: A video conferencing and online meeting platform that is available on Linux. It allows you to host and join meetings, webinars, and virtual events.
+
+### Development and System Tools:
+- **Docker**: A platform for developing, shipping, and running applications in containers. It allows you to run applications in isolated environments, making it easier to manage dependencies and configurations.
+- **Notepadqq** (Notepad++ alternative): A text editor for Linux that provides syntax highlighting, code folding, and other features for programming.
+- **Snap and Flatpak**: Package management systems that allow you to install and run applications in isolated environments. They provide a way to run applications without worrying about dependencies and compatibility issues.
+- **Visual Studio Code**: A lightweight code editor developed by Microsoft that supports various programming languages and extensions. It is a popular choice for developers on Linux.
+
+### Office and Productivity:
+- **Firefox**: A popular web browser that is known for its speed, security, and privacy features. It is a great alternative to Google Chrome and Microsoft Edge.
+- **LibreOffice**: A free and open-source office suite that includes a word processor, spreadsheet application, presentation software, and more. It is a popular alternative to Microsoft Office.
+- **Nextcloud**: A self-hosted cloud storage solution that allows you to store, share, and sync files across devices. It is a popular alternative to Google Drive and Dropbox.
+- **OnlyOffice**: An open-source office suite that provides a word processor, spreadsheet editor, and presentation software. It is compatible with Microsoft Office formats and offers collaborative features.
+
+### Multimedia and Creative Tools:
+- **Audacity**: A free and open-source audio editing program that allows you to record, edit, and manipulate audio files. It is a popular choice for podcasting and music production.
+- **Blender**: A powerful 3D modeling, animation, and rendering software that is widely used in the film and gaming industries. It is a popular alternative to Autodesk Maya and 3ds Max.
+- **Calibre**: An e-book management software that allows you to organize, convert, and read e-books. It supports various e-book formats and provides features for managing your e-book library.
+- **GIMP**: A powerful image editing program that is often compared to Adobe Photoshop. It supports a wide range of image formats and provides advanced editing features.
+- **Inkscape**: A vector graphics editor that is similar to Adobe Illustrator. It is used for creating and editing vector images and supports various file formats.
+- **Kdenlive**: A non-linear video editor that is popular among Linux users. It provides a wide range of features for video editing, including multi-track editing, effects, and transitions.
+- **Krita**: A digital painting program that is popular among artists and illustrators. It provides a wide range of brushes, tools, and features for creating digital art.
+- **OBS Studio**: An open-source software for video recording and live streaming. It is widely used by content creators and streamers on platforms like Twitch and YouTube.
+- **Spotify**: A music streaming service that is available on Linux. It allows you to listen to millions of songs and create playlists.
+- **VLC Media Player**: A versatile media player that supports a wide range of audio and video formats. It is a popular alternative to Windows Media Player and QuickTime.
+
+### Gaming and Compatibility:
+- **Bottles**: A tool that allows you to run Windows games and applications on Linux using Wine. It provides a user-friendly interface for managing Wine prefixes and configurations.
+- **Heroic Games Launcher**: An open-source game launcher for the Epic Games Store that allows you to install and play Epic Games on Linux. It provides a user-friendly interface and supports various game configurations.
+- **Lutris**: A gaming platform that allows you to install and manage games from various sources, including Steam, GOG, and Battle.net. It provides a unified interface for launching games and managing game libraries.
+- **Steam**: A digital distribution platform for video games that is available on Linux. It allows you to purchase, download, and play games from a vast library.
+- **Wine**: A compatibility layer that allows you to run Windows applications on Linux. It is not a perfect solution, but it can be useful for running certain Windows programs that do not have native Linux alternatives.
+
+## Linux Gaming
+Linux gaming has come a long way in recent years, with many popular games now available natively on the platform. Additionally, tools like Proton (a compatibility layer for running Windows games on Linux) and Lutris (a gaming platform for managing games from various sources) have made it easier to play games on Linux. If you want to play a lot of games on Linux and do not want to do much configuration, I recommend using either Bazzite or Nobara Linux, which are both gaming-focused distributions that come pre-configured with the necessary tools and drivers for gaming. Starting from a fresh blank distribution like Debian or Arch Linux can be challenging for gaming, as you will need to manually install and configure various components to get games running smoothly.
+
+### Understanding WINE and Proton
+WINE (Wine Is Not an Emulator) is a compatibility layer that allows you to run Windows applications on Linux. It translates Windows API calls into POSIX calls, enabling you to run many Windows applications without needing a full Windows installation. Proton is a modified version of WINE developed by Valve, specifically designed to run Windows games on Linux through the Steam platform. It includes additional libraries and optimizations to improve game compatibility and performance.
+While WINE and Proton can run many Windows applications and games, they are not perfect solutions. Some applications may not work correctly or may require additional configuration to run smoothly. It is essential to check compatibility reports on sites like [ProtonDB](https://www.protondb.com/) to see if a specific game or application is supported and to find any necessary tweaks or workarounds.
+
+Lutris is a front-end for managing games on Linux, providing a user-friendly interface for installing and launching games from various sources, including Steam, GOG, and Battle.net. It supports WINE and Proton, allowing you to run Windows games on Linux with ease. Lutris also provides scripts for installing specific games, which can simplify the setup process.
+
+Heroic Games Launcher is an open-source game launcher for the Epic Games Store that allows you to install and play Epic Games on Linux. It provides a user-friendly interface and supports various game configurations, making it easier to manage your Epic Games library on Linux.
+
+Bottles is a front-end for WINE that simplifies the process of running Windows applications on Linux. It provides a user-friendly interface for managing WINE prefixes and configurations, making it easier to run Windows games and applications without needing extensive knowledge of WINE.
+
+#### WINE Usage
+WINE is a powerful tool for running Windows applications on Linux, but it can be complex to set up and use effectively. Here are some tips for using WINE:
+1. **Installation**: Install WINE using your distribution's package manager. For example, on Ubuntu, you can use:
+   ```bash
+   sudo apt install wine
+   ```
+   On Arch Linux, you can use:
+   ```bash
+   sudo pacman -S wine
+   ```
+2. **Configuration**: After installing WINE, you can run `winecfg` in the terminal to configure WINE settings. This will create a default WINE prefix in your home directory (`~/.wine`) and allow you to set various options, such as the Windows version to emulate, graphics settings, and audio configurations.
+3. **Installing Windows Applications**: To install a Windows application using WINE, you can run the installer executable with the `wine` command. For example:
+   ```bash
+   wine setup.exe
+   ```
+   Replace `setup.exe` with the actual name of the installer file. WINE will create a virtual C: drive in your WINE prefix, where the application will be installed.
+4. **Running Windows Applications**: After installation, you can run the application using WINE by executing the application's executable file. For example:
+   ```bash
+   wine /path/to/application.exe
+   ```
+   Replace `/path/to/application.exe` with the actual path to the application's executable file. 
+5. **Managing WINE Prefixes**: WINE uses a concept called "prefixes" to manage different environments for running Windows applications. By default, WINE uses the `~/.wine` directory as its prefix. You can create additional prefixes by setting the `WINEPREFIX` environment variable before running WINE commands. For example:
+   ```bash
+   WINEPREFIX="/path/to/custom/prefix" wine /path/to/application.exe
+   ```
+   This allows you to maintain separate configurations and installations for different applications, which can be useful for managing dependencies and settings.
+
+6. **Using Winetricks**: Winetricks is a script that helps you install various Windows libraries and components in your WINE prefix. It can be useful for installing .NET Framework, DirectX, and other dependencies required by certain applications. You can install Winetricks using your package manager or download it from the [Winetricks GitHub repository](https://github.com/Winetricks/winetricks).
+
+Wine prefixes can get complicated when adding dotnet and other features with winetricks. Unlike Windows, you cannot UNINSTALL dotnet from a WINE prefix, so it is best to create a new prefix for each application that requires different versions of dotnet or other libraries. This way, you can avoid conflicts and ensure that each application has the correct environment to run smoothly. Once you get the application running, do NOT change the WINE prefix or add/remove libraries, as this can break the application. If you need to make changes, create a new prefix and set it up again. This involves deleting the old prefix and starting fresh, but it is the best way to ensure that your applications run smoothly without conflicts.
+
