@@ -65,7 +65,7 @@
                 }
             });
         </script>
-    <div style="display: none"><a href="#foreward">foreward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a><a href="#chapter5-drives">chapter5-drives</a><a href="#chapter6-hardware">chapter6-hardware</a><a href="#chapter7-linuxprograms">chapter7-linuxprograms</a></div>
+    <div style="display: none"><a href="#foreward">foreward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a><a href="#chapter5-drives">chapter5-drives</a><a href="#chapter6-hardware">chapter6-hardware</a><a href="#chapter7-linuxprograms">chapter7-linuxprograms</a><a href="#chapter8-environment">chapter8-environment</a></div>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
     </head>
@@ -1643,6 +1643,45 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
 <p>This will update Proton GE to the latest version available. Install protonup through python pip:</p>
 <pre><code class="language-bash">pip install protonup
 </code></pre>
+<footer id="last-change">Last change: 2025-07-14</footer><div style="break-before: page; page-break-before: always;"></div><h2 id="setting-up-the-perfect-linux-environment"><a class="header" href="#setting-up-the-perfect-linux-environment">Setting up the Perfect Linux Environment</a></h2>
+<ul>
+<li><a href="chapter8-environment.html#xorg-vs-wayland">Xorg vs Wayland</a></li>
+<li><a href="chapter8-environment.html#desktop-environments">Desktop Environments</a></li>
+<li><a href="chapter8-environment.html#tiling-window-managers-twm">Tiling Window Managers (TWM)</a></li>
+</ul>
+<p>Setting up a Linux environment that suits your needs can be a rewarding experience. Whether you're a developer, a gamer, or just someone who wants a stable and efficient system, Linux offers a wide range of options. In this chapter, we'll explore how to set up the perfect Linux environment tailored to your preferences and requirements.</p>
+<h3 id="xorg-vs-wayland"><a class="header" href="#xorg-vs-wayland">Xorg vs Wayland</a></h3>
+<p>One of the first decisions you'll need to make is whether to use Xorg or Wayland as your display server. Xorg has been the traditional choice for many years, but Wayland is gaining popularity due to its modern architecture and improved performance. Here are some considerations:</p>
+<ul>
+<li><strong>Xorg</strong>: It is widely supported and has a long history of stability. Most applications and desktop environments work seamlessly with Xorg. It is the safe choice for most, but many fear that it will be deprecated and removed in the future. Overall, it is a mature and reliable option.</li>
+<li><strong>Wayland</strong>: It offers better performance and security features, but some applications may not yet be fully compatible. If you're using a modern desktop environment like GNOME or KDE Plasma, Wayland is often the default choice. The downside is its utilities and applications are not as mature as Xorg's, which can lead to compatibility issues with some software. This is especially true for Tiling Window Managers (TWM) and some older applications that rely on X11 features.</li>
+<li><strong>Recommendation</strong>: If you're new to Linux or need maximum compatibility, stick with Xorg for now. If you're comfortable with potential compatibility issues and want to experiment with the latest features, give Wayland a try. Many distributions allow you to choose between the two at login, so you can easily switch if needed.</li>
+</ul>
+<h3 id="desktop-environments-1"><a class="header" href="#desktop-environments-1">Desktop Environments</a></h3>
+<p>Choosing the right desktop environment (DE) is crucial for your Linux experience. A Desktop Environment provides a complete graphical user interface (GUI) for your system, including a window manager, file manager, and various utilities. Here are some popular options:</p>
+<ul>
+<li><strong>GNOME</strong>: Known for its simplicity and modern design, GNOME is the default DE for many distributions. It offers a clean and intuitive interface, but some users find it too restrictive. I personally do not like GNOME because of the extension installation process from the browser, incompatible extensions on different versions, and the lack of customization options. It is also very resource-intensive. The stock experience reminds me of MacOS, which is not my cup of tea.</li>
+<li><strong>KDE Plasma</strong>: Highly customizable and feature-rich, KDE Plasma is a favorite among power users. It offers a Windows-like experience with a wide range of configuration options. KDE Plasma is my personal favorite because it is highly customizable, has a large number of extensions, and is very stable. It also has a large community and is actively developed, which means it gets regular updates and new features.</li>
+<li><strong>XFCE</strong>: A lightweight DE that is perfect for older hardware or users who prefer a more traditional desktop experience. XFCE is fast and efficient, making it a great choice for those who want a snappy system without the bloat. It is also highly customizable. It is a good choice for those who want a simple and fast desktop environment without the bells and whistles of GNOME or KDE Plasma.</li>
+<li><strong>Mate</strong>: Another lightweight DE that is based on GNOME 2. It is designed to be easy to use and highly customizable. Mate is a great choice for those who want a traditional desktop experience without the resource requirements of more modern environments.</li>
+<li><strong>Cinnamon</strong>: Developed by the Linux Mint team, Cinnamon offers a modern and user-friendly interface. It reminds me of Windows 7. A very polished experience with a focus on usability and ease of use.</li>
+<li><strong>LXQt</strong>: A lightweight DE that is designed to be fast and efficient.</li>
+<li><strong>Budgie,Enlightenment,Pantheon,Deepin</strong>: These are other DEs that offer unique features and aesthetics. They may not be as widely used as the ones mentioned above, but they can provide a fresh and different experience.</li>
+</ul>
+<h3 id="tiling-window-managers-twm"><a class="header" href="#tiling-window-managers-twm">Tiling Window Managers (TWM)</a></h3>
+<p>If you prefer a more hands-on approach to window management, Tiling Window Managers (TWMs) might be the way to go. TWMs automatically arrange windows in a non-overlapping manner, allowing you to focus on your work without distractions. Some popular TWMs include:</p>
+<ul>
+<li><strong>i3</strong>: A highly configurable and efficient TWM with keyboard-driven window management. Lightweight and fast, ideal for power users who want full control over their desktop environment.</li>
+<li><strong>Sway</strong>: A Wayland-compatible TWM similar to i3. Offers the same keyboard-driven workflow as i3 but designed specifically for Wayland users.</li>
+<li><strong>bspwm</strong>: A binary space partitioning TWM that manages windows through unique tree-based partitioning. Configuration is handled through external tools and shell scripts.</li>
+<li><strong>Awesome</strong>: A TWM that uses Lua scripting for configuration and layout management. Supports both tiling and floating window modes with extensive customization options.</li>
+<li><strong>dwm</strong>: A dynamic TWM designed for simplicity and efficiency. Minimalist approach with configuration done through recompiling the source code.</li>
+<li><strong>herbstluftwm</strong>: A manual tiling window manager with frame-based window management. Uses a command-line interface for configuration and control.</li>
+<li><strong>Qtile</strong>: A TWM written in Python with configuration also done in Python. Appeals to users who prefer Python scripting for customization.</li>
+<li><strong>Xmonad</strong>: A TWM written and configured in Haskell. Offers a purely functional approach to window management with strong type safety.</li>
+<li><strong>Spectrwm</strong>: A minimalist TWM focused on simplicity and efficiency. Lightweight with straightforward configuration through a simple config file.</li>
+</ul>
+<p>The big difference between a Tiling Window Manager and a traditional desktop environment is that TWMs do not come with a lot of pre-installed applications or features. They are designed to be lightweight and fast, which means you will need to install your own applications and configure them to work with the TWM. This can be a bit of a learning curve for new users, but it also allows for a lot of flexibility and customization. A good example is configuring your own terminal emulator, file manager, and other essential applications to work seamlessly with the TWM of your choice.</p>
 <footer id="last-change">Last change: 2025-07-14</footer>
                     </main>
 
