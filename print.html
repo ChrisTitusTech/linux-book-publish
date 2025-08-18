@@ -39,6 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "latte";
             const default_dark_theme = "frappe";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
 
         <!-- Custom JS scripts for mdbook-pdf PDF generation -->
@@ -121,10 +122,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -175,7 +179,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -1340,12 +1349,12 @@ hostname -f  # Get the fully qualified domain name (FQDN)
 <ul>
 <li><a href="chapter5-drives.html#common-filesystem-types">Common Filesystem Types</a></li>
 <li><a href="chapter5-drives.html#drive-management-tools">Drive Management Tools</a></li>
+<li><a href="chapter5-drives.html#drive-partitioning">Drive Partitioning</a>
+<ul>
+<li><a href="chapter5-drives.html#partition-tables">Partition Tables</a></li>
+<li><a href="chapter5-drives.html#partitioning-with-cfdisk">Partitioning with <code>cfdisk</code></a></li>
 </ul>
 </li>
-<li><a href="chapter5-drives.html#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a>
-<ul>
-<li><a href="chapter5-drives.html#mounting-drives">Mounting Drives</a></li>
-<li><a href="chapter5-drives.html#unmounting-drives">Unmounting Drives</a></li>
 </ul>
 </li>
 <li><a href="chapter5-drives.html#filesystem-management">Filesystem Management</a>
@@ -1353,6 +1362,12 @@ hostname -f  # Get the fully qualified domain name (FQDN)
 <li><a href="chapter5-drives.html#creating-filesystems">Creating Filesystems</a></li>
 <li><a href="chapter5-drives.html#checking-filesystems">Checking Filesystems</a></li>
 <li><a href="chapter5-drives.html#viewing-filesystem-information">Viewing Filesystem Information</a></li>
+</ul>
+</li>
+<li><a href="chapter5-drives.html#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a>
+<ul>
+<li><a href="chapter5-drives.html#mounting-drives">Mounting Drives</a></li>
+<li><a href="chapter5-drives.html#unmounting-drives">Unmounting Drives</a></li>
 <li><a href="chapter5-drives.html#fstab-configuration">Fstab Configuration</a></li>
 </ul>
 </li>
@@ -1372,8 +1387,7 @@ hostname -f  # Get the fully qualified domain name (FQDN)
 <p>Personally, I use <code>ext4</code> for most of my drives, <code>xfs</code> for large data storage, and <code>vfat</code> for USB drives and EFI partitions. I avoid <code>btrfs</code> due to its complexity and potential issues with data integrity, although it has improved significantly in recent years. If you are interested in using <code>btrfs</code> check out this article and video I wrote about it: <a href="https://christitus.com/btrfs-guide/">https://christitus.com/btrfs-guide/</a>. The biggest advantage of <code>btrfs</code> is its ability to take snapshots, which can be useful for backups and system recovery. However, it requires more advanced knowledge to manage effectively.</p>
 <h3 id="drive-management-tools"><a class="header" href="#drive-management-tools">Drive Management Tools</a></h3>
 <ul>
-<li><strong>fdisk</strong>: A command-line utility for managing disk partitions. It allows you to create, delete, and modify partitions on a disk.</li>
-<li><strong>parted</strong>: A more advanced command-line utility for managing disk partitions, supporting larger disks and more complex partitioning schemes.</li>
+<li><strong>cfdisk</strong>: A curses-based partition table manipulator for Linux. <strong>RECOMMENDED</strong> for beginners due to its user-friendly interface.</li>
 <li><strong>lsblk</strong>: A command-line utility that lists block devices, including drives and partitions, along with their mount points and filesystem types.</li>
 <li><strong>blkid</strong>: A command-line utility that displays information about block devices, including their UUIDs and filesystem types.</li>
 <li><strong>df</strong>: A command-line utility that displays disk space usage for mounted filesystems.</li>
@@ -1388,6 +1402,66 @@ hostname -f  # Get the fully qualified domain name (FQDN)
 <li><strong>hdparm</strong>: A command-line utility that allows you to configure and manage hard drives, including setting power management options and testing drive performance.</li>
 <li><strong>gparted</strong>: A graphical partition editor that allows you to create, delete, and modify partitions on a disk using a user-friendly interface.</li>
 </ul>
+<h3 id="drive-partitioning"><a class="header" href="#drive-partitioning">Drive Partitioning</a></h3>
+<p>Partitioning a drive involves dividing it into separate sections, each of which can be managed independently. Typically all drives in 2025 and beyond should be partitioned in GPT. They require at least 2 partitions: one for EFI and another for the root filesystem. Most Linux distributions make 3 partitions: 1 for EFI, 1 for root filesystem, and 1 for home directory.</p>
+<h4 id="partition-tables"><a class="header" href="#partition-tables">Partition Tables</a></h4>
+<p>Partition tables are used to define the layout of partitions on a disk. There are two main types of partition tables:</p>
+<ul>
+<li><strong>MBR (Master Boot Record A.K.A. Dos Partition Table)</strong>: An older partitioning scheme that supports disks up to 2 TiB in size and a maximum of four primary partitions. MBR has been phased out in favor of GPT. MBR has a boot flag and the partition table is a 16 MB sector located at the start of the drive. This can NOT be used for SECURE BOOT or UEFI boots. THERE IS NO USE CASE FOR MBR in 2025 and beyond! DO NOT USE IT!</li>
+<li><strong>GPT (GUID Partition Table)</strong>: A modern partitioning scheme that supports disks larger than 2 TiB and allows for a virtually unlimited number of partitions. GPT is the recommended partitioning scheme for all new installations and is required for UEFI systems. GPT uses a protective MBR to prevent older systems from misinterpreting the disk layout. GPT has a backup partition table at the end of the drive, which provides redundancy and recovery options. Its capable of UEFI boot and Secure Boot options.</li>
+</ul>
+<p>Before creating partitions I recommend wiping the old partition table from the disk using the <code>wipefs</code> command:
+<strong>ALL DATA IS DESTROYED in this process</strong></p>
+<pre><code class="language-bash">sudo wipefs -a /dev/sdX
+</code></pre>
+<p>This command removes all filesystem signatures from the specified disk, allowing you to start with a clean slate.</p>
+<h4 id="partitioning-with-cfdisk"><a class="header" href="#partitioning-with-cfdisk">Partitioning with <code>cfdisk</code></a></h4>
+<ul>
+<li><strong>cfdisk</strong>: A command-line utility for managing disk partitions. It allows you to create, delete, and modify partitions on a disk.</li>
+</ul>
+<p>To use <code>cfdisk</code>, simply run the command with the target disk as an argument:</p>
+<pre><code class="language-bash">sudo cfdisk /dev/sdX
+</code></pre>
+<p>This will launch the <code>cfdisk</code> interface, where you can navigate using the arrow keys and make changes to the partition table.</p>
+<p><em>Note: Be cautious when modifying partitions, as incorrect changes can lead to data loss. Always ensure you have backups of important data.</em></p>
+<p>Create a <code>NEW</code> partition using <code>cfdisk</code>:</p>
+<ol>
+<li>
+<p>Use the arrow keys to navigate and select "New" to create a new partition.</p>
+</li>
+<li>
+<p>Specify a partition size (Recommend 300 MB to 1 GB for first EFI partition)</p>
+</li>
+<li>
+<p>Change Type using <code>TYPE</code> to set the partition type to "EFI System".</p>
+</li>
+</ol>
+<p>Repeat this process for the root filesystem and/or home partition. The <code>TYPE</code> will be "Linux filesystem" for both. (Note: Home partition is NOT required and by default new partitions will be created as "Linux filesystem")</p>
+<p>When finished you MUST <code>WRITE</code> the changes to the disk.</p>
+<h2 id="filesystem-management"><a class="header" href="#filesystem-management">Filesystem Management</a></h2>
+<p>Managing filesystems in Linux involves creating, formatting, and checking filesystems on drives and partitions. This section covers the essential commands and tools for filesystem management.</p>
+<h3 id="creating-filesystems"><a class="header" href="#creating-filesystems">Creating Filesystems</a></h3>
+<p><strong>WARNING: Creating a filesystem will erase and format all data on the partition. Ensure you have backups of any important data before proceeding.</strong></p>
+<p>To create a filesystem on a partition, you can use the <code>mkfs</code> command followed by the filesystem type and the device name. For example, to create an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
+<pre><code class="language-bash">sudo mkfs.ext4 /dev/sdX1
+</code></pre>
+<p>You can also specify other filesystem types, such as <code>mkfs.xfs</code> for XFS or <code>mkfs.fat -F 32</code> for FAT32 and EFI System Partitions. For example:</p>
+<pre><code class="language-bash">sudo mkfs.xfs /dev/sdX1
+sudo mkfs.fat -F 32 /dev/sdX1
+</code></pre>
+<p><em>Note: When dealing with EFI System Partitions (ESP), I recommend referring to the this docuumentation: <a href="https://wiki.archlinux.org/title/EFI_system_partition">https://wiki.archlinux.org/title/EFI_system_partition</a> for the most up-to-date information on creating and managing ESPs.</em></p>
+<h3 id="checking-filesystems"><a class="header" href="#checking-filesystems">Checking Filesystems</a></h3>
+<p>To check a filesystem for errors, you can use the <code>fsck</code> command followed by the device name. For example, to check an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
+<pre><code class="language-bash">sudo fsck.ext4 /dev/sdX1
+</code></pre>
+<p>If you want to automatically fix errors, you can use the <code>-y</code> option:</p>
+<pre><code class="language-bash">sudo fsck.ext4 -y /dev/sdX1
+</code></pre>
+<h3 id="viewing-filesystem-information"><a class="header" href="#viewing-filesystem-information">Viewing Filesystem Information</a></h3>
+<p>To view information about filesystems, you can use the <code>df</code> command, which displays disk space usage for mounted filesystems. For example:</p>
+<pre><code class="language-bash">df -h
+</code></pre>
+<p>This command shows the disk space usage in a human-readable format, including the total size, used space, available space, and mount points for each filesystem.</p>
 <h2 id="mounting-and-unmounting-drives"><a class="header" href="#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a></h2>
 <p>Mounting and unmounting drives is a common task in Linux, especially when dealing with external storage devices or network shares.</p>
 <p>Mount commands:</p>
@@ -1409,30 +1483,6 @@ You can also specify the filesystem type and mount options if needed. For exampl
 <p>If the drive is busy or in use, you may need to close any open files or processes using it before unmounting. You can also use the <code>-l</code> option to perform a lazy unmount, which detaches the filesystem but allows it to be cleaned up later:</p>
 <pre><code class="language-bash">sudo umount -l /mnt/mydrive
 </code></pre>
-<h2 id="filesystem-management"><a class="header" href="#filesystem-management">Filesystem Management</a></h2>
-<p>Managing filesystems in Linux involves creating, formatting, and checking filesystems on drives and partitions. This section covers the essential commands and tools for filesystem management.</p>
-<h3 id="creating-filesystems"><a class="header" href="#creating-filesystems">Creating Filesystems</a></h3>
-<p><strong>WARNING: Creating a filesystem will erase and format all data on the partition. Ensure you have backups of any important data before proceeding.</strong></p>
-<p>To create a filesystem on a partition, you can use the <code>mkfs</code> command followed by the filesystem type and the device name. For example, to create an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
-<pre><code class="language-bash">sudo mkfs.ext4 /dev/sdX1
-</code></pre>
-<p>You can also specify other filesystem types, such as <code>mkfs.xfs</code> for XFS or <code>mkfs.fat -F 32</code> for FAT32. For example:</p>
-<pre><code class="language-bash">sudo mkfs.xfs /dev/sdX1
-sudo mkfs.fat -F 32 /dev/sdX1
-</code></pre>
-<p><em>Note: When dealing with EFI System Partitions (ESP), I recommend referring to the this docuumentation: <a href="https://wiki.archlinux.org/title/EFI_system_partition">https://wiki.archlinux.org/title/EFI_system_partition</a> for the most up-to-date information on creating and managing ESPs.</em></p>
-<h3 id="checking-filesystems"><a class="header" href="#checking-filesystems">Checking Filesystems</a></h3>
-<p>To check a filesystem for errors, you can use the <code>fsck</code> command followed by the device name. For example, to check an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
-<pre><code class="language-bash">sudo fsck.ext4 /dev/sdX1
-</code></pre>
-<p>If you want to automatically fix errors, you can use the <code>-y</code> option:</p>
-<pre><code class="language-bash">sudo fsck.ext4 -y /dev/sdX1
-</code></pre>
-<h3 id="viewing-filesystem-information"><a class="header" href="#viewing-filesystem-information">Viewing Filesystem Information</a></h3>
-<p>To view information about filesystems, you can use the <code>df</code> command, which displays disk space usage for mounted filesystems. For example:</p>
-<pre><code class="language-bash">df -h
-</code></pre>
-<p>This command shows the disk space usage in a human-readable format, including the total size, used space, available space, and mount points for each filesystem.</p>
 <h3 id="fstab-configuration"><a class="header" href="#fstab-configuration">Fstab Configuration</a></h3>
 <p>The <code>/etc/fstab</code> file is used to define how disk partitions, network shares, and other file systems are mounted at boot time. Each line in the file represents a file system and its mount options.</p>
 <p>Fstab structure:</p>
@@ -1486,7 +1536,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 # Network Drives
 10.0.0.2:/volume2/Images		/media/images	nfs	x-systemd.after=network-online.target,x-systemd.automount,x-systemd.mount-timeout=90,_netdev 0 0
 </code></pre>
-<footer id="last-change">Last change: 2025-06-16</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-hardware-compatibility"><a class="header" href="#linux-hardware-compatibility">Linux Hardware Compatibility</a></h1>
+<footer id="last-change">Last change: 2025-08-18</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-hardware-compatibility"><a class="header" href="#linux-hardware-compatibility">Linux Hardware Compatibility</a></h1>
 <ul>
 <li><a href="chapter6-hardware.html#incompatible-hardware">Incompatible Hardware</a></li>
 <li><a href="chapter6-hardware.html#checking-compatibility">Checking Compatibility</a></li>
@@ -1498,6 +1548,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 <p>Hardware I've personally had issues with includes:</p>
 <ul>
 <li><strong>NVIDIA Graphics Cards</strong>: While NVIDIA provides proprietary drivers for Linux, they can be difficult to install and may not work with all distributions. Open-source alternatives like Nouveau exist but often lack performance and features. This is getting better with each kernel release, and nVidia open sourcing their drives, but still is a common issue. I've had issues with obscure Wayland configurations, Custom Linux Kernels, and certain desktop environments that do not play well with NVIDIA drivers. AMD graphics is still the best option for Linux users by a large margin. Keep an eye on the official NVIDIA open source drivers with the package <code>nvidia-open</code> for your distribution, as they are improving over time. Arch Linux users will be the first to see these improvements, as they are the first to implement new features. Debian and Ubuntu users typically see these improvements about 6 months later, and Fedora users about 3 months later. However, LTS releases will take longer to update.</li>
+<li><strong>Elgato devices</strong>: Most of their suite of hardware doesn't work on Linux. There are a few exceptions like the USB Elgato Capture Dongle and the Elgato Stream Deck that works with 3rd party tools from the 'Stream Controller' flatpak (Source:<a href="https://flathub.org/apps/com.core447.StreamController">https://flathub.org/apps/com.core447.StreamController</a>).</li>
 <li><strong>Broadcom Wi-Fi Adapters</strong>: Many Broadcom Wi-Fi adapters require proprietary drivers that are not included in the Linux kernel by default. This can lead to connectivity issues.</li>
 <li><strong>Certain Printers</strong>: Some printers, especially those from manufacturers like HP and Canon, may not have Linux drivers available or may require additional configuration to work correctly.</li>
 <li><strong>Fingerprint Readers</strong>: Many fingerprint readers do not have Linux support, making them unusable for authentication purposes.</li>
@@ -1520,7 +1571,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 </ul>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
-<footer id="last-change">Last change: 2025-06-18</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-programs"><a class="header" href="#linux-programs">Linux Programs</a></h1>
+<footer id="last-change">Last change: 2025-08-18</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-programs"><a class="header" href="#linux-programs">Linux Programs</a></h1>
 <p>Many windows and macOS users try to use all their favorite programs on Linux, but this is not always possible. Some programs are not available for Linux, while others may have limited functionality or require additional configuration to work correctly. This section covers some common Linux programs and alternatives to popular Windows and macOS applications.</p>
 <h2 id="common-linux-programs"><a class="header" href="#common-linux-programs">Common Linux Programs</a></h2>
 <p>Linux has a wide range of programs available for various tasks, including productivity, multimedia, development, and more. For an exhaustive list of programs built and maintained by the Linux community: <a href="https://github.com/luong-komorebi/Awesome-Linux-Software">https://github.com/luong-komorebi/Awesome-Linux-Software</a>, but here are some common Linux programs I use and recommend:</p>
@@ -1558,7 +1609,10 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 <li><strong>Krita</strong>: A digital painting program that is popular among artists and illustrators. It provides a wide range of brushes, tools, and features for creating digital art.</li>
 <li><strong>OBS Studio</strong>: An open-source software for video recording and live streaming. It is widely used by content creators and streamers on platforms like Twitch and YouTube.</li>
 <li><strong>Spotify</strong>: A music streaming service that is available on Linux. It allows you to listen to millions of songs and create playlists.</li>
-<li><strong>VLC Media Player</strong>: A versatile media player that supports a wide range of audio and video formats. It is a popular alternative to Windows Media Player and QuickTime.</li>
+<li><strong>Celluloid</strong>: A simple and elegant video player for Linux that supports a wide range of video formats. Uses GTK libraries for a GNOME style.</li>
+<li><strong>SMPlayer</strong>: A free media player for Linux with built-in codecs that can play almost all video and audio formats. Uses QT libraries for a KDE style.</li>
+<li><strong>MPV</strong>: A highly customizable media player that supports a wide range of video formats. It is known for its performance and minimalistic design. Play media direct from terminal!</li>
+<li><strong>VLC Media Player</strong>: This player sucks on Linux due to its heavy resource usage and occasional stability issues. This doesn't have feature parity with its Windows counterpart and should be avoided on Linux at all costs!</li>
 </ul>
 <h3 id="gaming-and-compatibility"><a class="header" href="#gaming-and-compatibility">Gaming and Compatibility:</a></h3>
 <ul>
@@ -1643,19 +1697,23 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
 <p>This will update Proton GE to the latest version available. Install protonup through python pip:</p>
 <pre><code class="language-bash">pip install protonup
 </code></pre>
-<footer id="last-change">Last change: 2025-07-14</footer><div style="break-before: page; page-break-before: always;"></div><h2 id="setting-up-the-perfect-linux-environment"><a class="header" href="#setting-up-the-perfect-linux-environment">Setting up the Perfect Linux Environment</a></h2>
+<footer id="last-change">Last change: 2025-08-18</footer><div style="break-before: page; page-break-before: always;"></div><h2 id="setting-up-the-linux-environment"><a class="header" href="#setting-up-the-linux-environment">Setting up the Linux Environment</a></h2>
 <ul>
 <li><a href="chapter8-environment.html#xorg-vs-wayland">Xorg vs Wayland</a></li>
 <li><a href="chapter8-environment.html#desktop-environments">Desktop Environments</a></li>
-<li><a href="chapter8-environment.html#tiling-window-managers-twm">Tiling Window Managers (TWM)</a></li>
+<li><a href="chapter8-environment.html#tiling-window-managers-twm">Tiling Window Managers (TWM)</a>
+<ul>
+<li><a href="chapter8-environment.html#wayland-window-managers">Wayland Window Managers</a></li>
+<li><a href="chapter8-environment.html#x11-window-managers">X11 Window Managers</a></li>
 </ul>
-<p>Setting up a Linux environment that suits your needs can be a rewarding experience. Whether you're a developer, a gamer, or just someone who wants a stable and efficient system, Linux offers a wide range of options. In this chapter, we'll explore how to set up the perfect Linux environment tailored to your preferences and requirements.</p>
+</li>
+</ul>
+<p>Setting up a Linux environment that suits your needs can be a rewarding experience. Whether you're a developer, a gamer, or just someone who wants a stable and efficient system, Linux offers a wide range of options. In this chapter, we'll explore how to set up the Linux environment tailored to your preferences and requirements.</p>
 <h3 id="xorg-vs-wayland"><a class="header" href="#xorg-vs-wayland">Xorg vs Wayland</a></h3>
 <p>One of the first decisions you'll need to make is whether to use Xorg or Wayland as your display server. Xorg has been the traditional choice for many years, but Wayland is gaining popularity due to its modern architecture and improved performance. Here are some considerations:</p>
 <ul>
-<li><strong>Xorg</strong>: It is widely supported and has a long history of stability. Most applications and desktop environments work seamlessly with Xorg. It is the safe choice for most, but many fear that it will be deprecated and removed in the future. Overall, it is a mature and reliable option.</li>
-<li><strong>Wayland</strong>: It offers better performance and security features, but some applications may not yet be fully compatible. If you're using a modern desktop environment like GNOME or KDE Plasma, Wayland is often the default choice. The downside is its utilities and applications are not as mature as Xorg's, which can lead to compatibility issues with some software. This is especially true for Tiling Window Managers (TWM) and some older applications that rely on X11 features.</li>
-<li><strong>Recommendation</strong>: If you're new to Linux or need maximum compatibility, stick with Xorg for now. If you're comfortable with potential compatibility issues and want to experiment with the latest features, give Wayland a try. Many distributions allow you to choose between the two at login, so you can easily switch if needed.</li>
+<li><strong>Xorg</strong>: It is widely supported and has a long history of stability. Most applications and desktop environments work seamlessly with Xorg. It is the safe choice for most, but many fear that it will be deprecated and removed in the future. Overall, it is a mature and reliable option. Downsides include 4k or high resolution support and screen tearing in some setups. Scaling can also be an issue.</li>
+<li><strong>Wayland</strong>: It offers better performance and security features, but some applications may not yet be fully compatible. If you're using a modern desktop environment like GNOME or KDE Plasma, Wayland is often the default choice. The downside is its utilities and applications are not as mature as Xorg's, which can lead to compatibility issues with some software. This is especially true for Tiling Window Managers (TWM) and some older applications that rely on X11 features. The upside is it does support scaling and higher resolutions.</li>
 </ul>
 <h3 id="desktop-environments-1"><a class="header" href="#desktop-environments-1">Desktop Environments</a></h3>
 <p>Choosing the right desktop environment (DE) is crucial for your Linux experience. A Desktop Environment provides a complete graphical user interface (GUI) for your system, including a window manager, file manager, and various utilities. Here are some popular options:</p>
@@ -1670,9 +1728,18 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
 </ul>
 <h3 id="tiling-window-managers-twm"><a class="header" href="#tiling-window-managers-twm">Tiling Window Managers (TWM)</a></h3>
 <p>If you prefer a more hands-on approach to window management, Tiling Window Managers (TWMs) might be the way to go. TWMs automatically arrange windows in a non-overlapping manner, allowing you to focus on your work without distractions. Some popular TWMs include:</p>
+<h4 id="wayland-window-managers"><a class="header" href="#wayland-window-managers">Wayland Window Managers</a></h4>
+<ul>
+<li><strong>Hyprland</strong>: A dynamic tiling window manager for Wayland, focusing on simplicity and efficiency. It uses a unique approach to window management, allowing for easy customization and scripting. Known for its sleek aesthetic and beautiful animations.</li>
+<li><strong>Sway</strong>: A Wayland-compatible TWM similar to i3. Offers the same keyboard-driven workflow as i3 but designed specifically for Wayland users.</li>
+<li><strong>DWL</strong>: This is the DWM port for Wayland. Its very basic and minimalistic, focusing on the core features of DWM without additional bloat.</li>
+<li><strong>River</strong>: A dynamic tiling window manager for Wayland, focusing on simplicity and efficiency. It uses a unique approach to window management, allowing for easy customization and scripting.</li>
+<li><strong>Wayfire</strong>: This is a floating window manager that aims to provide a visually appealing and user-friendly experience. It supports various plugins and features and a more tradition window manager.</li>
+<li><strong>Qtile</strong>: A TWM written in Python with configuration also done in Python. Appeals to users who prefer Python scripting for customization.</li>
+</ul>
+<h4 id="x11-window-managers"><a class="header" href="#x11-window-managers">X11 Window Managers</a></h4>
 <ul>
 <li><strong>i3</strong>: A highly configurable and efficient TWM with keyboard-driven window management. Lightweight and fast, ideal for power users who want full control over their desktop environment.</li>
-<li><strong>Sway</strong>: A Wayland-compatible TWM similar to i3. Offers the same keyboard-driven workflow as i3 but designed specifically for Wayland users.</li>
 <li><strong>bspwm</strong>: A binary space partitioning TWM that manages windows through unique tree-based partitioning. Configuration is handled through external tools and shell scripts.</li>
 <li><strong>Awesome</strong>: A TWM that uses Lua scripting for configuration and layout management. Supports both tiling and floating window modes with extensive customization options.</li>
 <li><strong>dwm</strong>: A dynamic TWM designed for simplicity and efficiency. Minimalist approach with configuration done through recompiling the source code.</li>
@@ -1681,8 +1748,8 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
 <li><strong>Xmonad</strong>: A TWM written and configured in Haskell. Offers a purely functional approach to window management with strong type safety.</li>
 <li><strong>Spectrwm</strong>: A minimalist TWM focused on simplicity and efficiency. Lightweight with straightforward configuration through a simple config file.</li>
 </ul>
-<p>The big difference between a Tiling Window Manager and a traditional desktop environment is that TWMs do not come with a lot of pre-installed applications or features. They are designed to be lightweight and fast, which means you will need to install your own applications and configure them to work with the TWM. This can be a bit of a learning curve for new users, but it also allows for a lot of flexibility and customization. A good example is configuring your own terminal emulator, file manager, and other essential applications to work seamlessly with the TWM of your choice.</p>
-<footer id="last-change">Last change: 2025-07-14</footer>
+<p>The big difference between a Tiling Window Manager and a traditional desktop environment is that TWMs do not come with any pre-installed applications or features. They are designed to be lightweight and fast, which means you will need to install your own applications and configure them to work with the TWM. This can be a bit of a learning curve for new users, but it also allows for a lot of flexibility and customization. A good example is configuring your own terminal emulator, file manager, and other essential applications to work seamlessly with the TWM of your choice.</p>
+<footer id="last-change">Last change: 2025-08-18</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -1723,6 +1790,7 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
             window.setTimeout(window.print, 100);
         });
         </script>
+
 
     </div>
     </body>

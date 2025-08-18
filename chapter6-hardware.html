@@ -38,6 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "latte";
             const default_dark_theme = "frappe";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -94,10 +95,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -148,7 +152,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -180,6 +189,7 @@
 <p>Hardware I've personally had issues with includes:</p>
 <ul>
 <li><strong>NVIDIA Graphics Cards</strong>: While NVIDIA provides proprietary drivers for Linux, they can be difficult to install and may not work with all distributions. Open-source alternatives like Nouveau exist but often lack performance and features. This is getting better with each kernel release, and nVidia open sourcing their drives, but still is a common issue. I've had issues with obscure Wayland configurations, Custom Linux Kernels, and certain desktop environments that do not play well with NVIDIA drivers. AMD graphics is still the best option for Linux users by a large margin. Keep an eye on the official NVIDIA open source drivers with the package <code>nvidia-open</code> for your distribution, as they are improving over time. Arch Linux users will be the first to see these improvements, as they are the first to implement new features. Debian and Ubuntu users typically see these improvements about 6 months later, and Fedora users about 3 months later. However, LTS releases will take longer to update.</li>
+<li><strong>Elgato devices</strong>: Most of their suite of hardware doesn't work on Linux. There are a few exceptions like the USB Elgato Capture Dongle and the Elgato Stream Deck that works with 3rd party tools from the 'Stream Controller' flatpak (Source:<a href="https://flathub.org/apps/com.core447.StreamController">https://flathub.org/apps/com.core447.StreamController</a>).</li>
 <li><strong>Broadcom Wi-Fi Adapters</strong>: Many Broadcom Wi-Fi adapters require proprietary drivers that are not included in the Linux kernel by default. This can lead to connectivity issues.</li>
 <li><strong>Certain Printers</strong>: Some printers, especially those from manufacturers like HP and Canon, may not have Linux drivers available or may require additional configuration to work correctly.</li>
 <li><strong>Fingerprint Readers</strong>: Many fingerprint readers do not have Linux support, making them unusable for authentication purposes.</li>
@@ -202,7 +212,7 @@
 </ul>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
-<footer id="last-change">Last change: 2025-06-18</footer>
+<footer id="last-change">Last change: 2025-08-18</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -249,6 +259,7 @@
         <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
+
 
 
     </div>

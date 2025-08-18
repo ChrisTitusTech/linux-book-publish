@@ -38,6 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "latte";
             const default_dark_theme = "frappe";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -94,10 +95,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -148,7 +152,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -206,7 +215,10 @@
 <li><strong>Krita</strong>: A digital painting program that is popular among artists and illustrators. It provides a wide range of brushes, tools, and features for creating digital art.</li>
 <li><strong>OBS Studio</strong>: An open-source software for video recording and live streaming. It is widely used by content creators and streamers on platforms like Twitch and YouTube.</li>
 <li><strong>Spotify</strong>: A music streaming service that is available on Linux. It allows you to listen to millions of songs and create playlists.</li>
-<li><strong>VLC Media Player</strong>: A versatile media player that supports a wide range of audio and video formats. It is a popular alternative to Windows Media Player and QuickTime.</li>
+<li><strong>Celluloid</strong>: A simple and elegant video player for Linux that supports a wide range of video formats. Uses GTK libraries for a GNOME style.</li>
+<li><strong>SMPlayer</strong>: A free media player for Linux with built-in codecs that can play almost all video and audio formats. Uses QT libraries for a KDE style.</li>
+<li><strong>MPV</strong>: A highly customizable media player that supports a wide range of video formats. It is known for its performance and minimalistic design. Play media direct from terminal!</li>
+<li><strong>VLC Media Player</strong>: This player sucks on Linux due to its heavy resource usage and occasional stability issues. This doesn't have feature parity with its Windows counterpart and should be avoided on Linux at all costs!</li>
 </ul>
 <h3 id="gaming-and-compatibility"><a class="header" href="#gaming-and-compatibility">Gaming and Compatibility:</a></h3>
 <ul>
@@ -291,7 +303,7 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
 <p>This will update Proton GE to the latest version available. Install protonup through python pip:</p>
 <pre><code class="language-bash">pip install protonup
 </code></pre>
-<footer id="last-change">Last change: 2025-07-14</footer>
+<footer id="last-change">Last change: 2025-08-18</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -338,6 +350,7 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
         <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
+
 
 
     </div>

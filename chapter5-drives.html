@@ -38,6 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "latte";
             const default_dark_theme = "frappe";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -94,10 +95,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -148,7 +152,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -174,12 +183,12 @@
 <ul>
 <li><a href="#common-filesystem-types">Common Filesystem Types</a></li>
 <li><a href="#drive-management-tools">Drive Management Tools</a></li>
+<li><a href="#drive-partitioning">Drive Partitioning</a>
+<ul>
+<li><a href="#partition-tables">Partition Tables</a></li>
+<li><a href="#partitioning-with-cfdisk">Partitioning with <code>cfdisk</code></a></li>
 </ul>
 </li>
-<li><a href="#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a>
-<ul>
-<li><a href="#mounting-drives">Mounting Drives</a></li>
-<li><a href="#unmounting-drives">Unmounting Drives</a></li>
 </ul>
 </li>
 <li><a href="#filesystem-management">Filesystem Management</a>
@@ -187,6 +196,12 @@
 <li><a href="#creating-filesystems">Creating Filesystems</a></li>
 <li><a href="#checking-filesystems">Checking Filesystems</a></li>
 <li><a href="#viewing-filesystem-information">Viewing Filesystem Information</a></li>
+</ul>
+</li>
+<li><a href="#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a>
+<ul>
+<li><a href="#mounting-drives">Mounting Drives</a></li>
+<li><a href="#unmounting-drives">Unmounting Drives</a></li>
 <li><a href="#fstab-configuration">Fstab Configuration</a></li>
 </ul>
 </li>
@@ -206,8 +221,7 @@
 <p>Personally, I use <code>ext4</code> for most of my drives, <code>xfs</code> for large data storage, and <code>vfat</code> for USB drives and EFI partitions. I avoid <code>btrfs</code> due to its complexity and potential issues with data integrity, although it has improved significantly in recent years. If you are interested in using <code>btrfs</code> check out this article and video I wrote about it: <a href="https://christitus.com/btrfs-guide/">https://christitus.com/btrfs-guide/</a>. The biggest advantage of <code>btrfs</code> is its ability to take snapshots, which can be useful for backups and system recovery. However, it requires more advanced knowledge to manage effectively.</p>
 <h3 id="drive-management-tools"><a class="header" href="#drive-management-tools">Drive Management Tools</a></h3>
 <ul>
-<li><strong>fdisk</strong>: A command-line utility for managing disk partitions. It allows you to create, delete, and modify partitions on a disk.</li>
-<li><strong>parted</strong>: A more advanced command-line utility for managing disk partitions, supporting larger disks and more complex partitioning schemes.</li>
+<li><strong>cfdisk</strong>: A curses-based partition table manipulator for Linux. <strong>RECOMMENDED</strong> for beginners due to its user-friendly interface.</li>
 <li><strong>lsblk</strong>: A command-line utility that lists block devices, including drives and partitions, along with their mount points and filesystem types.</li>
 <li><strong>blkid</strong>: A command-line utility that displays information about block devices, including their UUIDs and filesystem types.</li>
 <li><strong>df</strong>: A command-line utility that displays disk space usage for mounted filesystems.</li>
@@ -222,6 +236,66 @@
 <li><strong>hdparm</strong>: A command-line utility that allows you to configure and manage hard drives, including setting power management options and testing drive performance.</li>
 <li><strong>gparted</strong>: A graphical partition editor that allows you to create, delete, and modify partitions on a disk using a user-friendly interface.</li>
 </ul>
+<h3 id="drive-partitioning"><a class="header" href="#drive-partitioning">Drive Partitioning</a></h3>
+<p>Partitioning a drive involves dividing it into separate sections, each of which can be managed independently. Typically all drives in 2025 and beyond should be partitioned in GPT. They require at least 2 partitions: one for EFI and another for the root filesystem. Most Linux distributions make 3 partitions: 1 for EFI, 1 for root filesystem, and 1 for home directory.</p>
+<h4 id="partition-tables"><a class="header" href="#partition-tables">Partition Tables</a></h4>
+<p>Partition tables are used to define the layout of partitions on a disk. There are two main types of partition tables:</p>
+<ul>
+<li><strong>MBR (Master Boot Record A.K.A. Dos Partition Table)</strong>: An older partitioning scheme that supports disks up to 2 TiB in size and a maximum of four primary partitions. MBR has been phased out in favor of GPT. MBR has a boot flag and the partition table is a 16 MB sector located at the start of the drive. This can NOT be used for SECURE BOOT or UEFI boots. THERE IS NO USE CASE FOR MBR in 2025 and beyond! DO NOT USE IT!</li>
+<li><strong>GPT (GUID Partition Table)</strong>: A modern partitioning scheme that supports disks larger than 2 TiB and allows for a virtually unlimited number of partitions. GPT is the recommended partitioning scheme for all new installations and is required for UEFI systems. GPT uses a protective MBR to prevent older systems from misinterpreting the disk layout. GPT has a backup partition table at the end of the drive, which provides redundancy and recovery options. Its capable of UEFI boot and Secure Boot options.</li>
+</ul>
+<p>Before creating partitions I recommend wiping the old partition table from the disk using the <code>wipefs</code> command:
+<strong>ALL DATA IS DESTROYED in this process</strong></p>
+<pre><code class="language-bash">sudo wipefs -a /dev/sdX
+</code></pre>
+<p>This command removes all filesystem signatures from the specified disk, allowing you to start with a clean slate.</p>
+<h4 id="partitioning-with-cfdisk"><a class="header" href="#partitioning-with-cfdisk">Partitioning with <code>cfdisk</code></a></h4>
+<ul>
+<li><strong>cfdisk</strong>: A command-line utility for managing disk partitions. It allows you to create, delete, and modify partitions on a disk.</li>
+</ul>
+<p>To use <code>cfdisk</code>, simply run the command with the target disk as an argument:</p>
+<pre><code class="language-bash">sudo cfdisk /dev/sdX
+</code></pre>
+<p>This will launch the <code>cfdisk</code> interface, where you can navigate using the arrow keys and make changes to the partition table.</p>
+<p><em>Note: Be cautious when modifying partitions, as incorrect changes can lead to data loss. Always ensure you have backups of important data.</em></p>
+<p>Create a <code>NEW</code> partition using <code>cfdisk</code>:</p>
+<ol>
+<li>
+<p>Use the arrow keys to navigate and select "New" to create a new partition.</p>
+</li>
+<li>
+<p>Specify a partition size (Recommend 300 MB to 1 GB for first EFI partition)</p>
+</li>
+<li>
+<p>Change Type using <code>TYPE</code> to set the partition type to "EFI System".</p>
+</li>
+</ol>
+<p>Repeat this process for the root filesystem and/or home partition. The <code>TYPE</code> will be "Linux filesystem" for both. (Note: Home partition is NOT required and by default new partitions will be created as "Linux filesystem")</p>
+<p>When finished you MUST <code>WRITE</code> the changes to the disk.</p>
+<h2 id="filesystem-management"><a class="header" href="#filesystem-management">Filesystem Management</a></h2>
+<p>Managing filesystems in Linux involves creating, formatting, and checking filesystems on drives and partitions. This section covers the essential commands and tools for filesystem management.</p>
+<h3 id="creating-filesystems"><a class="header" href="#creating-filesystems">Creating Filesystems</a></h3>
+<p><strong>WARNING: Creating a filesystem will erase and format all data on the partition. Ensure you have backups of any important data before proceeding.</strong></p>
+<p>To create a filesystem on a partition, you can use the <code>mkfs</code> command followed by the filesystem type and the device name. For example, to create an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
+<pre><code class="language-bash">sudo mkfs.ext4 /dev/sdX1
+</code></pre>
+<p>You can also specify other filesystem types, such as <code>mkfs.xfs</code> for XFS or <code>mkfs.fat -F 32</code> for FAT32 and EFI System Partitions. For example:</p>
+<pre><code class="language-bash">sudo mkfs.xfs /dev/sdX1
+sudo mkfs.fat -F 32 /dev/sdX1
+</code></pre>
+<p><em>Note: When dealing with EFI System Partitions (ESP), I recommend referring to the this docuumentation: <a href="https://wiki.archlinux.org/title/EFI_system_partition">https://wiki.archlinux.org/title/EFI_system_partition</a> for the most up-to-date information on creating and managing ESPs.</em></p>
+<h3 id="checking-filesystems"><a class="header" href="#checking-filesystems">Checking Filesystems</a></h3>
+<p>To check a filesystem for errors, you can use the <code>fsck</code> command followed by the device name. For example, to check an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
+<pre><code class="language-bash">sudo fsck.ext4 /dev/sdX1
+</code></pre>
+<p>If you want to automatically fix errors, you can use the <code>-y</code> option:</p>
+<pre><code class="language-bash">sudo fsck.ext4 -y /dev/sdX1
+</code></pre>
+<h3 id="viewing-filesystem-information"><a class="header" href="#viewing-filesystem-information">Viewing Filesystem Information</a></h3>
+<p>To view information about filesystems, you can use the <code>df</code> command, which displays disk space usage for mounted filesystems. For example:</p>
+<pre><code class="language-bash">df -h
+</code></pre>
+<p>This command shows the disk space usage in a human-readable format, including the total size, used space, available space, and mount points for each filesystem.</p>
 <h2 id="mounting-and-unmounting-drives"><a class="header" href="#mounting-and-unmounting-drives">Mounting and Unmounting Drives</a></h2>
 <p>Mounting and unmounting drives is a common task in Linux, especially when dealing with external storage devices or network shares.</p>
 <p>Mount commands:</p>
@@ -243,30 +317,6 @@ You can also specify the filesystem type and mount options if needed. For exampl
 <p>If the drive is busy or in use, you may need to close any open files or processes using it before unmounting. You can also use the <code>-l</code> option to perform a lazy unmount, which detaches the filesystem but allows it to be cleaned up later:</p>
 <pre><code class="language-bash">sudo umount -l /mnt/mydrive
 </code></pre>
-<h2 id="filesystem-management"><a class="header" href="#filesystem-management">Filesystem Management</a></h2>
-<p>Managing filesystems in Linux involves creating, formatting, and checking filesystems on drives and partitions. This section covers the essential commands and tools for filesystem management.</p>
-<h3 id="creating-filesystems"><a class="header" href="#creating-filesystems">Creating Filesystems</a></h3>
-<p><strong>WARNING: Creating a filesystem will erase and format all data on the partition. Ensure you have backups of any important data before proceeding.</strong></p>
-<p>To create a filesystem on a partition, you can use the <code>mkfs</code> command followed by the filesystem type and the device name. For example, to create an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
-<pre><code class="language-bash">sudo mkfs.ext4 /dev/sdX1
-</code></pre>
-<p>You can also specify other filesystem types, such as <code>mkfs.xfs</code> for XFS or <code>mkfs.fat -F 32</code> for FAT32. For example:</p>
-<pre><code class="language-bash">sudo mkfs.xfs /dev/sdX1
-sudo mkfs.fat -F 32 /dev/sdX1
-</code></pre>
-<p><em>Note: When dealing with EFI System Partitions (ESP), I recommend referring to the this docuumentation: <a href="https://wiki.archlinux.org/title/EFI_system_partition">https://wiki.archlinux.org/title/EFI_system_partition</a> for the most up-to-date information on creating and managing ESPs.</em></p>
-<h3 id="checking-filesystems"><a class="header" href="#checking-filesystems">Checking Filesystems</a></h3>
-<p>To check a filesystem for errors, you can use the <code>fsck</code> command followed by the device name. For example, to check an ext4 filesystem on <code>/dev/sdX1</code>, you can use:</p>
-<pre><code class="language-bash">sudo fsck.ext4 /dev/sdX1
-</code></pre>
-<p>If you want to automatically fix errors, you can use the <code>-y</code> option:</p>
-<pre><code class="language-bash">sudo fsck.ext4 -y /dev/sdX1
-</code></pre>
-<h3 id="viewing-filesystem-information"><a class="header" href="#viewing-filesystem-information">Viewing Filesystem Information</a></h3>
-<p>To view information about filesystems, you can use the <code>df</code> command, which displays disk space usage for mounted filesystems. For example:</p>
-<pre><code class="language-bash">df -h
-</code></pre>
-<p>This command shows the disk space usage in a human-readable format, including the total size, used space, available space, and mount points for each filesystem.</p>
 <h3 id="fstab-configuration"><a class="header" href="#fstab-configuration">Fstab Configuration</a></h3>
 <p>The <code>/etc/fstab</code> file is used to define how disk partitions, network shares, and other file systems are mounted at boot time. Each line in the file represents a file system and its mount options.</p>
 <p>Fstab structure:</p>
@@ -320,7 +370,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 # Network Drives
 10.0.0.2:/volume2/Images		/media/images	nfs	x-systemd.after=network-online.target,x-systemd.automount,x-systemd.mount-timeout=90,_netdev 0 0
 </code></pre>
-<footer id="last-change">Last change: 2025-06-16</footer>
+<footer id="last-change">Last change: 2025-08-18</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -367,6 +417,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
         <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
+
 
 
     </div>

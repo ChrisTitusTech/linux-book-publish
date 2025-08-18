@@ -38,6 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "latte";
             const default_dark_theme = "frappe";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -94,10 +95,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -148,7 +152,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -168,19 +177,23 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="setting-up-the-perfect-linux-environment"><a class="header" href="#setting-up-the-perfect-linux-environment">Setting up the Perfect Linux Environment</a></h2>
+                        <h2 id="setting-up-the-linux-environment"><a class="header" href="#setting-up-the-linux-environment">Setting up the Linux Environment</a></h2>
 <ul>
 <li><a href="#xorg-vs-wayland">Xorg vs Wayland</a></li>
 <li><a href="#desktop-environments">Desktop Environments</a></li>
-<li><a href="#tiling-window-managers-twm">Tiling Window Managers (TWM)</a></li>
+<li><a href="#tiling-window-managers-twm">Tiling Window Managers (TWM)</a>
+<ul>
+<li><a href="#wayland-window-managers">Wayland Window Managers</a></li>
+<li><a href="#x11-window-managers">X11 Window Managers</a></li>
 </ul>
-<p>Setting up a Linux environment that suits your needs can be a rewarding experience. Whether you're a developer, a gamer, or just someone who wants a stable and efficient system, Linux offers a wide range of options. In this chapter, we'll explore how to set up the perfect Linux environment tailored to your preferences and requirements.</p>
+</li>
+</ul>
+<p>Setting up a Linux environment that suits your needs can be a rewarding experience. Whether you're a developer, a gamer, or just someone who wants a stable and efficient system, Linux offers a wide range of options. In this chapter, we'll explore how to set up the Linux environment tailored to your preferences and requirements.</p>
 <h3 id="xorg-vs-wayland"><a class="header" href="#xorg-vs-wayland">Xorg vs Wayland</a></h3>
 <p>One of the first decisions you'll need to make is whether to use Xorg or Wayland as your display server. Xorg has been the traditional choice for many years, but Wayland is gaining popularity due to its modern architecture and improved performance. Here are some considerations:</p>
 <ul>
-<li><strong>Xorg</strong>: It is widely supported and has a long history of stability. Most applications and desktop environments work seamlessly with Xorg. It is the safe choice for most, but many fear that it will be deprecated and removed in the future. Overall, it is a mature and reliable option.</li>
-<li><strong>Wayland</strong>: It offers better performance and security features, but some applications may not yet be fully compatible. If you're using a modern desktop environment like GNOME or KDE Plasma, Wayland is often the default choice. The downside is its utilities and applications are not as mature as Xorg's, which can lead to compatibility issues with some software. This is especially true for Tiling Window Managers (TWM) and some older applications that rely on X11 features.</li>
-<li><strong>Recommendation</strong>: If you're new to Linux or need maximum compatibility, stick with Xorg for now. If you're comfortable with potential compatibility issues and want to experiment with the latest features, give Wayland a try. Many distributions allow you to choose between the two at login, so you can easily switch if needed.</li>
+<li><strong>Xorg</strong>: It is widely supported and has a long history of stability. Most applications and desktop environments work seamlessly with Xorg. It is the safe choice for most, but many fear that it will be deprecated and removed in the future. Overall, it is a mature and reliable option. Downsides include 4k or high resolution support and screen tearing in some setups. Scaling can also be an issue.</li>
+<li><strong>Wayland</strong>: It offers better performance and security features, but some applications may not yet be fully compatible. If you're using a modern desktop environment like GNOME or KDE Plasma, Wayland is often the default choice. The downside is its utilities and applications are not as mature as Xorg's, which can lead to compatibility issues with some software. This is especially true for Tiling Window Managers (TWM) and some older applications that rely on X11 features. The upside is it does support scaling and higher resolutions.</li>
 </ul>
 <h3 id="desktop-environments"><a class="header" href="#desktop-environments">Desktop Environments</a></h3>
 <p>Choosing the right desktop environment (DE) is crucial for your Linux experience. A Desktop Environment provides a complete graphical user interface (GUI) for your system, including a window manager, file manager, and various utilities. Here are some popular options:</p>
@@ -195,9 +208,18 @@
 </ul>
 <h3 id="tiling-window-managers-twm"><a class="header" href="#tiling-window-managers-twm">Tiling Window Managers (TWM)</a></h3>
 <p>If you prefer a more hands-on approach to window management, Tiling Window Managers (TWMs) might be the way to go. TWMs automatically arrange windows in a non-overlapping manner, allowing you to focus on your work without distractions. Some popular TWMs include:</p>
+<h4 id="wayland-window-managers"><a class="header" href="#wayland-window-managers">Wayland Window Managers</a></h4>
+<ul>
+<li><strong>Hyprland</strong>: A dynamic tiling window manager for Wayland, focusing on simplicity and efficiency. It uses a unique approach to window management, allowing for easy customization and scripting. Known for its sleek aesthetic and beautiful animations.</li>
+<li><strong>Sway</strong>: A Wayland-compatible TWM similar to i3. Offers the same keyboard-driven workflow as i3 but designed specifically for Wayland users.</li>
+<li><strong>DWL</strong>: This is the DWM port for Wayland. Its very basic and minimalistic, focusing on the core features of DWM without additional bloat.</li>
+<li><strong>River</strong>: A dynamic tiling window manager for Wayland, focusing on simplicity and efficiency. It uses a unique approach to window management, allowing for easy customization and scripting.</li>
+<li><strong>Wayfire</strong>: This is a floating window manager that aims to provide a visually appealing and user-friendly experience. It supports various plugins and features and a more tradition window manager.</li>
+<li><strong>Qtile</strong>: A TWM written in Python with configuration also done in Python. Appeals to users who prefer Python scripting for customization.</li>
+</ul>
+<h4 id="x11-window-managers"><a class="header" href="#x11-window-managers">X11 Window Managers</a></h4>
 <ul>
 <li><strong>i3</strong>: A highly configurable and efficient TWM with keyboard-driven window management. Lightweight and fast, ideal for power users who want full control over their desktop environment.</li>
-<li><strong>Sway</strong>: A Wayland-compatible TWM similar to i3. Offers the same keyboard-driven workflow as i3 but designed specifically for Wayland users.</li>
 <li><strong>bspwm</strong>: A binary space partitioning TWM that manages windows through unique tree-based partitioning. Configuration is handled through external tools and shell scripts.</li>
 <li><strong>Awesome</strong>: A TWM that uses Lua scripting for configuration and layout management. Supports both tiling and floating window modes with extensive customization options.</li>
 <li><strong>dwm</strong>: A dynamic TWM designed for simplicity and efficiency. Minimalist approach with configuration done through recompiling the source code.</li>
@@ -206,8 +228,8 @@
 <li><strong>Xmonad</strong>: A TWM written and configured in Haskell. Offers a purely functional approach to window management with strong type safety.</li>
 <li><strong>Spectrwm</strong>: A minimalist TWM focused on simplicity and efficiency. Lightweight with straightforward configuration through a simple config file.</li>
 </ul>
-<p>The big difference between a Tiling Window Manager and a traditional desktop environment is that TWMs do not come with a lot of pre-installed applications or features. They are designed to be lightweight and fast, which means you will need to install your own applications and configure them to work with the TWM. This can be a bit of a learning curve for new users, but it also allows for a lot of flexibility and customization. A good example is configuring your own terminal emulator, file manager, and other essential applications to work seamlessly with the TWM of your choice.</p>
-<footer id="last-change">Last change: 2025-07-14</footer>
+<p>The big difference between a Tiling Window Manager and a traditional desktop environment is that TWMs do not come with any pre-installed applications or features. They are designed to be lightweight and fast, which means you will need to install your own applications and configure them to work with the TWM. This can be a bit of a learning curve for new users, but it also allows for a lot of flexibility and customization. A good example is configuring your own terminal emulator, file manager, and other essential applications to work seamlessly with the TWM of your choice.</p>
+<footer id="last-change">Last change: 2025-08-18</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -248,6 +270,7 @@
         <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
+
 
 
     </div>
