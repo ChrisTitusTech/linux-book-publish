@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Chapter 4: The Terminal - The Linux Desktop Guide</title>
+        <title>4.1: System Services and Configuration - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -177,171 +177,83 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="server-command-line-interface-mastering-the-terminal"><a class="header" href="#server-command-line-interface-mastering-the-terminal">Server Command Line Interface: Mastering the Terminal</a></h1>
-<ul>
-<li><a href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a>
-<ul>
-<li><a href="#types-of-terminals">Types of Terminals</a>
-<ul>
-<li><a href="#recommended-gui-terminals">Recommended GUI Terminals:</a></li>
-</ul>
-</li>
-<li><a href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></li>
-<li><a href="#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></li>
-</ul>
-</li>
-</ul>
-<p>This chapter covers the most important aspect of Linux: <strong>the terminal</strong>. The terminal is the beating heart of Linux, enabling you to accomplish virtually anything. For the first eight years I used Linux, I relied exclusively on the terminal, never even considering a graphical interface. The terminal is reliable, quick, and efficient, making it an indispensable tool for Linux users.</p>
-<p><strong>Pro Tip:</strong> The terminal is always accessible. If you're stuck on a black screen or graphical interface, press <code>Ctrl + Alt + F2</code> or <code>Ctrl + Alt + F3</code> to switch to a terminal. To return to the graphical interface, press <code>Ctrl + Alt + F7</code>.</p>
+                        <h2 id="system-services-and-configuration"><a class="header" href="#system-services-and-configuration">System Services and Configuration</a></h2>
+<p>Modern Linux distributions use an "init system" to control system operations, primarily <strong>systemd</strong>. Systemd manages services, boot processes, networking, and more.</p>
 <hr />
-<h2 id="navigating-the-command-line-interface"><a class="header" href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a></h2>
-<p>Videos: How to Make Bash Terminal look and feel GREAT! <a href="https://links.thelinuxbook.com/prettybash">https://links.thelinuxbook.com/prettybash</a></p>
-<h3 id="types-of-terminals"><a class="header" href="#types-of-terminals">Types of Terminals</a></h3>
+<h3 id="controlling-services-and-units"><a class="header" href="#controlling-services-and-units">Controlling Services and Units</a></h3>
+<p><code>systemctl</code> is the primary tool for managing services and units in systemd. Units can represent services, device drivers, network mounts, timers (similar to <code>crontab</code>), and more.</p>
+<h4 id="common-systemctl-commands"><a class="header" href="#common-systemctl-commands">Common <code>systemctl</code> Commands:</a></h4>
 <ul>
-<li><strong>TTY</strong>: A terminal connected to a physical device, such as a keyboard and monitor</li>
-<li><strong>GUI Terminal</strong>: A terminal emulator that provides a graphical interface for command-line operations, such as GNOME Terminal, Konsole, or xterm</li>
-</ul>
-<p>TTY is used for direct interaction with the system, while GUI terminals provide a more user-friendly experience with features like tabs, copy-paste, and customizable appearance. TTY is often used for system recovery or when the graphical interface is unavailable or malfunctioning.</p>
-<p>To access a TTY terminal, you can use the following key combinations:</p>
-<ul>
-<li><code>Ctrl + Alt + F1</code> to <code>Ctrl + Alt + F6</code>: Switch to different TTY terminals (TTY1 to TTY6)</li>
-<li><code>Ctrl + Alt + F7</code>: Return to the graphical interface (usually TTY7)</li>
-</ul>
-<p>GUI Terminals are typically launched from the applications menu or by pressing <code>Ctrl + Alt + T</code> in most desktop environments or hotkey like <code>Super + Enter</code> in many Tiled Window Managers (TWM).</p>
-<h4 id="recommended-gui-terminals"><a class="header" href="#recommended-gui-terminals">Recommended GUI Terminals:</a></h4>
-<ul>
-<li><strong>GNOME Terminal</strong>: Default terminal for GNOME desktop environments, supports tabs and profiles</li>
-<li><strong>Konsole</strong>: Default terminal for KDE Plasma, highly customizable with split views and profiles</li>
-<li><strong>Alacritty</strong>: A fast, GPU-accelerated terminal emulator with a focus on performance and simplicity</li>
-<li><strong>Kitty</strong>: A feature-rich terminal emulator with support for graphics</li>
-<li><strong>Terminator</strong>: Allows multiple terminal windows in a single window, with customizable layouts</li>
-</ul>
-<h3 id="directory-movement-commands-and-examples"><a class="header" href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></h3>
-<ul>
-<li><code>cd</code> (change directory):
-<ul>
-<li><code>cd ..</code> (move up a directory)</li>
-<li><code>cd name</code> (move into the specified directory)</li>
-<li><code>cd /</code> (move to the root directory)</li>
-<li><code>cd ~</code> (move to the home directory, e.g., <code>/home/titus</code>)</li>
-<li><code>zoxide</code> - A better package for navigating the file system, using fuzzy finding and remembering past directories.
-_Note: <code>zoxide</code> is a third-party tool that can be installed via your package manager. Watch the video I did on Zoxide: <a href="https://links.thelinuxbook.com/zoxide">https://links.thelinuxbook.com/zoxide</a></li>
-</ul>
-</li>
-<li><code>ls</code> (list files):
-<ul>
-<li><code>ls -a</code> (show all files, including hidden ones)</li>
-<li><code>ls -l</code> (long listing format showing permissions)</li>
-</ul>
-</li>
-<li><code>rm</code> (remove files):
-<ul>
-<li><code>rm -rf</code> (remove files/directories recursively and forcefully)</li>
-<li><code>rmdir</code> (remove empty directories)</li>
-<li><code>trash-cli</code> - An alternative to <code>rm</code> that moves files to the trash instead of permanently deleting them.</li>
-</ul>
-</li>
-<li><code>cp</code> (copy files):
-<ul>
-<li><code>cp -r</code> (copy files and subdirectories recursively)</li>
-<li><code>rsync</code> - A more efficient tool for copying or syncing large amounts of files.</li>
-</ul>
-</li>
-<li><code>mv</code> (move files):
-<ul>
-<li><code>mv file1.txt file2.txt</code> (rename or move files)</li>
-<li><code>mv /path/to/file /new/path/</code> (move a file to a new location)</li>
-</ul>
-</li>
-<li><code>pwd</code> (print working directory):
-<ul>
-<li>Displays the current directory path.</li>
-</ul>
-</li>
-<li><code>find</code> (search for files):
-<ul>
-<li><code>find /path/to/search -name "filename"</code> (search for a file by name)</li>
-<li><code>find /path/to/search -type d -name "dirname"</code> (search for a directory by name)</li>
-<li><code>fd</code> - A faster alternative to <code>find</code> with a simpler syntax.</li>
-</ul>
-</li>
-<li><code>locate</code> (find files by name):
-<ul>
-<li><code>locate filename</code> (find files by name using a pre-built index)</li>
-<li><code>updatedb</code> (update the locate database, usually run automatically by the system)</li>
-</ul>
-</li>
-<li><code>tree</code> (display directory structure):
-<ul>
-<li><code>tree</code> (display the directory structure in a tree-like format)</li>
-<li><code>tree -L 2</code> (limit the depth of the tree display to 2 levels)</li>
-</ul>
-</li>
-<li><code>ln</code> (create links):
-<ul>
-<li><code>ln -s /path/to/original /path/to/link</code> (create a symbolic link)</li>
-<li><code>ln /path/to/original /path/to/link</code> (create a hard link)</li>
-</ul>
-</li>
-<li><code>chmod</code> (change file permissions):
-<ul>
-<li><code>chmod 755 file</code> (set permissions to read, write, and execute for owner, and read and execute for group and others)</li>
-<li><code>chmod +x script.sh</code> (make a script executable)</li>
-</ul>
-</li>
-<li><code>chown</code> (change file ownership):
-<ul>
-<li><code>chown user:group file</code> (change ownership of a file to a specific user and group)</li>
-<li><code>chown -R user:group /path/to/directory</code> (change ownership recursively for a directory)</li>
-</ul>
-</li>
-<li><code>stat</code> (display file or filesystem status):
-<ul>
-<li><code>stat file</code> (show detailed information about a file, including size, permissions, and timestamps)</li>
-<li><code>stat /path/to/directory</code> (show information about a directory)</li>
-</ul>
-</li>
-<li><code>du</code> (disk usage):
-<ul>
-<li><code>du -h</code> (display disk usage in human-readable format)</li>
-<li><code>du -sh /path/to/directory</code> (show total size of a directory)</li>
-</ul>
-</li>
-<li><code>df</code> (disk space usage):
-<ul>
-<li><code>df -h</code> (display disk space usage in human-readable format)</li>
-<li><code>df -i</code> (show inode usage instead of disk space)</li>
-</ul>
-</li>
+<li><code>systemctl status servicename</code> - View the current status of a service.</li>
+<li><code>systemctl start servicename</code> - Start a service.</li>
+<li><code>systemctl stop servicename</code> - Stop a service.</li>
+<li><code>systemctl restart servicename</code> - Restart a service (stop and start).</li>
+<li><code>systemctl reload servicename</code> - Reload the configuration file without restarting the service.</li>
+<li><code>systemctl enable servicename</code> - Enable a service to start at system boot.</li>
+<li><code>systemctl is-enabled servicename</code> - Check if a service is enabled at startup.</li>
+<li><code>systemctl is-active servicename</code> - Check if a service is running and active.</li>
+<li><code>systemctl list-units</code> - List all running systemd units.</li>
+<li><code>systemctl list-units --all</code> - List all units, both active and inactive.</li>
+<li><code>systemctl list-units --all --state=inactive</code> - List all inactive units.</li>
+<li><code>systemctl list-units --all --type=service</code> - List all units of type "service."</li>
 </ul>
 <hr />
-<h3 id="directory-layout-and-file-system-overview"><a class="header" href="#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></h3>
+<h3 id="unit-file-locations"><a class="header" href="#unit-file-locations">Unit File Locations</a></h3>
+<p>Systemd unit files are typically located in the following directories:</p>
 <ul>
-<li><code>/</code> - Root directory</li>
-<li><code>/bin</code> - System executable files</li>
-<li><code>/boot</code> - Bootloader files</li>
-<li><code>/dev</code> - Device files (requires mounting to browse)</li>
-<li><code>/etc</code> - System configuration files</li>
-<li><code>/home</code> - User files and configuration files</li>
-<li><code>/media</code> - Mounted external media</li>
-<li><code>/mnt</code> - Temporary mount points</li>
-<li><code>/opt</code> - Optional files</li>
-<li><code>/root</code> - Root user files and configurations</li>
-<li><code>/tmp</code> - Temporary files</li>
-<li><code>/usr</code> - System resources</li>
-<li><code>/var</code> - Logs, databases, and other variable data</li>
+<li><code>/usr/lib/systemd</code> - The main location for system-created unit files.</li>
+<li><code>/etc/systemd/system</code> - Contains system-wide unit files, often symbolic links to <code>/usr/lib/systemd</code>. This directory has <strong>top priority</strong> when reading unit files.</li>
+<li><code>~/.config/systemd/user/</code> - Contains user-specific unit files. This directory is not created by default and requires the <code>--user</code> option for systemctl commands.</li>
 </ul>
-<p>Most interactions with the file system occur within the <code>/home/user</code> directory. This includes configuration files and executable programs. Direct editing of system-wide configuration files in <code>/etc</code> or adding programs to <code>/bin</code> should be done sparingly.</p>
+<hr />
+<h3 id="example-system-unit-file"><a class="header" href="#example-system-unit-file">Example System Unit File</a></h3>
+<p>Below is an example of a system unit file:</p>
+<pre><code>[Unit]
+Description=service_description
+After=network.target
+
+[Service]
+ExecStart=path_to_executable
+Type=forking
+
+[Install]
+WantedBy=default.target
+</code></pre>
+<p>For a full reference, Systemd Unit Documentation <a href="https://links.thelinuxbook.com/systemd">https://links.thelinuxbook.com/systemd</a>.</p>
+<hr />
+<h3 id="user-based-systemd-services-and-unit-files"><a class="header" href="#user-based-systemd-services-and-unit-files">User-Based Systemd Services and Unit Files</a></h3>
+<p>User-specific unit files are stored in the <code>~/.config/systemd/user/</code> directory. These files can be managed using the <code>--user</code> option with <code>systemctl</code>.</p>
+<h4 id="example-command"><a class="header" href="#example-command">Example Command:</a></h4>
+<pre><code class="language-bash">systemctl --user start usercreatedfile.service
+</code></pre>
+<p>This command starts a user-created service file located in the user's home directory.</p>
+<h4 id="example-user-unit-file"><a class="header" href="#example-user-unit-file">Example User Unit File:</a></h4>
+<pre><code>[Unit]
+Description=Run service as user
+DefaultDependencies=no
+After=network.target
+
+[Service]
+Type=simple
+User=titus
+Group=users
+ExecStart=/home/titus/scripts/startup_script.sh
+TimeoutStartSec=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
+</code></pre>
 <footer id="last-change">Last change: 2025-09-12</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter3-bootloaders.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter4-servercli.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4.1-systemd.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter4.2-networking.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -351,11 +263,11 @@ _Note: <code>zoxide</code> is a third-party tool that can be installed via your 
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter3-bootloaders.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter4-servercli.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4.1-systemd.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter4.2-networking.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

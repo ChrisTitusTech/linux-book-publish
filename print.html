@@ -66,7 +66,7 @@
                 }
             });
         </script>
-    <div style="display: none"><a href="#foreward">foreward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a><a href="#chapter5-drives">chapter5-drives</a><a href="#chapter6-hardware">chapter6-hardware</a><a href="#chapter7-linuxprograms">chapter7-linuxprograms</a><a href="#chapter8-environment">chapter8-environment</a></div>
+    <div style="display: none"><a href="#foreward">foreward</a><a href="#chapter1-whylinux">chapter1-whylinux</a><a href="#chapter2-linuxmadeof">chapter2-linuxmadeof</a><a href="#chapter3-bootloaders">chapter3-bootloaders</a><a href="#chapter4-servercli">chapter4-servercli</a><a href="#chapter4.1-systemd">chapter4.1-systemd</a><a href="#chapter4.2-networking">chapter4.2-networking</a><a href="#chapter4.3-bluetooth">chapter4.3-bluetooth</a><a href="#chapter4.4-audio">chapter4.4-audio</a><a href="#chapter4.5-remoteaccess">chapter4.5-remoteaccess</a><a href="#chapter4.6-webservers">chapter4.6-webservers</a><a href="#chapter5-drives">chapter5-drives</a><a href="#chapter6-hardware">chapter6-hardware</a><a href="#chapter7-linuxprograms">chapter7-linuxprograms</a><a href="#chapter8-environment">chapter8-environment</a></div>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
     </head>
@@ -617,56 +617,6 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
 <li><a href="chapter4-servercli.html#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></li>
 </ul>
 </li>
-<li><a href="chapter4-servercli.html#system-services-and-configuration">System Services and Configuration</a>
-<ul>
-<li><a href="chapter4-servercli.html#controlling-services-and-units">Controlling Services and Units</a>
-<ul>
-<li><a href="chapter4-servercli.html#common-systemctl-commands">Common <code>systemctl</code> Commands:</a></li>
-</ul>
-</li>
-<li><a href="chapter4-servercli.html#unit-file-locations">Unit File Locations</a></li>
-<li><a href="chapter4-servercli.html#example-system-unit-file">Example System Unit File</a></li>
-<li><a href="chapter4-servercli.html#user-based-systemd-services-and-unit-files">User-Based Systemd Services and Unit Files</a>
-<ul>
-<li><a href="chapter4-servercli.html#example-command">Example Command:</a></li>
-<li><a href="chapter4-servercli.html#example-user-unit-file">Example User Unit File:</a></li>
-</ul>
-</li>
-<li><a href="chapter4-servercli.html#bluetooth-configuration">Bluetooth Configuration</a>
-<ul>
-<li><a href="chapter4-servercli.html#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></li>
-<li><a href="chapter4-servercli.html#example-usage">Example Usage:</a></li>
-</ul>
-</li>
-<li><a href="chapter4-servercli.html#audio-configuration">Audio Configuration</a>
-<ul>
-<li><a href="chapter4-servercli.html#pulseaudio-commands-pactl">PulseAudio Commands (<code>pactl</code>)</a></li>
-<li><a href="chapter4-servercli.html#alsa-mixer-alsamixer">ALSA Mixer (<code>alsamixer</code>)</a></li>
-<li><a href="chapter4-servercli.html#common-audio-troubleshooting-commands">Common Audio Troubleshooting Commands</a></li>
-<li><a href="chapter4-servercli.html#audio-device-management-with-pavucontrol">Audio Device Management with <code>pavucontrol</code></a></li>
-<li><a href="chapter4-servercli.html#pipewire-audio-system">Pipewire Audio System</a></li>
-</ul>
-</li>
-<li><a href="chapter4-servercli.html#remote-access-and-ssh">Remote Access and SSH</a>
-<ul>
-<li><a href="chapter4-servercli.html#setting-up-ssh">Setting Up SSH</a></li>
-<li><a href="chapter4-servercli.html#connecting-to-a-remote-server">Connecting to a Remote Server</a></li>
-<li><a href="chapter4-servercli.html#common-ssh-options">Common SSH Options</a></li>
-<li><a href="chapter4-servercli.html#ssh-configuration-file">SSH Configuration File</a></li>
-<li><a href="chapter4-servercli.html#remote-file-transfer-with-scp-and-sftp">Remote File Transfer with SCP and SFTP</a></li>
-<li><a href="chapter4-servercli.html#remote-desktop-access">Remote Desktop Access</a></li>
-</ul>
-</li>
-<li><a href="chapter4-servercli.html#lamp-stack-linux-apache-mysql-php-website-setup">LAMP Stack (Linux, Apache, MySQL, PHP) Website Setup</a>
-<ul>
-<li><a href="chapter4-servercli.html#installing-the-lamp-stack">Installing the LAMP Stack</a></li>
-<li><a href="chapter4-servercli.html#testing-the-lamp-stack">Testing the LAMP Stack</a></li>
-</ul>
-</li>
-<li><a href="chapter4-servercli.html#finding-ip-address-and-hostname">Finding IP Address and Hostname</a></li>
-<li><a href="chapter4-servercli.html#find-hostname">Find hostname</a></li>
-</ul>
-</li>
 </ul>
 <p>This chapter covers the most important aspect of Linux: <strong>the terminal</strong>. The terminal is the beating heart of Linux, enabling you to accomplish virtually anything. For the first eight years I used Linux, I relied exclusively on the terminal, never even considering a graphical interface. The terminal is reliable, quick, and efficient, making it an indispensable tool for Linux users.</p>
 <p><strong>Pro Tip:</strong> The terminal is always accessible. If you're stuck on a black screen or graphical interface, press <code>Ctrl + Alt + F2</code> or <code>Ctrl + Alt + F3</code> to switch to a terminal. To return to the graphical interface, press <code>Ctrl + Alt + F7</code>.</p>
@@ -809,8 +759,7 @@ _Note: <code>zoxide</code> is a third-party tool that can be installed via your 
 <li><code>/var</code> - Logs, databases, and other variable data</li>
 </ul>
 <p>Most interactions with the file system occur within the <code>/home/user</code> directory. This includes configuration files and executable programs. Direct editing of system-wide configuration files in <code>/etc</code> or adding programs to <code>/bin</code> should be done sparingly.</p>
-<hr />
-<h2 id="system-services-and-configuration"><a class="header" href="#system-services-and-configuration">System Services and Configuration</a></h2>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h2 id="system-services-and-configuration"><a class="header" href="#system-services-and-configuration">System Services and Configuration</a></h2>
 <p>Modern Linux distributions use an "init system" to control system operations, primarily <strong>systemd</strong>. Systemd manages services, boot processes, networking, and more.</p>
 <hr />
 <h3 id="controlling-services-and-units"><a class="header" href="#controlling-services-and-units">Controlling Services and Units</a></h3>
@@ -877,12 +826,67 @@ RemainAfterExit=yes
 [Install]
 WantedBy=default.target
 </code></pre>
-<h3 id="bluetooth-configuration"><a class="header" href="#bluetooth-configuration">Bluetooth Configuration</a></h3>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h2 id="networking"><a class="header" href="#networking">Networking</a></h2>
+<p>Networkmanager is the default in most Linux distros. Systemd has built in networking functions, but they are terrible to configure. This is why everyone uses networkmanager package for Networking in Linux. It has two absolutely amazing tools <code>nmcli</code> and <code>nmtui</code>.</p>
+<ul>
+<li><code>nmcli</code> is a command line tool that allows you to manage your network connections. You can use it to connect to Wi-Fi networks, configure Ethernet connections, and manage VPNs.</li>
+<li><code>nmtui</code> is a text-based user interface that allows you to manage your network connections. It is a bit easier to use than <code>nmcli</code>, but it is not as powerful.</li>
+</ul>
+<h3 id="dhcp"><a class="header" href="#dhcp">DHCP</a></h3>
+<p>DHCP Client to automatically get IP address and other network configuration settings from a DHCP server. Most Linux distributions come with a DHCP client pre-installed, so you don't need to install anything extra. To use DHCP, simply configure your network interface to use DHCP in the network settings. However, there are several DHCP clients available for Linux, including:</p>
+<ul>
+<li><code>dhclient</code>: This is the most common DHCP client and is included in most Linux distributions. Its rather slow, but it works.</li>
+<li><code>dhcpcd</code>: This is a lightweight DHCP client that is full featured with many options. Its fast and works well.</li>
+<li><code>systemd-networkd</code>: This is a systemd component that can be used to manage network interfaces and DHCP. Its fast and works well, but its also very difficult to configure.</li>
+<li>NetworkManager internal DHCP client: This is the DHCP client that is built into NetworkManager. Its fast and works well, but simpler than dhcpcd.</li>
+</ul>
+<h3 id="static-ip-configuration"><a class="header" href="#static-ip-configuration">Static IP Configuration</a></h3>
+<p>To configure a static IP address on a Linux system, you can use the <code>nmcli</code> or <code>nmtui</code> tools provided by NetworkManager. Here are the steps to configure a static IP address using <code>nmcli</code>:</p>
+<ol>
+<li>Open a terminal.</li>
+<li>List your network interfaces to identify the one you want to configure:
+<pre><code class="language-bash">nmcli device status
+</code></pre>
+</li>
+<li>Use the following command to set a static IP address, replacing <code>eth0</code> with your interface name, and <code>&lt;IP_ADDRESS&gt;</code> with the desired static IP address:
+<pre><code class="language-bash">nmcli con mod eth0 ipv4.addresses &lt;IP_ADDRESS&gt;/24
+nmcli con mod eth0 ipv4.gateway &lt;GATEWAY_IP&gt;
+nmcli con mod eth0 ipv4.dns &lt;DNS_IP&gt;
+nmcli con mod eth0 ipv4.method manual
+</code></pre>
+</li>
+<li>Finally, restart the network connection to apply the changes:
+<pre><code class="language-bash">nmcli con down eth0 &amp;&amp; nmcli con up eth0
+</code></pre>
+</li>
+<li>For persistent configuration through reboots, ensure that the connection profile is set to autoconnect:
+<pre><code class="language-bash">nmcli con mod eth0 connection.autoconnect yes
+</code></pre>
+</li>
+</ol>
+<h3 id="dns-configuration"><a class="header" href="#dns-configuration">DNS Configuration</a></h3>
+<p>DNS (Domain Name System) is used to resolve domain names to IP addresses. By default, most Linux distributions use <code>systemd-resolved</code> for DNS resolution. You can configure DNS settings using <code>nmcli</code> or <code>nmtui</code>. Here are the steps to configure DNS settings using <code>nmcli</code>:</p>
+<ol>
+<li>Open a terminal.</li>
+<li>List your network connections to identify the one you want to configure:
+<pre><code class="language-bash">nmcli con show
+</code></pre>
+</li>
+<li>Use the following command to set the DNS server, replacing <code>eth0</code> with your connection name, and <code>&lt;DNS_IP&gt;</code> with the desired DNS server IP address:
+<pre><code class="language-bash">nmcli con mod eth0 ipv4.dns &lt;DNS_IP&gt;
+</code></pre>
+</li>
+<li>Restart the network connection to apply the changes:
+<pre><code class="language-bash">nmcli con down eth0 &amp;&amp; nmcli con up eth0
+</code></pre>
+</li>
+</ol>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h2 id="bluetooth-configuration"><a class="header" href="#bluetooth-configuration">Bluetooth Configuration</a></h2>
 <p>To configure Bluetooth, you can use the <code>bluetoothctl</code> command-line tool. This tool allows you to manage Bluetooth devices and settings directly from the terminal.</p>
 <p>Syntax for <code>bluetoothctl</code> commands:</p>
 <pre><code class="language-bash">bluetoothctl [command]
 </code></pre>
-<h4 id="common-bluetoothctl-commands"><a class="header" href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></h4>
+<h3 id="common-bluetoothctl-commands"><a class="header" href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></h3>
 <ul>
 <li><code>power on</code> - Turn on the Bluetooth adapter.</li>
 <li><code>power off</code> - Turn off the Bluetooth adapter.</li>
@@ -903,9 +907,9 @@ scan on
 </code></pre>
 <p>This will turn on the Bluetooth adapter, enable the agent for pairing, and start scanning for nearby Bluetooth devices.</p>
 <p><em>Note: <code>blueman</code> is a graphical Bluetooth manager that can be used as an alternative to <code>bluetoothctl</code> for those who prefer a GUI.</em></p>
-<h3 id="audio-configuration"><a class="header" href="#audio-configuration">Audio Configuration</a></h3>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h2 id="audio-configuration"><a class="header" href="#audio-configuration">Audio Configuration</a></h2>
 <p>Linux provides several command-line tools for managing audio. The two main sound systems are ALSA (Advanced Linux Sound Architecture) and PulseAudio, with PulseAudio running on top of ALSA.</p>
-<h4 id="pulseaudio-commands-pactl"><a class="header" href="#pulseaudio-commands-pactl">PulseAudio Commands (<code>pactl</code>)</a></h4>
+<h3 id="pulseaudio-commands-pactl"><a class="header" href="#pulseaudio-commands-pactl">PulseAudio Commands (<code>pactl</code>)</a></h3>
 <p>The <code>pactl</code> command is used to control the PulseAudio sound server:</p>
 <pre><code class="language-bash"># List audio sources and sinks
 pactl list sources        # List input devices
@@ -918,7 +922,7 @@ pactl set-sink-mute @DEFAULT_SINK@ toggle    # Toggle mute
 # List loaded modules
 pactl list modules
 </code></pre>
-<h4 id="alsa-mixer-alsamixer"><a class="header" href="#alsa-mixer-alsamixer">ALSA Mixer (<code>alsamixer</code>)</a></h4>
+<h3 id="alsa-mixer-alsamixer"><a class="header" href="#alsa-mixer-alsamixer">ALSA Mixer (<code>alsamixer</code>)</a></h3>
 <p><code>alsamixer</code> is a terminal-based mixer program for ALSA:</p>
 <pre><code class="language-bash">alsamixer    # Open the mixer interface
 </code></pre>
@@ -930,7 +934,7 @@ pactl list modules
 <li>F6: Select sound card</li>
 <li>Esc: Exit</li>
 </ul>
-<h4 id="common-audio-troubleshooting-commands"><a class="header" href="#common-audio-troubleshooting-commands">Common Audio Troubleshooting Commands</a></h4>
+<h3 id="common-audio-troubleshooting-commands"><a class="header" href="#common-audio-troubleshooting-commands">Common Audio Troubleshooting Commands</a></h3>
 <pre><code class="language-bash"># Restart PulseAudio
 pulseaudio -k        # Kill the PulseAudio daemon
 pulseaudio --start   # Start PulseAudio
@@ -942,12 +946,12 @@ arecord -l          # List all ALSA recording devices
 # Test audio output
 speaker-test -c 2    # Test stereo speakers
 </code></pre>
-<h4 id="audio-device-management-with-pavucontrol"><a class="header" href="#audio-device-management-with-pavucontrol">Audio Device Management with <code>pavucontrol</code></a></h4>
+<h3 id="audio-device-management-with-pavucontrol"><a class="header" href="#audio-device-management-with-pavucontrol">Audio Device Management with <code>pavucontrol</code></a></h3>
 <p>While <code>pavucontrol</code> is technically a GUI application, it can be installed and launched from the terminal:</p>
 <pre><code class="language-bash">sudo apt install pavucontrol   # Install on Debian/Ubuntu
 pavucontrol                    # Launch the control interface
 </code></pre>
-<h4 id="pipewire-audio-system"><a class="header" href="#pipewire-audio-system">Pipewire Audio System</a></h4>
+<h3 id="pipewire-audio-system"><a class="header" href="#pipewire-audio-system">Pipewire Audio System</a></h3>
 <p>Pipewire is the modern replacement for both PulseAudio and JACK. It maintains compatibility with PulseAudio clients, so <code>pactl</code> commands work with Pipewire. Additionally, Pipewire provides its own tools:</p>
 <pre><code class="language-bash"># Check Pipewire status
 pw-cli status
@@ -971,7 +975,7 @@ pw-mon               # Monitor Pipewire events in real-time
 <li>ALSA applications work without modification</li>
 </ul>
 <p><em>Note: Most modern Linux distributions are transitioning to Pipewire as their default audio system due to its improved latency, Bluetooth handling, and compatibility with both PulseAudio and JACK applications.</em></p>
-<h5 id="typical-pipewire-package-names"><a class="header" href="#typical-pipewire-package-names">Typical Pipewire Package Names:</a></h5>
+<h4 id="typical-pipewire-package-names"><a class="header" href="#typical-pipewire-package-names">Typical Pipewire Package Names:</a></h4>
 <ul>
 <li><code>pipewire</code> - Core Pipewire package</li>
 <li><code>pipewire-pulse</code> - PulseAudio compatibility layer</li>
@@ -980,7 +984,7 @@ pw-mon               # Monitor Pipewire events in real-time
 <li><code>wireplumber</code> - Session manager for Pipewire</li>
 </ul>
 <p><em>Note: Do NOT use pipewire-media-session, as it is deprecated and replaced by wireplumber.</em></p>
-<h3 id="remote-access-and-ssh"><a class="header" href="#remote-access-and-ssh">Remote Access and SSH</a></h3>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h3 id="remote-access-and-ssh"><a class="header" href="#remote-access-and-ssh">Remote Access and SSH</a></h3>
 <p>Remote access is a crucial aspect of server management. The most common method for remote access in Linux is through SSH (Secure Shell). SSH allows you to securely connect to a remote machine and execute commands as if you were physically present.</p>
 <h4 id="setting-up-ssh"><a class="header" href="#setting-up-ssh">Setting Up SSH</a></h4>
 <p>To set up SSH on your Linux server, follow these steps:</p>
@@ -1192,7 +1196,7 @@ sudo pacman -S x11vnc
 <h6 id="usage"><a class="header" href="#usage">Usage</a></h6>
 <pre><code class="language-bash">x11vnc -display :0 -auth ~/.Xauthority -localhost -rfbauth ~/.vnc/passwd
 </code></pre>
-<h3 id="lamp-stack-linux-apache-mysql-php-website-setup"><a class="header" href="#lamp-stack-linux-apache-mysql-php-website-setup">LAMP Stack (Linux, Apache, MySQL, PHP) Website Setup</a></h3>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h3 id="lamp-stack-linux-apache-mysql-php-website-setup"><a class="header" href="#lamp-stack-linux-apache-mysql-php-website-setup">LAMP Stack (Linux, Apache, MySQL, PHP) Website Setup</a></h3>
 <p>The LAMP stack is a popular web server configuration that includes Linux, Apache, MySQL (or MariaDB), and PHP. This stack is widely used for hosting dynamic websites and web applications.</p>
 <h4 id="installing-the-lamp-stack"><a class="header" href="#installing-the-lamp-stack">Installing the LAMP Stack</a></h4>
 <h5 id="debianubuntu-1"><a class="header" href="#debianubuntu-1">Debian/Ubuntu</a></h5>
@@ -1343,7 +1347,7 @@ hostname -I  # Get the private IP address(es) of the server
 <pre><code class="language-bash">hostname  # Get the hostname
 hostname -f  # Get the fully qualified domain name (FQDN)
 </code></pre>
-<footer id="last-change">Last change: 2025-06-24</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="drives-and-filesystems"><a class="header" href="#drives-and-filesystems">Drives and Filesystems</a></h1>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="drives-and-filesystems"><a class="header" href="#drives-and-filesystems">Drives and Filesystems</a></h1>
 <ul>
 <li><a href="chapter5-drives.html#understanding-drives-and-filesystems">Understanding Drives and Filesystems</a>
 <ul>
@@ -1571,7 +1575,7 @@ UUID=df8df26b-3bdc-427d-be86-43d6a25208b4	/home     	ext4      	rw,relatime	0 2
 </ul>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
-<footer id="last-change">Last change: 2025-08-18</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-programs"><a class="header" href="#linux-programs">Linux Programs</a></h1>
+<footer id="last-change">Last change: 2025-09-12</footer><div style="break-before: page; page-break-before: always;"></div><h1 id="linux-programs"><a class="header" href="#linux-programs">Linux Programs</a></h1>
 <p>Many windows and macOS users try to use all their favorite programs on Linux, but this is not always possible. Some programs are not available for Linux, while others may have limited functionality or require additional configuration to work correctly. This section covers some common Linux programs and alternatives to popular Windows and macOS applications.</p>
 <h2 id="common-linux-programs"><a class="header" href="#common-linux-programs">Common Linux Programs</a></h2>
 <p>Linux has a wide range of programs available for various tasks, including productivity, multimedia, development, and more. For an exhaustive list of programs built and maintained by the Linux community: <a href="https://github.com/luong-komorebi/Awesome-Linux-Software">https://github.com/luong-komorebi/Awesome-Linux-Software</a>, but here are some common Linux programs I use and recommend:</p>

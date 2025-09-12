@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Chapter 4: The Terminal - The Linux Desktop Guide</title>
+        <title>4.4: Audio Configuration - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -177,171 +177,93 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="server-command-line-interface-mastering-the-terminal"><a class="header" href="#server-command-line-interface-mastering-the-terminal">Server Command Line Interface: Mastering the Terminal</a></h1>
+                        <h2 id="audio-configuration"><a class="header" href="#audio-configuration">Audio Configuration</a></h2>
+<p>Linux provides several command-line tools for managing audio. The two main sound systems are ALSA (Advanced Linux Sound Architecture) and PulseAudio, with PulseAudio running on top of ALSA.</p>
+<h3 id="pulseaudio-commands-pactl"><a class="header" href="#pulseaudio-commands-pactl">PulseAudio Commands (<code>pactl</code>)</a></h3>
+<p>The <code>pactl</code> command is used to control the PulseAudio sound server:</p>
+<pre><code class="language-bash"># List audio sources and sinks
+pactl list sources        # List input devices
+pactl list sinks         # List output devices
+
+# Volume control
+pactl set-sink-volume @DEFAULT_SINK@ 50%     # Set volume to 50%
+pactl set-sink-mute @DEFAULT_SINK@ toggle    # Toggle mute
+
+# List loaded modules
+pactl list modules
+</code></pre>
+<h3 id="alsa-mixer-alsamixer"><a class="header" href="#alsa-mixer-alsamixer">ALSA Mixer (<code>alsamixer</code>)</a></h3>
+<p><code>alsamixer</code> is a terminal-based mixer program for ALSA:</p>
+<pre><code class="language-bash">alsamixer    # Open the mixer interface
+</code></pre>
+<p>Navigation in <code>alsamixer</code>:</p>
 <ul>
-<li><a href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a>
+<li>Arrow keys: Navigate between channels</li>
+<li>Up/Down: Adjust volume</li>
+<li>M: Toggle mute</li>
+<li>F6: Select sound card</li>
+<li>Esc: Exit</li>
+</ul>
+<h3 id="common-audio-troubleshooting-commands"><a class="header" href="#common-audio-troubleshooting-commands">Common Audio Troubleshooting Commands</a></h3>
+<pre><code class="language-bash"># Restart PulseAudio
+pulseaudio -k        # Kill the PulseAudio daemon
+pulseaudio --start   # Start PulseAudio
+
+# Check audio devices
+aplay -l             # List all ALSA playback devices
+arecord -l          # List all ALSA recording devices
+
+# Test audio output
+speaker-test -c 2    # Test stereo speakers
+</code></pre>
+<h3 id="audio-device-management-with-pavucontrol"><a class="header" href="#audio-device-management-with-pavucontrol">Audio Device Management with <code>pavucontrol</code></a></h3>
+<p>While <code>pavucontrol</code> is technically a GUI application, it can be installed and launched from the terminal:</p>
+<pre><code class="language-bash">sudo apt install pavucontrol   # Install on Debian/Ubuntu
+pavucontrol                    # Launch the control interface
+</code></pre>
+<h3 id="pipewire-audio-system"><a class="header" href="#pipewire-audio-system">Pipewire Audio System</a></h3>
+<p>Pipewire is the modern replacement for both PulseAudio and JACK. It maintains compatibility with PulseAudio clients, so <code>pactl</code> commands work with Pipewire. Additionally, Pipewire provides its own tools:</p>
+<pre><code class="language-bash"># Check Pipewire status
+pw-cli status
+pw-top                # Show real-time audio processing graph
+
+# List audio devices
+pw-dump               # Detailed info about audio devices and nodes
+pw-cli list-objects   # List all Pipewire objects
+
+# Control specific nodes
+pw-cli node-id        # Get ID of audio nodes
+pw-metadata -n settings 0 clock.force-rate 48000  # Set sample rate
+
+# Monitor audio
+pw-mon               # Monitor Pipewire events in real-time
+</code></pre>
+<p>You can still use PulseAudio tools with Pipewire:</p>
 <ul>
-<li><a href="#types-of-terminals">Types of Terminals</a>
+<li><code>pactl</code> commands work as shown above</li>
+<li><code>pavucontrol</code> works normally</li>
+<li>ALSA applications work without modification</li>
+</ul>
+<p><em>Note: Most modern Linux distributions are transitioning to Pipewire as their default audio system due to its improved latency, Bluetooth handling, and compatibility with both PulseAudio and JACK applications.</em></p>
+<h4 id="typical-pipewire-package-names"><a class="header" href="#typical-pipewire-package-names">Typical Pipewire Package Names:</a></h4>
 <ul>
-<li><a href="#recommended-gui-terminals">Recommended GUI Terminals:</a></li>
+<li><code>pipewire</code> - Core Pipewire package</li>
+<li><code>pipewire-pulse</code> - PulseAudio compatibility layer</li>
+<li><code>pipewire-jack</code> - JACK compatibility layer</li>
+<li><code>pipewire-alsa</code> - ALSA compatibility layer</li>
+<li><code>wireplumber</code> - Session manager for Pipewire</li>
 </ul>
-</li>
-<li><a href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></li>
-<li><a href="#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></li>
-</ul>
-</li>
-</ul>
-<p>This chapter covers the most important aspect of Linux: <strong>the terminal</strong>. The terminal is the beating heart of Linux, enabling you to accomplish virtually anything. For the first eight years I used Linux, I relied exclusively on the terminal, never even considering a graphical interface. The terminal is reliable, quick, and efficient, making it an indispensable tool for Linux users.</p>
-<p><strong>Pro Tip:</strong> The terminal is always accessible. If you're stuck on a black screen or graphical interface, press <code>Ctrl + Alt + F2</code> or <code>Ctrl + Alt + F3</code> to switch to a terminal. To return to the graphical interface, press <code>Ctrl + Alt + F7</code>.</p>
-<hr />
-<h2 id="navigating-the-command-line-interface"><a class="header" href="#navigating-the-command-line-interface">Navigating the Command Line Interface</a></h2>
-<p>Videos: How to Make Bash Terminal look and feel GREAT! <a href="https://links.thelinuxbook.com/prettybash">https://links.thelinuxbook.com/prettybash</a></p>
-<h3 id="types-of-terminals"><a class="header" href="#types-of-terminals">Types of Terminals</a></h3>
-<ul>
-<li><strong>TTY</strong>: A terminal connected to a physical device, such as a keyboard and monitor</li>
-<li><strong>GUI Terminal</strong>: A terminal emulator that provides a graphical interface for command-line operations, such as GNOME Terminal, Konsole, or xterm</li>
-</ul>
-<p>TTY is used for direct interaction with the system, while GUI terminals provide a more user-friendly experience with features like tabs, copy-paste, and customizable appearance. TTY is often used for system recovery or when the graphical interface is unavailable or malfunctioning.</p>
-<p>To access a TTY terminal, you can use the following key combinations:</p>
-<ul>
-<li><code>Ctrl + Alt + F1</code> to <code>Ctrl + Alt + F6</code>: Switch to different TTY terminals (TTY1 to TTY6)</li>
-<li><code>Ctrl + Alt + F7</code>: Return to the graphical interface (usually TTY7)</li>
-</ul>
-<p>GUI Terminals are typically launched from the applications menu or by pressing <code>Ctrl + Alt + T</code> in most desktop environments or hotkey like <code>Super + Enter</code> in many Tiled Window Managers (TWM).</p>
-<h4 id="recommended-gui-terminals"><a class="header" href="#recommended-gui-terminals">Recommended GUI Terminals:</a></h4>
-<ul>
-<li><strong>GNOME Terminal</strong>: Default terminal for GNOME desktop environments, supports tabs and profiles</li>
-<li><strong>Konsole</strong>: Default terminal for KDE Plasma, highly customizable with split views and profiles</li>
-<li><strong>Alacritty</strong>: A fast, GPU-accelerated terminal emulator with a focus on performance and simplicity</li>
-<li><strong>Kitty</strong>: A feature-rich terminal emulator with support for graphics</li>
-<li><strong>Terminator</strong>: Allows multiple terminal windows in a single window, with customizable layouts</li>
-</ul>
-<h3 id="directory-movement-commands-and-examples"><a class="header" href="#directory-movement-commands-and-examples">Directory Movement Commands and Examples:</a></h3>
-<ul>
-<li><code>cd</code> (change directory):
-<ul>
-<li><code>cd ..</code> (move up a directory)</li>
-<li><code>cd name</code> (move into the specified directory)</li>
-<li><code>cd /</code> (move to the root directory)</li>
-<li><code>cd ~</code> (move to the home directory, e.g., <code>/home/titus</code>)</li>
-<li><code>zoxide</code> - A better package for navigating the file system, using fuzzy finding and remembering past directories.
-_Note: <code>zoxide</code> is a third-party tool that can be installed via your package manager. Watch the video I did on Zoxide: <a href="https://links.thelinuxbook.com/zoxide">https://links.thelinuxbook.com/zoxide</a></li>
-</ul>
-</li>
-<li><code>ls</code> (list files):
-<ul>
-<li><code>ls -a</code> (show all files, including hidden ones)</li>
-<li><code>ls -l</code> (long listing format showing permissions)</li>
-</ul>
-</li>
-<li><code>rm</code> (remove files):
-<ul>
-<li><code>rm -rf</code> (remove files/directories recursively and forcefully)</li>
-<li><code>rmdir</code> (remove empty directories)</li>
-<li><code>trash-cli</code> - An alternative to <code>rm</code> that moves files to the trash instead of permanently deleting them.</li>
-</ul>
-</li>
-<li><code>cp</code> (copy files):
-<ul>
-<li><code>cp -r</code> (copy files and subdirectories recursively)</li>
-<li><code>rsync</code> - A more efficient tool for copying or syncing large amounts of files.</li>
-</ul>
-</li>
-<li><code>mv</code> (move files):
-<ul>
-<li><code>mv file1.txt file2.txt</code> (rename or move files)</li>
-<li><code>mv /path/to/file /new/path/</code> (move a file to a new location)</li>
-</ul>
-</li>
-<li><code>pwd</code> (print working directory):
-<ul>
-<li>Displays the current directory path.</li>
-</ul>
-</li>
-<li><code>find</code> (search for files):
-<ul>
-<li><code>find /path/to/search -name "filename"</code> (search for a file by name)</li>
-<li><code>find /path/to/search -type d -name "dirname"</code> (search for a directory by name)</li>
-<li><code>fd</code> - A faster alternative to <code>find</code> with a simpler syntax.</li>
-</ul>
-</li>
-<li><code>locate</code> (find files by name):
-<ul>
-<li><code>locate filename</code> (find files by name using a pre-built index)</li>
-<li><code>updatedb</code> (update the locate database, usually run automatically by the system)</li>
-</ul>
-</li>
-<li><code>tree</code> (display directory structure):
-<ul>
-<li><code>tree</code> (display the directory structure in a tree-like format)</li>
-<li><code>tree -L 2</code> (limit the depth of the tree display to 2 levels)</li>
-</ul>
-</li>
-<li><code>ln</code> (create links):
-<ul>
-<li><code>ln -s /path/to/original /path/to/link</code> (create a symbolic link)</li>
-<li><code>ln /path/to/original /path/to/link</code> (create a hard link)</li>
-</ul>
-</li>
-<li><code>chmod</code> (change file permissions):
-<ul>
-<li><code>chmod 755 file</code> (set permissions to read, write, and execute for owner, and read and execute for group and others)</li>
-<li><code>chmod +x script.sh</code> (make a script executable)</li>
-</ul>
-</li>
-<li><code>chown</code> (change file ownership):
-<ul>
-<li><code>chown user:group file</code> (change ownership of a file to a specific user and group)</li>
-<li><code>chown -R user:group /path/to/directory</code> (change ownership recursively for a directory)</li>
-</ul>
-</li>
-<li><code>stat</code> (display file or filesystem status):
-<ul>
-<li><code>stat file</code> (show detailed information about a file, including size, permissions, and timestamps)</li>
-<li><code>stat /path/to/directory</code> (show information about a directory)</li>
-</ul>
-</li>
-<li><code>du</code> (disk usage):
-<ul>
-<li><code>du -h</code> (display disk usage in human-readable format)</li>
-<li><code>du -sh /path/to/directory</code> (show total size of a directory)</li>
-</ul>
-</li>
-<li><code>df</code> (disk space usage):
-<ul>
-<li><code>df -h</code> (display disk space usage in human-readable format)</li>
-<li><code>df -i</code> (show inode usage instead of disk space)</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h3 id="directory-layout-and-file-system-overview"><a class="header" href="#directory-layout-and-file-system-overview">Directory Layout and File System Overview</a></h3>
-<ul>
-<li><code>/</code> - Root directory</li>
-<li><code>/bin</code> - System executable files</li>
-<li><code>/boot</code> - Bootloader files</li>
-<li><code>/dev</code> - Device files (requires mounting to browse)</li>
-<li><code>/etc</code> - System configuration files</li>
-<li><code>/home</code> - User files and configuration files</li>
-<li><code>/media</code> - Mounted external media</li>
-<li><code>/mnt</code> - Temporary mount points</li>
-<li><code>/opt</code> - Optional files</li>
-<li><code>/root</code> - Root user files and configurations</li>
-<li><code>/tmp</code> - Temporary files</li>
-<li><code>/usr</code> - System resources</li>
-<li><code>/var</code> - Logs, databases, and other variable data</li>
-</ul>
-<p>Most interactions with the file system occur within the <code>/home/user</code> directory. This includes configuration files and executable programs. Direct editing of system-wide configuration files in <code>/etc</code> or adding programs to <code>/bin</code> should be done sparingly.</p>
+<p><em>Note: Do NOT use pipewire-media-session, as it is deprecated and replaced by wireplumber.</em></p>
 <footer id="last-change">Last change: 2025-09-12</footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter3-bootloaders.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter4.3-bluetooth.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4.1-systemd.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter4.5-remoteaccess.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -351,11 +273,11 @@ _Note: <code>zoxide</code> is a third-party tool that can be installed via your 
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter3-bootloaders.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter4.3-bluetooth.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4.1-systemd.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter4.5-remoteaccess.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
