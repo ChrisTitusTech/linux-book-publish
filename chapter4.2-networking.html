@@ -232,6 +232,79 @@ nmcli con mod eth0 ipv4.method manual
 </code></pre>
 </li>
 </ol>
+<h2 id="managing-connections-with-nmtui"><a class="header" href="#managing-connections-with-nmtui">Managing Connections with nmtui</a></h2>
+<p><code>nmtui</code> is a text-based user interface for managing network connections. It provides a simple way to configure network settings without using the command line. Here are the steps to manage connections using <code>nmtui</code>:</p>
+<ol>
+<li>Open a terminal.</li>
+<li>Type <code>nmtui</code> and press Enter to launch the interface.</li>
+<li>Use the arrow keys to navigate the menu and select "Edit a connection".</li>
+<li>Select the connection you want to edit and press Enter.</li>
+<li>Use the arrow keys to navigate the fields and make changes as needed.</li>
+<li>Press Tab to navigate to the "OK" button and press Enter to save your changes.</li>
+<li>Press Tab to navigate to the "Back" button and press Enter to return to the main menu.</li>
+<li>Select "Activate a connection" to activate the modified connection.</li>
+<li>Press Tab to navigate to the "Quit" button and press Enter to exit <code>nmtui</code>.</li>
+</ol>
+<p><em>Note:Persistent configuration through reboots is automatic with <code>nmtui</code>, as it modifies the NetworkManager profiles directly.</em></p>
+<h2 id="creating-a-bridge-with-nmcli"><a class="header" href="#creating-a-bridge-with-nmcli">Creating a Bridge with nmcli</a></h2>
+<p>A network bridge is a virtual network device that allows you to connect multiple network interfaces together. This is useful for creating a virtual network or for connecting multiple physical networks together. Here are the steps to create a bridge using <code>nmcli</code>:</p>
+<ol>
+<li>Open a terminal.</li>
+<li>Create a new bridge connection:
+<pre><code class="language-bash">nmcli con add type bridge ifname br0
+</code></pre>
+</li>
+<li>Add a network interface to the bridge, replacing <code>eth0</code> with the name of your network interface:
+<pre><code class="language-bash">nmcli con add type bridge-slave ifname eth0 master br0
+</code></pre>
+</li>
+<li>Configure the bridge with a static IP address, replacing <code>&lt;IP_ADDRESS&gt;</code>, <code>&lt;GATEWAY_IP&gt;</code>, and <code>&lt;DNS_IP&gt;</code> with the desired values:
+<pre><code class="language-bash">nmcli con mod br0 ipv4.addresses &lt;IP_ADDRESS&gt;/24
+nmcli con mod br0 ipv4.gateway &lt;GATEWAY_IP&gt;
+nmcli con mod br0 ipv4.dns &lt;DNS_IP&gt;
+nmcli con mod br0 ipv4.method manual
+</code></pre>
+or to use DHCP:
+<pre><code class="language-bash">nmcli con mod br0 ipv4.method auto
+</code></pre>
+</li>
+<li>Activate the bridge connection:
+<pre><code class="language-bash">nmcli con up br0
+</code></pre>
+</li>
+</ol>
+<h3 id="adding-bridge-to-virtual-machines-with-virsh"><a class="header" href="#adding-bridge-to-virtual-machines-with-virsh">Adding bridge to virtual machines with virsh</a></h3>
+<p>To add the bridge to a virtual machine using <code>virsh</code> globally, you can edit the default network configuration file. Here are the steps:</p>
+<p>create a new XML file for the bridge network configuration, for example, <code>bridge-network.xml</code>:</p>
+<pre><code class="language-xml">&lt;network&gt;
+  &lt;name&gt;br0net&lt;/name&gt;
+  &lt;forward mode='bridge'/&gt;
+  &lt;bridge name='br0'/&gt;
+&lt;/network&gt;
+</code></pre>
+<p><em>Note: the XML file can be anywhere and when you use <code>net-define</code> it will copy it to your libvirt network directory.</em></p>
+<p>Define the new network using the XML file:</p>
+<pre><code class="language-bash">sudo virsh net-define bridge-network.xml
+</code></pre>
+<p>Start the new network:</p>
+<pre><code class="language-bash">sudo virsh net-start br0net
+</code></pre>
+<p>Set the network to start automatically on boot:</p>
+<pre><code class="language-bash">sudo virsh net-autostart br0net
+</code></pre>
+<h2 id="troubleshooting-network-issues"><a class="header" href="#troubleshooting-network-issues">Troubleshooting Network Issues</a></h2>
+<p>There is a ton of fragmentation in Linux networking, so troubleshooting can be difficult. Here are some common tools and commands that can help you troubleshoot network issues:</p>
+<ul>
+<li><code>ping</code>: This command is used to test connectivity to a remote host. You can use it to check if a host is reachable and to measure the round-trip time for packets.</li>
+<li><code>traceroute</code>: This command is used to trace the route that packets take to reach a remote host. It can help you identify where packets are being dropped or delayed.</li>
+<li><code>ifconfig</code> or <code>ip addr</code>: These commands are used to display the network interfaces and their configuration. You can use them to check the IP address, subnet mask, and other settings for your network interfaces.</li>
+<li><code>netstat</code> or <code>ss</code>: These commands are used to display network connections, routing tables, and interface statistics. You can use them to check for open ports, active connections, and other network-related information.</li>
+<li><code>nmcli</code>: This command is used to manage NetworkManager connections. You can use it to check the status of your network connections, modify settings, and troubleshoot issues.</li>
+<li><code>journalctl -u NetworkManager</code>: This command is used to view the logs for NetworkManager. You can use it to check for errors and other messages related to your network connections.</li>
+<li><code>systemctl status NetworkManager</code>: This command is used to check the status of the NetworkManager service. You can use it to see if the service is running and to check for any errors.</li>
+<li><code>resolvectl</code>: This command is used to manage DNS settings and view DNS resolution status. You can use it to check the current DNS servers and troubleshoot DNS-related issues.</li>
+</ul>
+<p>Disabling other network managers like <code>systemd-networkd</code>, <code>netplan</code>, <code>dhcpcd</code>, <code>dnsmasq</code>, <code>dhclient</code>, <code>systemd-resolved</code>, or <code>wicd</code> can also help resolve conflicts and ensure that NetworkManager functions correctly. These are other network management services that might interfere with NetworkManager if they are running simultaneously. DISABLE THEM.</p>
 <footer id="last-change">Last change: 2025-09-12</footer>
                     </main>
 
