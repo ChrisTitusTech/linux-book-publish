@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
@@ -142,6 +143,9 @@
                     <h1 class="menu-title">The Linux Desktop Guide</h1>
 
                     <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
 
                     </div>
                 </div>
@@ -179,6 +183,49 @@
 <li><code>nmcli</code> is a command line tool that allows you to manage your network connections. You can use it to connect to Wi-Fi networks, configure Ethernet connections, and manage VPNs.</li>
 <li><code>nmtui</code> is a text-based user interface that allows you to manage your network connections. It is a bit easier to use than <code>nmcli</code>, but it is not as powerful.</li>
 </ul>
+<h3 id="get-full-list-of-network-interfaces"><a class="header" href="#get-full-list-of-network-interfaces">Get Full List of Network Interfaces</a></h3>
+<p>To get basic ip information:</p>
+<pre><code>ip address
+</code></pre>
+<p>To get DNS, Routing, Gateway, and other information:</p>
+<pre><code>nmcli device show &lt;interface&gt;
+</code></pre>
+<p>For information on all interfaces managed by NetworkManager:</p>
+<pre><code>nmcli device status
+</code></pre>
+<h3 id="manage-a-network-connections-with-nmcli"><a class="header" href="#manage-a-network-connections-with-nmcli">Manage a network connections with nmcli</a></h3>
+<p>Below you find all the basic commands to manage your network connections with <code>nmcli</code>. The order of operations is important. You must create a connection before you can modify it, and you must modify it before you can activate it.</p>
+<p><em>Important to note:</em> conflicting network managers can cause issues. If you have <code>systemd-networkd</code>, <code>netplan</code>, <code>dhcpcd</code>, <code>dnsmasq</code>, <code>dhclient</code>, or <code>wicd</code> running, disable them. These are other network management services that might interfere with NetworkManager if they are running simultaneously.</p>
+<p>To see a list of all network connections:</p>
+<pre><code>nmcli con show
+</code></pre>
+<p>To see a list of all available Wi-Fi networks:</p>
+<pre><code>nmcli device wifi list
+</code></pre>
+<p>To connect to a Wi-Fi network:</p>
+<pre><code>nmcli device wifi connect &lt;SSID&gt; password &lt;PASSWORD&gt;
+</code></pre>
+<p>To disconnect from a Wi-Fi network:</p>
+<pre><code>nmcli device disconnect &lt;INTERFACE&gt;
+</code></pre>
+<p>To delete a network connection:</p>
+<pre><code>nmcli con delete &lt;CONNECTION_NAME&gt;
+</code></pre>
+<p>To Add a new Ethernet connection:</p>
+<pre><code>nmcli con add type ethernet ifname &lt;INTERFACE&gt; con-name &lt;CONNECTION_NAME&gt;
+</code></pre>
+<p>To modify an existing connection:</p>
+<pre><code>nmcli con mod &lt;CONNECTION_NAME&gt; &lt;SETTING&gt; &lt;VALUE&gt;
+</code></pre>
+<p>To activate a connection:</p>
+<pre><code>nmcli con up &lt;CONNECTION_NAME&gt;
+</code></pre>
+<p>To deactivate a connection:</p>
+<pre><code>nmcli con down &lt;CONNECTION_NAME&gt;
+</code></pre>
+<p>You can make connections persistent across reboots by adding <code>connection.autoconnect yes</code> to the connection settings:</p>
+<pre><code>nmcli con mod &lt;CONNECTION_NAME&gt; connection.autoconnect yes
+</code></pre>
 <h3 id="dhcp"><a class="header" href="#dhcp">DHCP</a></h3>
 <p>DHCP Client to automatically get IP address and other network configuration settings from a DHCP server. Most Linux distributions come with a DHCP client pre-installed, so you don't need to install anything extra. To use DHCP, simply configure your network interface to use DHCP in the network settings. However, there are several DHCP clients available for Linux, including:</p>
 <ul>
@@ -299,9 +346,10 @@ or to use DHCP:
 <li><code>journalctl -u NetworkManager</code>: This command is used to view the logs for NetworkManager. You can use it to check for errors and other messages related to your network connections.</li>
 <li><code>systemctl status NetworkManager</code>: This command is used to check the status of the NetworkManager service. You can use it to see if the service is running and to check for any errors.</li>
 <li><code>resolvectl</code>: This command is used to manage DNS settings and view DNS resolution status. You can use it to check the current DNS servers and troubleshoot DNS-related issues.</li>
+<li><code>ethtool &lt;interface&gt;</code>: This command is used to display and modify Ethernet device settings. You can use it to check the link status, speed, and other settings for your network interfaces.</li>
 </ul>
-<p>Disabling other network managers like <code>systemd-networkd</code>, <code>netplan</code>, <code>dhcpcd</code>, <code>dnsmasq</code>, <code>dhclient</code>, <code>systemd-resolved</code>, or <code>wicd</code> can also help resolve conflicts and ensure that NetworkManager functions correctly. These are other network management services that might interfere with NetworkManager if they are running simultaneously. DISABLE THEM.</p>
-<footer id="last-change">Last change: <time datetime="2025-09-12">2025-09-12</time></footer>
+<p>Disabling other network managers like <code>systemd-networkd</code>, <code>netplan</code>, <code>dhcpcd</code>, <code>dnsmasq</code>, <code>dhclient</code>, or <code>wicd</code> can also help resolve conflicts and ensure that NetworkManager functions correctly. These are other network management services that might interfere with NetworkManager if they are running simultaneously. DISABLE THEM.</p>
+<footer id="last-change">Last change: <time datetime="2025-09-30">2025-09-30</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

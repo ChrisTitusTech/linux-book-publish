@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
@@ -142,6 +143,9 @@
                     <h1 class="menu-title">The Linux Desktop Guide</h1>
 
                     <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
 
                     </div>
                 </div>
@@ -177,6 +181,7 @@
 <ul>
 <li><a href="#incompatible-hardware">Incompatible Hardware</a></li>
 <li><a href="#checking-compatibility">Checking Compatibility</a></li>
+<li><a href="#changing-hardware">Changing Hardware</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
 </ul>
 <p>The biggest myth told by the Linux community is that Linux works on all hardware. This is not true, and it is a common misconception that leads to many users being disappointed when they try to install Linux on their machines. The reality is that while Linux supports a wide range of hardware, there are still many devices that do not work well or at all with Linux.</p>
@@ -206,9 +211,58 @@
 <li><strong>Distro-Specific Tools</strong>: Some Linux distributions come with tools that can help you check hardware compatibility. <code>lshw</code> (List Hardware) is a command-line utility that provides detailed information about your system's hardware. You can use it to check if your hardware is recognized by the Linux kernel.</li>
 <li><strong>Live USB Testing</strong>: Before installing Linux, you can create a live USB of the distribution you want to try. Booting from the live USB allows you to test hardware compatibility without making any changes to your system. This is a great way to see if your hardware works well with Linux before committing to an installation.</li>
 </ul>
+<h2 id="changing-hardware"><a class="header" href="#changing-hardware">Changing Hardware</a></h2>
+<p>Switching motherboards can lead to a unbootable system as Linux does not generally handle recreation of the UEFI boot entries automatically. You may need to manually recreate the boot entry using <code>efibootmgr</code> or reinstalling grub with <code>grub-install</code>.</p>
+<p>Switching CPUs is generally not an issue as long as the new CPU is compatible with the existing motherboard. However, if you switch to a different architecture (e.g., from Intel to AMD), you may need switch the ucode microcode package to match your new CPU. example: <code>intel-ucode</code> to <code>amd-ucode</code>.</p>
+<p>Switching GPUs can lead to issues if the new GPU requires different drivers. For example, switching from an AMD GPU to an NVIDIA GPU will require different packages to be installed and removal of the old packages that supported the other GPU.</p>
+<p>🛠 Steps to Fix After NVIDIA → AMD Switch</p>
+<ol>
+<li>Purge old NVIDIA drivers</li>
+</ol>
+<p>Debian/Ubuntu:</p>
+<pre><code>sudo apt purge nvidia-* libnvidia-*
+</code></pre>
+<p>Arch Linux:</p>
+<pre><code>sudo pacman -Rns nvidia nvidia-utils nvidia-dkms
+</code></pre>
+<p>Then clean up orphaned packages:</p>
+<p>Arch Linux:</p>
+<pre><code>sudo pacman -Rns $(pacman -Qtdq)
+</code></pre>
+<p>Debian/Ubuntu:</p>
+<pre><code>sudo apt autoremove --purge        # Ubuntu/Debian
+</code></pre>
+<ol start="2">
+<li>Install AMD drivers
+Most AMD GPUs work out of the box with Mesa:</li>
+</ol>
+<p>Ubuntu/Debian:</p>
+<pre><code>sudo apt install mesa-vulkan-drivers mesa-opencl-icd
+</code></pre>
+<p>Arch/Manjaro:</p>
+<pre><code>sudo pacman -S mesa vulkan-radeon lib32-mesa lib32-vulkan-radeon
+</code></pre>
+<ol start="3">
+<li>Check Vulkan/OpenGL is using AMD
+Run:</li>
+</ol>
+<pre><code>vulkaninfo | grep deviceName
+glxinfo | grep "OpenGL renderer"
+</code></pre>
+<p>You should see your AMD GPU, not “llvmpipe” (software renderer) or “NVIDIA”.</p>
+<ol start="4">
+<li>Rebuild initramfs
+Sometimes the old NVIDIA kernel modules stick around.</li>
+</ol>
+<p>Arch Linux:</p>
+<pre><code>sudo mkinitcpio -P
+</code></pre>
+<p>Debian/Ubuntu:</p>
+<pre><code>sudo update-initramfs -u -k all   # Ubuntu/Debian
+</code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>While Linux supports a wide range of hardware, it is essential to be aware of potential compatibility issues. Before installing Linux, check the compatibility of your hardware using the resources mentioned above. By doing so, you can avoid disappointment and ensure a smooth installation and usage experience with Linux.</p>
-<footer id="last-change">Last change: <time datetime="2025-09-12">2025-09-12</time></footer>
+<footer id="last-change">Last change: <time datetime="2025-09-30">2025-09-30</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
