@@ -82,6 +82,7 @@ html.sidebar-visible #menu-bar {
 
 .right-buttons {
     margin: 0 15px;
+    display: none;
 }
 .right-buttons a {
     text-decoration: none;
