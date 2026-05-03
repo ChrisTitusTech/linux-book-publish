@@ -36,10 +36,6 @@ smart-punctuation = true
 fold.enable = true
 fold.level = 2
 
-[output.html.print]
-enable = true
-page-break = true
-
 [preprocessor.last-changed]
 command = "mdbook-last-changed"
 renderer = ["html"]
