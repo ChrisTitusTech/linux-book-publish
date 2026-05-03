@@ -8,27 +8,28 @@
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="">
+        <meta name="description" content="A practical, no-fluff guide to Linux for real desktop users. Learn how Linux works under the hood, set up your system with confidence, and solve everyday problems from boot to backups.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="./theme/catppuccin.css">
+        <link rel="stylesheet" href="./theme/book.css">
         <link rel="stylesheet" href="./theme/last-changed.css">
 
 
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "latte";
             const default_dark_theme = "frappe";
-            window.path_to_searchindex_js = "searchindex.js";
+            window.path_to_searchindex_js = "searchindex-33f2ce97.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="toc-10907e44.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -54,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div id="body-container">
+    <div id="mdbook-body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -83,12 +84,12 @@
             html.classList.add("js");
         </script>
 
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             let sidebar = null;
-            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -103,213 +104,276 @@
             }
         </script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
                 <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <div id="page-wrapper" class="page-wrapper">
+        <div id="mdbook-page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
                         </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
                         </button>
                     </div>
 
                     <h1 class="menu-title">The Linux Desktop Guide</h1>
 
                     <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
 
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
                         <div class="search-wrapper">
-                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
                             <div class="spinner-wrapper">
-                                <i class="fa fa-spinner fa-spin"></i>
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
                             </div>
                         </div>
                     </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
                         </ul>
                     </div>
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
 
-                <div id="content" class="content">
+                <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="linux-programs"><a class="header" href="#linux-programs">Linux Programs</a></h1>
-<p>Many windows and macOS users try to use all their favorite programs on Linux, but this is not always possible. Some programs are not available for Linux, while others may have limited functionality or require additional configuration to work correctly. This section covers some common Linux programs and alternatives to popular Windows and macOS applications.</p>
-<h2 id="common-linux-programs"><a class="header" href="#common-linux-programs">Common Linux Programs</a></h2>
-<p>Linux has a wide range of programs available for various tasks, including productivity, multimedia, development, and more. For an exhaustive list of programs built and maintained by the Linux community: <a href="https://github.com/luong-komorebi/Awesome-Linux-Software">https://github.com/luong-komorebi/Awesome-Linux-Software</a>, but here are some common Linux programs I use and recommend:</p>
-<h3 id="communication-and-messaging"><a class="header" href="#communication-and-messaging">Communication and Messaging:</a></h3>
 <ul>
-<li><strong>Discord</strong>: A communication platform designed for gamers that is available on Linux. It allows you to chat, voice call, and video call with friends and communities.</li>
-<li><strong>Signal</strong>: A privacy-focused messaging app that is available on Linux. It provides end-to-end encryption for secure messaging and voice calls.</li>
-<li><strong>Slack</strong>: A collaboration and communication platform that is available on Linux. It allows teams to communicate, share files, and collaborate on projects.</li>
-<li><strong>Telegram</strong>: A messaging app that is available on Linux. It provides secure messaging, file sharing, and group chats.</li>
-<li><strong>Thunderbird</strong>: An email client developed by Mozilla, similar to Microsoft Outlook. It supports multiple email accounts, RSS feeds, and newsgroups.</li>
-<li><strong>Zoom</strong>: A video conferencing and online meeting platform that is available on Linux. It allows you to host and join meetings, webinars, and virtual events.</li>
-</ul>
-<h3 id="development-and-system-tools"><a class="header" href="#development-and-system-tools">Development and System Tools:</a></h3>
+<li><a href="#a-practical-linux-starter-kit">A Practical Linux Starter Kit</a></li>
+<li><a href="#communication-and-messaging">Communication and Messaging</a></li>
+<li><a href="#development-and-system-tools">Development and System Tools</a></li>
+<li><a href="#choosing-software-sources-safely">Choosing Software Sources Safely</a>
 <ul>
-<li><strong>Docker</strong>: A platform for developing, shipping, and running applications in containers. It allows you to run applications in isolated environments, making it easier to manage dependencies and configurations.</li>
-<li><strong>Notepadqq</strong> (Notepad++ alternative): A text editor for Linux that provides syntax highlighting, code folding, and other features for programming.</li>
-<li><strong>Snap and Flatpak</strong>: Package management systems that allow you to install and run applications in isolated environments. They provide a way to run applications without worrying about dependencies and compatibility issues.</li>
-<li><strong>Visual Studio Code</strong>: A lightweight code editor developed by Microsoft that supports various programming languages and extensions. It is a popular choice for developers on Linux.</li>
+<li><a href="#native-vs-flatpak-vs-snap">Native vs Flatpak vs Snap</a></li>
 </ul>
-<h3 id="office-and-productivity"><a class="header" href="#office-and-productivity">Office and Productivity:</a></h3>
+</li>
+<li><a href="#practical-defaults">Practical Defaults</a></li>
+<li><a href="#office-and-productivity">Office and Productivity</a></li>
+<li><a href="#multimedia-and-creative-tools">Multimedia and Creative Tools</a>
 <ul>
-<li><strong>Firefox</strong>: A popular web browser that is known for its speed, security, and privacy features. It is a great alternative to Google Chrome and Microsoft Edge.</li>
-<li><strong>LibreOffice</strong>: A free and open-source office suite that includes a word processor, spreadsheet application, presentation software, and more. It is a popular alternative to Microsoft Office.</li>
-<li><strong>Nextcloud</strong>: A self-hosted cloud storage solution that allows you to store, share, and sync files across devices. It is a popular alternative to Google Drive and Dropbox.</li>
-<li><strong>OnlyOffice</strong>: An open-source office suite that provides a word processor, spreadsheet editor, and presentation software. It is compatible with Microsoft Office formats and offers collaborative features.</li>
+<li><a href="#media-players">Media Players</a></li>
 </ul>
-<h3 id="multimedia-and-creative-tools"><a class="header" href="#multimedia-and-creative-tools">Multimedia and Creative Tools:</a></h3>
+</li>
+<li><a href="#gaming-and-compatibility">Gaming and Compatibility</a></li>
+<li><a href="#choose-tools-by-workflow-not-by-brand-loyalty">Choose Tools by Workflow, Not by Brand Loyalty</a></li>
+<li><a href="#startup-and-background-app-hygiene">Startup and Background App Hygiene</a></li>
+</ul>
+<div class="chapter-outline">
+<p><strong>In this chapter</strong></p>
+
 <ul>
-<li><strong>Audacity</strong>: A free and open-source audio editing program that allows you to record, edit, and manipulate audio files. It is a popular choice for podcasting and music production.</li>
-<li><strong>Blender</strong>: A powerful 3D modeling, animation, and rendering software that is widely used in the film and gaming industries. It is a popular alternative to Autodesk Maya and 3ds Max.</li>
-<li><strong>Calibre</strong>: An e-book management software that allows you to organize, convert, and read e-books. It supports various e-book formats and provides features for managing your e-book library.</li>
-<li><strong>GIMP</strong>: A powerful image editing program that is often compared to Adobe Photoshop. It supports a wide range of image formats and provides advanced editing features.</li>
-<li><strong>Inkscape</strong>: A vector graphics editor that is similar to Adobe Illustrator. It is used for creating and editing vector images and supports various file formats.</li>
-<li><strong>Kdenlive</strong>: A non-linear video editor that is popular among Linux users. It provides a wide range of features for video editing, including multi-track editing, effects, and transitions.</li>
-<li><strong>Krita</strong>: A digital painting program that is popular among artists and illustrators. It provides a wide range of brushes, tools, and features for creating digital art.</li>
-<li><strong>OBS Studio</strong>: An open-source software for video recording and live streaming. It is widely used by content creators and streamers on platforms like Twitch and YouTube.</li>
-<li><strong>Spotify</strong>: A music streaming service that is available on Linux. It allows you to listen to millions of songs and create playlists.</li>
-<li><strong>Celluloid</strong>: A simple and elegant video player for Linux that supports a wide range of video formats. Uses GTK libraries for a GNOME style.</li>
-<li><strong>SMPlayer</strong>: A free media player for Linux with built-in codecs that can play almost all video and audio formats. Uses QT libraries for a KDE style.</li>
-<li><strong>MPV</strong>: A highly customizable media player that supports a wide range of video formats. It is known for its performance and minimalistic design. Play media direct from terminal!</li>
-<li><strong>VLC Media Player</strong>: This player sucks on Linux due to its heavy resource usage and occasional stability issues. This doesn't have feature parity with its Windows counterpart and should be avoided on Linux at all costs!</li>
+  
+<li>Build a sensible Linux software starter kit</li>
+
+  
+<li>Choose alternatives for communication, productivity, media, and development</li>
+
+  
+<li>Understand where Flatpak, Snap, Wine, and game launchers fit</li>
+
+  
+<li>Prefer curated tools over trying to replicate every Windows habit exactly</li>
+
 </ul>
-<h3 id="gaming-and-compatibility"><a class="header" href="#gaming-and-compatibility">Gaming and Compatibility:</a></h3>
+
+</div>
+
+<p>A common mistake for new Linux users is trying to recreate their old operating system one application at a time. Sometimes that works, but often the better approach is to pick strong Linux-native tools first and then fill the remaining gaps with compatibility layers when you actually need them.</p>
+<h2 id="a-practical-linux-starter-kit"><a class="header" href="#a-practical-linux-starter-kit">A Practical Linux Starter Kit</a></h2>
+<p>If you are setting up a fresh Linux desktop, start with a short list you will use every day:</p>
 <ul>
-<li><strong>Bottles</strong>: A tool that allows you to run Windows games and applications on Linux using Wine. It provides a user-friendly interface for managing Wine prefixes and configurations.</li>
-<li><strong>Heroic Games Launcher</strong>: An open-source game launcher for the Epic Games Store that allows you to install and play Epic Games on Linux. It provides a user-friendly interface and supports various game configurations.</li>
-<li><strong>Lutris</strong>: A gaming platform that allows you to install and manage games from various sources, including Steam, GOG, and Battle.net. It provides a unified interface for launching games and managing game libraries.</li>
-<li><strong>Steam</strong>: A digital distribution platform for video games that is available on Linux. It allows you to purchase, download, and play games from a vast library.</li>
-<li><strong>Wine</strong>: A compatibility layer that allows you to run Windows applications on Linux. It is not a perfect solution, but it can be useful for running certain Windows programs that do not have native Linux alternatives.</li>
+<li>A browser such as Firefox</li>
+<li>A communication stack such as Discord, Signal, or Telegram</li>
+<li>An office suite such as LibreOffice or OnlyOffice</li>
+<li>A code editor such as Visual Studio Code or a terminal-based editor you already know</li>
+<li>A media player such as MPV, Celluloid, or SMPlayer</li>
 </ul>
-<h2 id="linux-gaming"><a class="header" href="#linux-gaming">Linux Gaming</a></h2>
-<p>Linux gaming has come a long way in recent years, with many popular games now available natively on the platform. Additionally, tools like Proton (a compatibility layer for running Windows games on Linux) and Lutris (a gaming platform for managing games from various sources) have made it easier to play games on Linux. If you want to play a lot of games on Linux and do not want to do much configuration, I recommend using either Bazzite or Nobara Linux, which are both gaming-focused distributions that come pre-configured with the necessary tools and drivers for gaming. Starting from a fresh blank distribution like Debian or Arch Linux can be challenging for gaming, as you will need to manually install and configure various components to get games running smoothly.</p>
-<h3 id="understanding-wine-and-proton"><a class="header" href="#understanding-wine-and-proton">Understanding WINE and Proton</a></h3>
-<p>WINE (Wine Is Not an Emulator) is a compatibility layer that allows you to run Windows applications on Linux. It translates Windows API calls into POSIX calls, enabling you to run many Windows applications without needing a full Windows installation. Proton is a modified version of WINE developed by Valve, specifically designed to run Windows games on Linux through the Steam platform. It includes additional libraries and optimizations to improve game compatibility and performance.
-While WINE and Proton can run many Windows applications and games, they are not perfect solutions. Some applications may not work correctly or may require additional configuration to run smoothly. It is essential to check compatibility reports on sites like <a href="https://www.protondb.com/">ProtonDB</a> to see if a specific game or application is supported and to find any necessary tweaks or workarounds.</p>
-<p>Lutris is a front-end for managing games on Linux, providing a user-friendly interface for installing and launching games from various sources, including Steam, GOG, and Battle.net. It supports WINE and Proton, allowing you to run Windows games on Linux with ease. Lutris also provides scripts for installing specific games, which can simplify the setup process.</p>
-<p>Heroic Games Launcher is an open-source game launcher for the Epic Games Store that allows you to install and play Epic Games on Linux. It provides a user-friendly interface and supports various game configurations, making it easier to manage your Epic Games library on Linux.</p>
-<p>Bottles is a front-end for WINE that simplifies the process of running Windows applications on Linux. It provides a user-friendly interface for managing WINE prefixes and configurations, making it easier to run Windows games and applications without needing extensive knowledge of WINE.</p>
-<h4 id="wine-usage"><a class="header" href="#wine-usage">WINE Usage</a></h4>
-<p>WINE is a powerful tool for running Windows applications on Linux, but it can be complex to set up and use effectively. Here are some tips for using WINE:</p>
+<p>Once your core workflow is stable, add specialized tools for design, gaming, or production work.</p>
+<h2 id="communication-and-messaging"><a class="header" href="#communication-and-messaging">Communication and Messaging</a></h2>
+<ul>
+<li><strong>Discord:</strong> Still one of the easiest ways to stay connected to gaming and tech communities.</li>
+<li><strong>Signal:</strong> A strong privacy-focused messaging option.</li>
+<li><strong>Slack:</strong> Common in professional teams and widely supported on Linux.</li>
+<li><strong>Telegram:</strong> Fast, flexible, and available almost everywhere.</li>
+<li><strong>Thunderbird:</strong> A dependable desktop email client with support for multiple accounts and feeds.</li>
+<li><strong>Zoom:</strong> Useful when you need compatibility with the meeting platform everyone else is already using.</li>
+</ul>
+<h2 id="development-and-system-tools"><a class="header" href="#development-and-system-tools">Development and System Tools</a></h2>
+<ul>
+<li><strong>Docker:</strong> Essential if you work with containers, local services, or reproducible development environments.</li>
+<li><strong>Visual Studio Code:</strong> Popular, capable, and easy to extend.</li>
+<li><strong>Notepadqq:</strong> A reasonable lightweight option if you want something closer to the Notepad++ workflow.</li>
+<li><strong>Flatpak:</strong> A good way to install desktop applications with a predictable dependency model across distributions.</li>
+<li><strong>Snap:</strong> Available on some distributions and useful when a package is maintained there first, but many Linux users prefer native packages or Flatpak for desktop apps.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Package format debates matter less than reliability. Pick the source that gives you a current, stable application and keep the number of packaging systems you depend on manageable.</p>
+</blockquote>
+<h2 id="choosing-software-sources-safely"><a class="header" href="#choosing-software-sources-safely">Choosing Software Sources Safely</a></h2>
+<p>Use this priority order for desktop applications:</p>
 <ol>
-<li>
-<p><strong>Installation</strong>: Install WINE using your distribution's package manager. For example, on Ubuntu, you can use:</p>
-<pre><code class="language-bash">sudo apt install wine
-</code></pre>
-<p>On Arch Linux, you can use:</p>
-<pre><code class="language-bash">sudo pacman -S wine
-</code></pre>
-</li>
-<li>
-<p><strong>Configuration</strong>: After installing WINE, you can run <code>winecfg</code> in the terminal to configure WINE settings. This will create a default WINE prefix in your home directory (<code>~/.wine</code>) and allow you to set various options, such as the Windows version to emulate, graphics settings, and audio configurations.</p>
-</li>
-<li>
-<p><strong>Installing Windows Applications</strong>: To install a Windows application using WINE, you can run the installer executable with the <code>wine</code> command. For example:</p>
-<pre><code class="language-bash">wine setup.exe
-</code></pre>
-<p>Replace <code>setup.exe</code> with the actual name of the installer file. WINE will create a virtual C: drive in your WINE prefix, where the application will be installed.</p>
-</li>
-<li>
-<p><strong>Running Windows Applications</strong>: After installation, you can run the application using WINE by executing the application's executable file. For example:</p>
-<pre><code class="language-bash">wine /path/to/application.exe
-</code></pre>
-<p>Replace <code>/path/to/application.exe</code> with the actual path to the application's executable file.</p>
-</li>
-<li>
-<p><strong>Managing WINE Prefixes</strong>: WINE uses a concept called "prefixes" to manage different environments for running Windows applications. By default, WINE uses the <code>~/.wine</code> directory as its prefix. You can create additional prefixes by setting the <code>WINEPREFIX</code> environment variable before running WINE commands. For example:</p>
-<pre><code class="language-bash">WINEPREFIX="/path/to/custom/prefix" wine /path/to/application.exe
-</code></pre>
-<p>This allows you to maintain separate configurations and installations for different applications, which can be useful for managing dependencies and settings.</p>
-</li>
-<li>
-<p><strong>Using Winetricks</strong>: Winetricks is a script that helps you install various Windows libraries and components in your WINE prefix. It can be useful for installing .NET Framework, DirectX, and other dependencies required by certain applications. You can install Winetricks using your package manager or download it from the <a href="https://github.com/Winetricks/winetricks">Winetricks GitHub repository</a>.</p>
-</li>
+<li>Official distro repositories</li>
+<li>Flatpak from verified remotes</li>
+<li>Official vendor package or repository</li>
+<li>Snap where it is the best maintained option</li>
 </ol>
-<p>Wine prefixes can get complicated when adding dotnet and other features with winetricks. Unlike Windows, you cannot UNINSTALL dotnet from a WINE prefix, so it is best to create a new prefix for each application that requires different versions of dotnet or other libraries. This way, you can avoid conflicts and ensure that each application has the correct environment to run smoothly. Once you get the application running, do NOT change the WINE prefix or add/remove libraries, as this can break the application. If you need to make changes, create a new prefix and set it up again. This involves deleting the old prefix and starting fresh, but it is the best way to ensure that your applications run smoothly without conflicts.</p>
-<h4 id="proton-usage"><a class="header" href="#proton-usage">Proton Usage</a></h4>
-<p>Proton is a compatibility layer developed by Valve that allows you to run Windows games on Linux through the Steam platform. It is built on top of WINE and includes additional libraries and optimizations to improve game compatibility and performance. Here are some tips for using Proton:</p>
-<ol>
-<li>
-<p><strong>Installation</strong>:
-Proton is integrated into the Steam client, so you do not need to install it separately.
-Make sure you have the latest version of Steam installed on your Linux system. You can install Steam using your distribution's package manager. For example, on Ubuntu, you can use:</p>
-<pre><code class="language-bash">sudo apt install steam
-</code></pre>
-<p>On Arch Linux, you can use:</p>
-<pre><code class="language-bash">sudo pacman -S steam
-</code></pre>
-</li>
-<li>
-<p><strong>Enabling Proton for all games</strong>:
-To enable Proton for all games, open the Steam client, go to "Settings," then "Steam Play." Check the box for "Enable Steam Play for all other titles" and select the desired Proton version from the dropdown menu.</p>
-</li>
-<li>
-<p><strong>Installing Proton GE</strong>:
-Proton GE (Glorious Eggroll) is a community-maintained version of Proton that includes additional patches and optimizations for specific games. To install Proton GE, you can download it from the <a href="https://github.com/GloriousEggroll/proton-ge-custom/releases">Proton GE GitHub repository</a>.</p>
-<p>After downloading, extract the contents to your Steam directory, typically located at <code>~/.steam/root/compatibilitytools.d/</code>. If the <code>compatibilitytools.d</code> directory does not exist, you can create it.
-Once extracted, restart the Steam client, and you should see Proton GE listed as an available compatibility tool in the Steam Play settings.</p>
-</li>
-</ol>
-<p>For updating Proton GE, I'd recommend using the <a href="https://github.com/ProtonUp/ProtonUp-Qt">ProtonUp-Qt</a> tool, which provides a user-friendly interface for managing and updating Proton GE installations OR if using the terminal you can use the following command:</p>
-<pre><code class="language-bash">protonup -u
-</code></pre>
-<p>This will update Proton GE to the latest version available. Install protonup through python pip:</p>
-<pre><code class="language-bash">pip install protonup
-</code></pre>
-<footer id="last-change">Last change: <time datetime="2025-08-18">2025-08-18</time></footer>
+<p>Avoid random install scripts unless you fully understand what they do.</p>
+<h3 id="native-vs-flatpak-vs-snap"><a class="header" href="#native-vs-flatpak-vs-snap">Native vs Flatpak vs Snap</a></h3>
+<ul>
+<li><strong>Native package:</strong> best integration with your distro update flow.</li>
+<li><strong>Flatpak:</strong> useful for up-to-date desktop apps across distros.</li>
+<li><strong>Snap:</strong> useful when the project officially maintains it there first.</li>
+</ul>
+<p>Pick one default path for most apps and use other formats only when needed.</p>
+<h2 id="practical-defaults"><a class="header" href="#practical-defaults">Practical Defaults</a></h2>
+<p>A practical desktop setup prioritizes speed, clarity, and low maintenance overhead.</p>
+<ul>
+<li>Keep your default app set small.</li>
+<li>Remove software you do not use.</li>
+<li>Avoid stacking duplicate tools that do the same job.</li>
+<li>Keep startup behavior clean and intentional.</li>
+</ul>
+<p>This gives you faster boot/login behavior and fewer update surprises.</p>
+<h2 id="office-and-productivity"><a class="header" href="#office-and-productivity">Office and Productivity</a></h2>
+<ul>
+<li><strong>Firefox:</strong> A strong default browser with good privacy controls and Linux support.</li>
+<li><strong>LibreOffice:</strong> The most established full office suite on Linux.</li>
+<li><strong>OnlyOffice:</strong> Worth considering if Microsoft Office format compatibility is a priority.</li>
+<li><strong>Nextcloud:</strong> A solid self-hosted option for file sync, collaboration, and personal cloud storage.</li>
+</ul>
+<h2 id="multimedia-and-creative-tools"><a class="header" href="#multimedia-and-creative-tools">Multimedia and Creative Tools</a></h2>
+<ul>
+<li><strong>Audacity:</strong> Good for quick audio editing and recording.</li>
+<li><strong>Blender:</strong> Professional-grade 3D modeling, animation, and rendering.</li>
+<li><strong>Calibre:</strong> Excellent for managing and converting e-books.</li>
+<li><strong>GIMP:</strong> A capable image editor for many workflows.</li>
+<li><strong>Inkscape:</strong> A strong vector graphics tool.</li>
+<li><strong>Kdenlive:</strong> One of the best general-purpose Linux video editors.</li>
+<li><strong>Krita:</strong> Excellent for digital painting and illustration.</li>
+<li><strong>OBS Studio:</strong> A standard choice for streaming and recording.</li>
+</ul>
+<h3 id="media-players"><a class="header" href="#media-players">Media Players</a></h3>
+<ul>
+<li><strong>Celluloid:</strong> A simple GTK front end that feels at home on GNOME-based desktops.</li>
+<li><strong>SMPlayer:</strong> A comfortable Qt-based player for KDE-style environments.</li>
+<li><strong>MPV:</strong> Lightweight, scriptable, and often the best choice if you want power without clutter.</li>
+<li><strong>VLC:</strong> Available on Linux and still useful in some cases, but many Linux users prefer MPV, Celluloid, or SMPlayer for a lighter and more native-feeling experience.</li>
+</ul>
+<h2 id="gaming-and-compatibility"><a class="header" href="#gaming-and-compatibility">Gaming and Compatibility</a></h2>
+<ul>
+<li><strong>Steam:</strong> Still the center of Linux gaming because of Proton and the size of the library.</li>
+<li><strong>Heroic Games Launcher:</strong> Useful for Epic Games and GOG libraries.</li>
+<li><strong>Lutris:</strong> Helpful when you want one launcher for games from several sources.</li>
+<li><strong>Bottles:</strong> A friendly way to manage Wine environments for individual applications or games.</li>
+<li><strong>Wine:</strong> The underlying compatibility layer when you need Windows software that has no native Linux version.</li>
+</ul>
+<p>Use compatibility tools for the apps and games that truly matter to you. Do not assume every familiar Windows program needs to come over with you.</p>
+<h2 id="choose-tools-by-workflow-not-by-brand-loyalty"><a class="header" href="#choose-tools-by-workflow-not-by-brand-loyalty">Choose Tools by Workflow, Not by Brand Loyalty</a></h2>
+<p>Ask these questions before you install another application:</p>
+<ul>
+<li>Is there a Linux-native tool that already solves the problem well?</li>
+<li>Do I need perfect file-format compatibility or just a workable result?</li>
+<li>Will this application be easier to maintain if I install it from the distribution repositories, Flatpak, or another source?</li>
+<li>Am I solving a real workflow gap, or am I just recreating old habits?</li>
+</ul>
+<p>That mindset will keep your Linux system cleaner and your software choices more intentional.</p>
+<p>If you need cross-distribution package command references, see the package management chapter in the terminal section.</p>
+<h2 id="startup-and-background-app-hygiene"><a class="header" href="#startup-and-background-app-hygiene">Startup and Background App Hygiene</a></h2>
+<p>Too many startup services make systems feel slow and unpredictable.</p>
+<ul>
+<li>Disable apps you do not need at login.</li>
+<li>Keep one backup tool, one sync method, and one main browser profile.</li>
+<li>Review autostart entries monthly.</li>
+</ul>
+<p>Small reductions in startup clutter often improve desktop responsiveness more than heavy tuning.</p>
+<div class="chapter-resources">
+<p><strong>Companion resources</strong></p>
+
+<ul>
+  
+<li><a href="https://github.com/luong-komorebi/Awesome-Linux-Software">Awesome Linux Software</a></li>
+
+  
+<li><a href="https://github.com/ChrisTitusTech/linutil">Chris Titus Tech Linux Utility</a></li>
+
+  
+<li><a href="https://www.youtube.com/watch?v=I0jeYe8iNWo">Microsoft Office vs LibreOffice | How to Make the Change</a></li>
+
+</ul>
+
+</div>
+
+<div class="chapter-summary">
+<p><strong>Key takeaways</strong></p>
+
+<ul>
+  
+<li>Start with a small, reliable software stack instead of porting every old habit at once.</li>
+
+  
+<li>Prefer Linux-native applications first and use compatibility tools where they add real value.</li>
+
+  
+<li>Flatpak, Snap, and native repositories are packaging options, not identities.</li>
+
+  
+<li>For gaming, Steam, Heroic, Lutris, Bottles, and Wine each solve different parts of the problem.</li>
+
+</ul>
+
+</div>
+
+<footer id="last-change">Last change: <time datetime="2026-05-02">2026-05-02</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                             <a rel="prev" href="chapter6-hardware.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="chapter8-environment.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
+                            <a rel="next prefetch" href="chapter7.1-linux-gaming.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
                         <div style="clear: both"></div>
@@ -319,16 +383,21 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="chapter6-hardware.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="chapter8-environment.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
+                    <a rel="next prefetch" href="chapter7.1-linux-gaming.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
 
         </div>
 
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
 
 
@@ -337,13 +406,13 @@ Once extracted, restart the Steam client, and you should see Proton GE listed as
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

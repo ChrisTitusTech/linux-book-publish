@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Bluetooth Configuration - The Linux Desktop Guide</title>
+        <title>Troubleshooting and Logs - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -177,95 +177,169 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="bluetooth-configuration"><a class="header" href="#bluetooth-configuration">Bluetooth Configuration</a></h2>
-<p>To configure Bluetooth, you can use the <code>bluetoothctl</code> command-line tool. This tool allows you to manage Bluetooth devices and settings directly from the terminal.</p>
-<p>Syntax for <code>bluetoothctl</code> commands:</p>
-<pre><code class="language-bash">bluetoothctl [command]
-</code></pre>
-<h3 id="common-bluetoothctl-commands"><a class="header" href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></h3>
+                        <h2 id="troubleshooting-and-logs"><a class="header" href="#troubleshooting-and-logs">Troubleshooting and Logs</a></h2>
 <ul>
-<li><code>power on</code> - Turn on the Bluetooth adapter.</li>
-<li><code>power off</code> - Turn off the Bluetooth adapter.</li>
-<li><code>agent on</code> - Enable the agent for pairing.</li>
-<li><code>scan on</code> - Start scanning for nearby Bluetooth devices.</li>
-<li><code>scan off</code> - Stop scanning for Bluetooth devices.</li>
-<li><code>pair &lt;device_address&gt;</code> - Pair with a specific Bluetooth device.</li>
-<li><code>connect &lt;device_address&gt;</code> - Connect to a paired Bluetooth device.</li>
-<li><code>disconnect &lt;device_address&gt;</code> - Disconnect from a connected Bluetooth device.</li>
-<li><code>devices</code> - List all known Bluetooth devices.</li>
-<li><code>info &lt;device_address&gt;</code> - Show detailed information about a specific Bluetooth device.</li>
+<li><a href="#a-simple-triage-workflow">A Simple Triage Workflow</a></li>
+<li><a href="#first-commands-to-run">First Commands to Run</a></li>
+<li><a href="#service-level-troubleshooting">Service-Level Troubleshooting</a></li>
+<li><a href="#network-troubleshooting-starter">Network Troubleshooting Starter</a></li>
+<li><a href="#audio-troubleshooting-starter">Audio Troubleshooting Starter</a></li>
+<li><a href="#where-logs-live">Where Logs Live</a></li>
+<li><a href="#symptom-based-quick-playbooks">Symptom-Based Quick Playbooks</a>
+<ul>
+<li><a href="#system-is-slow-or-freezing">System Is Slow or Freezing</a></li>
+<li><a href="#boot-takes-too-long">Boot Takes Too Long</a></li>
+<li><a href="#package-update-broke-something">Package Update Broke Something</a></li>
 </ul>
-<h4 id="example-usage"><a class="header" href="#example-usage">Example Usage:</a></h4>
-<pre><code class="language-bash">bluetoothctl
-power on
-agent on
-scan on
-</code></pre>
-<p>This will turn on the Bluetooth adapter, enable the agent for pairing, and start scanning for nearby Bluetooth devices.</p>
-<p><em>Note: <code>blueman</code> is a graphical Bluetooth manager that can be used as an alternative to <code>bluetoothctl</code> for those who prefer a GUI.</em></p>
-<h3 id="troubleshooting-bluetooth-issues"><a class="header" href="#troubleshooting-bluetooth-issues">Troubleshooting Bluetooth Issues</a></h3>
-<p>If you encounter issues with Bluetooth, here are some common troubleshooting steps:</p>
+</li>
+<li><a href="#capturing-a-useful-support-report">Capturing a Useful Support Report</a>
+<ul>
+<li><a href="#sharing-errors-for-help">Sharing Errors for Help</a></li>
+</ul>
+</li>
+</ul>
+<p>Most Linux problems are diagnosable if you follow a repeatable process. This chapter gives you a practical triage workflow and the first tools to reach for.</p>
+<h3 id="a-simple-triage-workflow"><a class="header" href="#a-simple-triage-workflow">A Simple Triage Workflow</a></h3>
 <ol>
-<li><strong>Check Bluetooth Service Status</strong>:
-Ensure that the Bluetooth service is running:
-<pre><code>sudo systemctl status bluetooth
-</code></pre>
-If it is not running, start it with:
-<pre><code>sudo systemctl start bluetooth
-</code></pre>
-</li>
-<li><strong>Restart Bluetooth Service</strong>:
-Sometimes, restarting the Bluetooth service can resolve connectivity issues:
-<pre><code>sudo systemctl restart bluetooth
-</code></pre>
-</li>
-<li><strong>Check for Blocked Devices</strong>:
-Use <code>rfkill</code> to check if Bluetooth is blocked:
-<pre><code>rfkill list
-</code></pre>
-If Bluetooth is blocked, unblock it with:
-<pre><code>sudo rfkill unblock bluetooth
-</code></pre>
-</li>
-<li><strong>Update Bluetooth Drivers</strong>:
-Ensure that your system has the latest Bluetooth drivers installed. You can update your system packages using
-your package manager. For example, on Ubuntu:
-<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
-</code></pre>
-</li>
-<li><strong>Check Logs</strong>:
-Review system logs for Bluetooth-related errors:
-<pre><code>journalctl -xe | grep bluetooth
-</code></pre>
-</li>
-<li><strong>Re-pair Devices</strong>:
-If a device is not connecting, try removing it and re-pairing:
-<pre><code>bluetoothctl
-remove &lt;device_address&gt;
-pair &lt;device_address&gt;
-connect &lt;device_address&gt;
-</code></pre>
-</li>
+<li>Identify what failed (service, network, audio, app).</li>
+<li>Capture exact error output.</li>
+<li>Check recent logs.</li>
+<li>Make one change at a time.</li>
+<li>Retest and record results.</li>
 </ol>
-<p>By following these steps, you should be able to configure and troubleshoot Bluetooth on your Linux system effectively.</p>
-<h4 id="known-bluetooth-issues"><a class="header" href="#known-bluetooth-issues">Known Bluetooth Issues</a></h4>
+<p>Avoid changing many settings at once. It hides the real cause.</p>
+<h3 id="first-commands-to-run"><a class="header" href="#first-commands-to-run">First Commands to Run</a></h3>
+<pre><code class="language-bash"># Current boot logs
+journalctl -b --no-pager
+
+# Error priority logs
+journalctl -p err -b --no-pager
+
+# Failed services
+systemctl --failed
+
+# Kernel messages
+dmesg -T | tail -n 100
+</code></pre>
+<h3 id="service-level-troubleshooting"><a class="header" href="#service-level-troubleshooting">Service-Level Troubleshooting</a></h3>
+<p>When a service is failing:</p>
+<pre><code class="language-bash">systemctl status servicename --no-pager
+journalctl -u servicename -b -n 200 --no-pager
+</code></pre>
+<p>Read for:</p>
 <ul>
-<li>Some Bluetooth adapters may require proprietary firmware to function correctly. Check your distribution’s documentation for information on installing necessary firmware.</li>
-<li>Interference from other wireless devices can affect Bluetooth performance. Try moving away from potential sources of interference.</li>
-<li>Not all Bluetooth profiles may be supported by your adapter or the connected device. Verify compatibility if you experience issues with specific functionalities (e.g., audio streaming, file transfer).</li>
-<li>Certain desktop environments may have their own Bluetooth management tools that could conflict with <code>bluetoothctl</code>. Consider using the native tool provided by your desktop environment if you encounter issues.</li>
-<li>Xbox One Controllers have connectivity issues with Linux Bluetooth on early firmware versions. Make sure your controller firmware is updated to the latest version to ensure proper Bluetooth functionality. This requires a Windows or Xbox console to update the firmware.</li>
+<li>Missing file paths</li>
+<li>Permission errors</li>
+<li>Port conflicts</li>
+<li>Invalid config syntax</li>
 </ul>
-<footer id="last-change">Last change: <time datetime="2025-11-02">2025-11-02</time></footer>
+<p>If a service file was recently edited, verify syntax first, then restart:</p>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl restart servicename
+</code></pre>
+<h3 id="network-troubleshooting-starter"><a class="header" href="#network-troubleshooting-starter">Network Troubleshooting Starter</a></h3>
+<pre><code class="language-bash">nmcli device status
+ip address
+ip route
+ping -c 3 1.1.1.1
+resolvectl status
+journalctl -u NetworkManager -b --no-pager
+</code></pre>
+<p>Interpretation:</p>
+<ul>
+<li>Can ping IP but not domain: likely DNS issue.</li>
+<li>No default route: gateway or interface config issue.</li>
+<li>Device unmanaged: NetworkManager profile mismatch.</li>
+</ul>
+<h3 id="audio-troubleshooting-starter"><a class="header" href="#audio-troubleshooting-starter">Audio Troubleshooting Starter</a></h3>
+<pre><code class="language-bash">pactl list short sinks
+pactl info
+aplay -l
+systemctl --user status pipewire pipewire-pulse wireplumber --no-pager
+</code></pre>
+<p>If audio disappears after updates, verify default sink and restart user audio services.</p>
+<h3 id="where-logs-live"><a class="header" href="#where-logs-live">Where Logs Live</a></h3>
+<ul>
+<li>Journald database: use <code>journalctl</code></li>
+<li>Traditional logs: <code>/var/log</code></li>
+<li>Package manager logs: distro-dependent, often under <code>/var/log</code></li>
+</ul>
+<p>Useful paths to remember:</p>
+<ul>
+<li><code>/var/log/syslog</code> or <code>/var/log/messages</code></li>
+<li><code>/var/log/auth.log</code> or secure/authentication logs</li>
+<li><code>/var/log/pacman.log</code>, <code>/var/log/dnf.log</code>, or apt history logs</li>
+</ul>
+<h2 id="symptom-based-quick-playbooks"><a class="header" href="#symptom-based-quick-playbooks">Symptom-Based Quick Playbooks</a></h2>
+<h3 id="system-is-slow-or-freezing"><a class="header" href="#system-is-slow-or-freezing">System Is Slow or Freezing</a></h3>
+<pre><code class="language-bash">top
+free -h
+df -h
+journalctl -p err -b --no-pager
+</code></pre>
+<p>Check for memory pressure, full filesystems, and repeated service errors.</p>
+<h3 id="boot-takes-too-long"><a class="header" href="#boot-takes-too-long">Boot Takes Too Long</a></h3>
+<pre><code class="language-bash">systemd-analyze
+systemd-analyze blame | head -n 20
+</code></pre>
+<p>This quickly shows slow units during startup.</p>
+<h3 id="package-update-broke-something"><a class="header" href="#package-update-broke-something">Package Update Broke Something</a></h3>
+<ul>
+<li>Check package manager history logs.</li>
+<li>Reboot once to rule out stale session state.</li>
+<li>Identify the exact package update before rolling back or pinning.</li>
+</ul>
+<h2 id="capturing-a-useful-support-report"><a class="header" href="#capturing-a-useful-support-report">Capturing a Useful Support Report</a></h2>
+<p>Create a minimal report when you need outside help:</p>
+<pre><code class="language-bash">uname -a &gt; system-report.txt
+lsb_release -a &gt;&gt; system-report.txt 2&gt;/dev/null || cat /etc/os-release &gt;&gt; system-report.txt
+systemctl --failed &gt;&gt; system-report.txt
+journalctl -p err -b --no-pager &gt;&gt; system-report.txt
+</code></pre>
+<p>Attach exact command outputs with timestamps when possible.</p>
+<h3 id="sharing-errors-for-help"><a class="header" href="#sharing-errors-for-help">Sharing Errors for Help</a></h3>
+<p>When asking for support, include:</p>
+<ul>
+<li>The command you ran</li>
+<li>Full error output</li>
+<li>Distribution and version</li>
+<li>What changed right before the issue started</li>
+</ul>
+<p>Never post secrets, API keys, or private credentials.</p>
+<div class="chapter-resources">
+<p><strong>Companion resources</strong></p>
+
+<ul>
+	
+<li><a href="https://www.youtube.com/watch?v=r7meKJsjqfY">GRUB Rescue | Repairing GRUB</a></li>
+
+	
+<li><a href="https://www.youtube.com/watch?v=9D3hvnnby9A">How to Repair Linux With Boot Failure</a></li>
+
+</ul>
+
+</div>
+
+<div class="chapter-summary">
+<p><strong>Key takeaways</strong></p>
+<ul>
+<li>Linux troubleshooting is a process, not guesswork.</li>
+<li>Start with status, logs, and one controlled change at a time.</li>
+<li>Journal and kernel logs usually explain failure causes.</li>
+<li>Clear error reports dramatically improve support outcomes.</li>
+</ul>
+</div>
+
+<footer id="last-change">Last change: <time datetime="2026-05-02">2026-05-02</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter4.2-networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter4.8-text-editors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4.4-audio.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter5-drives.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -275,11 +349,11 @@ connect &lt;device_address&gt;
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter4.2-networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter4.8-text-editors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4.4-audio.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter5-drives.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -56,7 +56,7 @@ mdbook build "$BOOK_DIR"
 # Restore original book.toml
 mv "$BOOK_TOML_BACKUP" "$BOOK_TOML"
 
-rsync -avP "${BOOK_DIR}/book/html/" "${HOME_PATH}/github/linux-book-publish/"
+rsync -avP "${BOOK_DIR}/book/" "${HOME_PATH}/github/linux-book-publish/" --exclude=book/
 git add .
 git commit -m "Update book content"
 git push

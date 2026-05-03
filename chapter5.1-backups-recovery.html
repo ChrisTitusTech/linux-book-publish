@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Bluetooth Configuration - The Linux Desktop Guide</title>
+        <title>Backups and Recovery Basics - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -177,95 +177,147 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="bluetooth-configuration"><a class="header" href="#bluetooth-configuration">Bluetooth Configuration</a></h2>
-<p>To configure Bluetooth, you can use the <code>bluetoothctl</code> command-line tool. This tool allows you to manage Bluetooth devices and settings directly from the terminal.</p>
-<p>Syntax for <code>bluetoothctl</code> commands:</p>
-<pre><code class="language-bash">bluetoothctl [command]
-</code></pre>
-<h3 id="common-bluetoothctl-commands"><a class="header" href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></h3>
+                        <h2 id="backups-and-recovery-basics"><a class="header" href="#backups-and-recovery-basics">Backups and Recovery Basics</a></h2>
 <ul>
-<li><code>power on</code> - Turn on the Bluetooth adapter.</li>
-<li><code>power off</code> - Turn off the Bluetooth adapter.</li>
-<li><code>agent on</code> - Enable the agent for pairing.</li>
-<li><code>scan on</code> - Start scanning for nearby Bluetooth devices.</li>
-<li><code>scan off</code> - Stop scanning for Bluetooth devices.</li>
-<li><code>pair &lt;device_address&gt;</code> - Pair with a specific Bluetooth device.</li>
-<li><code>connect &lt;device_address&gt;</code> - Connect to a paired Bluetooth device.</li>
-<li><code>disconnect &lt;device_address&gt;</code> - Disconnect from a connected Bluetooth device.</li>
-<li><code>devices</code> - List all known Bluetooth devices.</li>
-<li><code>info &lt;device_address&gt;</code> - Show detailed information about a specific Bluetooth device.</li>
+<li><a href="#backup-strategy-for-desktop-users">Backup Strategy for Desktop Users</a></li>
+<li><a href="#what-to-back-up-first">What to Back Up First</a></li>
+<li><a href="#backup-scope-template">Backup Scope Template</a></li>
+<li><a href="#fast-backup-with-rsync">Fast Backup with rsync</a></li>
+<li><a href="#system-snapshots">System Snapshots</a></li>
+<li><a href="#recovery-drill">Recovery Drill</a></li>
+<li><a href="#scheduling-backups">Scheduling Backups</a></li>
+<li><a href="#disaster-recovery-checklist">Disaster Recovery Checklist</a>
+<ul>
+<li><a href="#common-backup-mistakes">Common Backup Mistakes</a></li>
 </ul>
-<h4 id="example-usage"><a class="header" href="#example-usage">Example Usage:</a></h4>
-<pre><code class="language-bash">bluetoothctl
-power on
-agent on
-scan on
+</li>
+</ul>
+<p>Backups are not optional once your Linux system contains work you care about. A good backup plan is simple, repeatable, and tested.</p>
+<h3 id="backup-strategy-for-desktop-users"><a class="header" href="#backup-strategy-for-desktop-users">Backup Strategy for Desktop Users</a></h3>
+<p>Use the 3-2-1 mindset:</p>
+<ul>
+<li>3 copies of important data</li>
+<li>2 different storage types</li>
+<li>1 copy off-device</li>
+</ul>
+<p>A practical setup:</p>
+<ul>
+<li>Primary data in home directory</li>
+<li>External drive backup weekly</li>
+<li>Cloud or remote backup for critical documents</li>
+</ul>
+<h3 id="what-to-back-up-first"><a class="header" href="#what-to-back-up-first">What to Back Up First</a></h3>
+<ul>
+<li>Home folders (Documents, Projects, Photos)</li>
+<li>Browser profile data</li>
+<li>SSH keys and password manager vault exports</li>
+<li>Important config folders like <code>.config</code></li>
+</ul>
+<p>You usually do not need to back up cache directories such as <code>~/.cache</code>.</p>
+<h3 id="backup-scope-template"><a class="header" href="#backup-scope-template">Backup Scope Template</a></h3>
+<p>Define this once and keep it documented:</p>
+<ul>
+<li><strong>Must backup:</strong> personal files, project repos, keys, secrets</li>
+<li><strong>Nice to backup:</strong> desktop settings, app profiles</li>
+<li><strong>Do not backup:</strong> large regenerable caches and temporary files</li>
+</ul>
+<h3 id="fast-backup-with-rsync"><a class="header" href="#fast-backup-with-rsync">Fast Backup with rsync</a></h3>
+<pre><code class="language-bash">rsync -avh --delete /home/youruser/Documents /media/backup-drive/Documents
 </code></pre>
-<p>This will turn on the Bluetooth adapter, enable the agent for pairing, and start scanning for nearby Bluetooth devices.</p>
-<p><em>Note: <code>blueman</code> is a graphical Bluetooth manager that can be used as an alternative to <code>bluetoothctl</code> for those who prefer a GUI.</em></p>
-<h3 id="troubleshooting-bluetooth-issues"><a class="header" href="#troubleshooting-bluetooth-issues">Troubleshooting Bluetooth Issues</a></h3>
-<p>If you encounter issues with Bluetooth, here are some common troubleshooting steps:</p>
+<p>More practical home backup pattern with exclusions:</p>
+<pre><code class="language-bash">rsync -avh --delete \
+	--exclude='.cache' \
+	--exclude='Downloads' \
+	/home/youruser/ /media/backup-drive/home-backup/
+</code></pre>
+<p>Run this manually first, then automate after you trust the result.</p>
+<blockquote>
+<p><strong>Warning:</strong> <code>--delete</code> removes files on the destination that no longer exist in source.</p>
+</blockquote>
+<h3 id="system-snapshots"><a class="header" href="#system-snapshots">System Snapshots</a></h3>
+<p>Snapshots help with system rollback after bad updates, especially on snapshot-friendly filesystems.</p>
+<ul>
+<li>Use snapshot tools supported by your distro.</li>
+<li>Snapshot before major updates or driver changes.</li>
+<li>Keep only a reasonable number of snapshots.</li>
+</ul>
+<p>Snapshots are not a replacement for external backups.</p>
+<h3 id="recovery-drill"><a class="header" href="#recovery-drill">Recovery Drill</a></h3>
+<p>A backup is only real after restore is tested.</p>
 <ol>
-<li><strong>Check Bluetooth Service Status</strong>:
-Ensure that the Bluetooth service is running:
-<pre><code>sudo systemctl status bluetooth
-</code></pre>
-If it is not running, start it with:
-<pre><code>sudo systemctl start bluetooth
-</code></pre>
-</li>
-<li><strong>Restart Bluetooth Service</strong>:
-Sometimes, restarting the Bluetooth service can resolve connectivity issues:
-<pre><code>sudo systemctl restart bluetooth
-</code></pre>
-</li>
-<li><strong>Check for Blocked Devices</strong>:
-Use <code>rfkill</code> to check if Bluetooth is blocked:
-<pre><code>rfkill list
-</code></pre>
-If Bluetooth is blocked, unblock it with:
-<pre><code>sudo rfkill unblock bluetooth
-</code></pre>
-</li>
-<li><strong>Update Bluetooth Drivers</strong>:
-Ensure that your system has the latest Bluetooth drivers installed. You can update your system packages using
-your package manager. For example, on Ubuntu:
-<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
-</code></pre>
-</li>
-<li><strong>Check Logs</strong>:
-Review system logs for Bluetooth-related errors:
-<pre><code>journalctl -xe | grep bluetooth
-</code></pre>
-</li>
-<li><strong>Re-pair Devices</strong>:
-If a device is not connecting, try removing it and re-pairing:
-<pre><code>bluetoothctl
-remove &lt;device_address&gt;
-pair &lt;device_address&gt;
-connect &lt;device_address&gt;
-</code></pre>
-</li>
+<li>Restore one file to a test location.</li>
+<li>Restore one folder.</li>
+<li>Confirm file integrity.</li>
+<li>Document restore steps.</li>
 </ol>
-<p>By following these steps, you should be able to configure and troubleshoot Bluetooth on your Linux system effectively.</p>
-<h4 id="known-bluetooth-issues"><a class="header" href="#known-bluetooth-issues">Known Bluetooth Issues</a></h4>
+<p>Example restore command:</p>
+<pre><code class="language-bash">rsync -avh /media/backup-drive/home-backup/Documents/ /home/youruser/Documents/
+</code></pre>
+<p>If restoring into an active system, confirm ownership and permissions after restore.</p>
+<h2 id="scheduling-backups"><a class="header" href="#scheduling-backups">Scheduling Backups</a></h2>
+<p>Start manual, then automate with one method:</p>
 <ul>
-<li>Some Bluetooth adapters may require proprietary firmware to function correctly. Check your distribution’s documentation for information on installing necessary firmware.</li>
-<li>Interference from other wireless devices can affect Bluetooth performance. Try moving away from potential sources of interference.</li>
-<li>Not all Bluetooth profiles may be supported by your adapter or the connected device. Verify compatibility if you experience issues with specific functionalities (e.g., audio streaming, file transfer).</li>
-<li>Certain desktop environments may have their own Bluetooth management tools that could conflict with <code>bluetoothctl</code>. Consider using the native tool provided by your desktop environment if you encounter issues.</li>
-<li>Xbox One Controllers have connectivity issues with Linux Bluetooth on early firmware versions. Make sure your controller firmware is updated to the latest version to ensure proper Bluetooth functionality. This requires a Windows or Xbox console to update the firmware.</li>
+<li><code>crontab</code> for simple schedules</li>
+<li>systemd timers for more robust Linux-native scheduling</li>
 </ul>
-<footer id="last-change">Last change: <time datetime="2025-11-02">2025-11-02</time></footer>
+<p>Example weekly cron entry:</p>
+<pre><code class="language-text">0 2 * * 0 /usr/local/bin/backup-home.sh
+</code></pre>
+<p>Keep scripts readable and log every run.</p>
+<h2 id="disaster-recovery-checklist"><a class="header" href="#disaster-recovery-checklist">Disaster Recovery Checklist</a></h2>
+<p>If a disk fails or system becomes unbootable:</p>
+<ol>
+<li>Stop writing to damaged disks.</li>
+<li>Boot from live USB.</li>
+<li>Mount backup destination read-only first.</li>
+<li>Restore critical files before optional files.</li>
+<li>Rebuild user environment after data restore.</li>
+</ol>
+<h3 id="common-backup-mistakes"><a class="header" href="#common-backup-mistakes">Common Backup Mistakes</a></h3>
+<ul>
+<li>Keeping backup on same physical disk as source</li>
+<li>Never testing restore</li>
+<li>Backing up too much and never cleaning old sets</li>
+<li>Assuming RAID means backup</li>
+</ul>
+<p>RAID improves availability, not historical recovery.</p>
+<div class="chapter-resources">
+<p><strong>Companion resources</strong></p>
+
+<ul>
+	
+<li><a href="https://www.youtube.com/watch?v=tXGVzMUsuE4">The Best Free Backup for EVERY Operating System</a></li>
+
+	
+<li><a href="https://www.youtube.com/watch?v=OEfboN-Nb2s">Rsync Backup on Linux</a></li>
+
+	
+<li><a href="https://www.youtube.com/watch?v=U-lMJHcjCVs">How to Install Timeshift in Linux | Backup and Restore</a></li>
+
+</ul>
+
+</div>
+
+<div class="chapter-summary">
+<p><strong>Key takeaways</strong></p>
+<ul>
+<li>Backup discipline is part of Linux reliability, not an optional extra.</li>
+<li>Start with home data and scale gradually.</li>
+<li>Rsync is a strong baseline tool for predictable backups.</li>
+<li>Test restores regularly to verify your plan actually works.</li>
+</ul>
+</div>
+
+<footer id="last-change">Last change: <time datetime="2026-05-02">2026-05-02</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter4.2-networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter5-drives.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4.4-audio.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter6-hardware.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -275,11 +327,11 @@ connect &lt;device_address&gt;
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter4.2-networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter5-drives.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4.4-audio.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter6-hardware.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -1,0 +1,53 @@
+.book-lead {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(96, 106, 132, 0.3);
+  border-radius: 0.75rem;
+  background: rgba(127, 132, 156, 0.08);
+}
+
+.chapter-outline,
+.chapter-summary,
+.chapter-resources {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(96, 106, 132, 0.22);
+  border-radius: 0.75rem;
+  background: rgba(127, 132, 156, 0.06);
+}
+
+.chapter-outline > :first-child,
+.chapter-summary > :first-child,
+.chapter-resources > :first-child,
+.book-lead > :first-child {
+  margin-top: 0;
+}
+
+.chapter-outline > :last-child,
+.chapter-summary > :last-child,
+.chapter-resources > :last-child,
+.book-lead > :last-child {
+  margin-bottom: 0;
+}
+
+.chapter-outline ul,
+.chapter-summary ul,
+.chapter-resources ul {
+  margin-bottom: 0;
+}
+
+blockquote {
+  margin: 1.1rem 0;
+  padding: 0.85rem 1rem;
+  border-left: 0.3rem solid rgba(82, 94, 133, 0.7);
+  border-radius: 0.5rem;
+  background: rgba(127, 132, 156, 0.07);
+}
+
+blockquote p {
+  margin: 0.4rem 0;
+}
+
+hr {
+  margin: 1.8rem 0;
+}

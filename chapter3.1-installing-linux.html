@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Bluetooth Configuration - The Linux Desktop Guide</title>
+        <title>Installing Linux: Live USB to First Boot - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -177,95 +177,278 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="bluetooth-configuration"><a class="header" href="#bluetooth-configuration">Bluetooth Configuration</a></h2>
-<p>To configure Bluetooth, you can use the <code>bluetoothctl</code> command-line tool. This tool allows you to manage Bluetooth devices and settings directly from the terminal.</p>
-<p>Syntax for <code>bluetoothctl</code> commands:</p>
-<pre><code class="language-bash">bluetoothctl [command]
-</code></pre>
-<h3 id="common-bluetoothctl-commands"><a class="header" href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></h3>
+                        <h1 id="installing-linux-live-usb-to-first-boot"><a class="header" href="#installing-linux-live-usb-to-first-boot">Installing Linux: Live USB to First Boot</a></h1>
 <ul>
-<li><code>power on</code> - Turn on the Bluetooth adapter.</li>
-<li><code>power off</code> - Turn off the Bluetooth adapter.</li>
-<li><code>agent on</code> - Enable the agent for pairing.</li>
-<li><code>scan on</code> - Start scanning for nearby Bluetooth devices.</li>
-<li><code>scan off</code> - Stop scanning for Bluetooth devices.</li>
-<li><code>pair &lt;device_address&gt;</code> - Pair with a specific Bluetooth device.</li>
-<li><code>connect &lt;device_address&gt;</code> - Connect to a paired Bluetooth device.</li>
-<li><code>disconnect &lt;device_address&gt;</code> - Disconnect from a connected Bluetooth device.</li>
-<li><code>devices</code> - List all known Bluetooth devices.</li>
-<li><code>info &lt;device_address&gt;</code> - Show detailed information about a specific Bluetooth device.</li>
+<li><a href="#before-you-install">Before You Install</a>
+<ul>
+<li><a href="#hardware-and-installer-prep-checklist">Hardware and Installer Prep Checklist</a></li>
 </ul>
-<h4 id="example-usage"><a class="header" href="#example-usage">Example Usage:</a></h4>
-<pre><code class="language-bash">bluetoothctl
-power on
-agent on
-scan on
+</li>
+<li><a href="#create-a-bootable-usb">Create a Bootable USB</a></li>
+<li><a href="#bios-and-uefi-settings">BIOS and UEFI Settings</a></li>
+<li><a href="#partitioning-choices">Partitioning Choices</a>
+<ul>
+<li><a href="#safe-default-layout">Safe Default Layout</a></li>
+<li><a href="#full-disk-vs-dual-boot">Full Disk vs Dual-Boot</a></li>
+<li><a href="#how-much-space-should-you-allocate">How Much Space Should You Allocate</a></li>
+<li><a href="#encryption-decision">Encryption Decision</a></li>
+</ul>
+</li>
+<li><a href="#during-installation">During Installation</a>
+<ul>
+<li><a href="#timezone-locale-and-keyboard-notes">Timezone, Locale, and Keyboard Notes</a></li>
+</ul>
+</li>
+<li><a href="#first-boot-checklist">First Boot Checklist</a>
+<ul>
+<li><a href="#first-boot-validation-commands">First Boot Validation Commands</a></li>
+</ul>
+</li>
+<li><a href="#common-install-problems">Common Install Problems</a>
+<ul>
+<li><a href="#installer-does-not-boot">Installer Does Not Boot</a></li>
+<li><a href="#no-wi-fi-after-install">No Wi-Fi After Install</a></li>
+<li><a href="#boots-straight-into-old-os">Boots Straight into Old OS</a></li>
+<li><a href="#black-screen-after-first-reboot">Black Screen After First Reboot</a></li>
+<li><a href="#system-boots-but-feels-unstable">System Boots but Feels Unstable</a></li>
+</ul>
+</li>
+<li><a href="#post-install-hardening-basics">Post-Install Hardening Basics</a></li>
+<li><a href="#first-week-stabilization-plan">First Week Stabilization Plan</a></li>
+</ul>
+<div class="chapter-outline">
+<p><strong>In this chapter:</strong></p>
+<ul>
+<li>Prepare a safe install plan before changing disks</li>
+<li>Create and verify a bootable Linux USB</li>
+<li>Choose sensible partition options for new users</li>
+<li>Complete first boot setup and validation</li>
+</ul>
+</div>
+
+<p>Installing Linux is much easier when you treat it like a checklist instead of a one-shot gamble. This chapter focuses on a beginner-safe workflow you can reuse on laptops, desktops, and dual-boot systems.</p>
+<h2 id="before-you-install"><a class="header" href="#before-you-install">Before You Install</a></h2>
+<p>Do these checks before you boot the installer:</p>
+<ul>
+<li>Back up important files from your current system.</li>
+<li>Confirm whether your system boots in UEFI mode (modern default).</li>
+<li>Decide if this is full-disk Linux or dual-boot with Windows.</li>
+<li>Download the ISO only from the official distribution website.</li>
+<li>Verify the ISO checksum when available.</li>
+</ul>
+<blockquote>
+<p><strong>Why this matters:</strong> Most install failures come from skipped prep, not from Linux itself.</p>
+</blockquote>
+<h3 id="hardware-and-installer-prep-checklist"><a class="header" href="#hardware-and-installer-prep-checklist">Hardware and Installer Prep Checklist</a></h3>
+<p>Before committing to install, verify these practical details:</p>
+<ul>
+<li>You have at least 25 to 30 GB free for the OS and updates.</li>
+<li>You have enough RAM for your chosen desktop environment.</li>
+<li>You know whether your disk is NVMe (<code>/dev/nvme0n1</code>) or SATA (<code>/dev/sdX</code>).</li>
+<li>You can boot the live USB and confirm keyboard, trackpad, audio, and Wi-Fi work.</li>
+</ul>
+<p>If any core device fails in live mode, stop and solve that first.</p>
+<h2 id="create-a-bootable-usb"><a class="header" href="#create-a-bootable-usb">Create a Bootable USB</a></h2>
+<p>Use one of these tools:</p>
+<ul>
+<li><strong>Balena Etcher</strong> (simple GUI workflow)</li>
+<li><strong>Rufus</strong> (common on Windows)</li>
+<li><strong>Ventoy</strong> (multi-ISO USB)</li>
+<li><strong>dd</strong> (advanced terminal method)</li>
+</ul>
+<p>Typical Linux command-line method:</p>
+<pre><code class="language-bash">lsblk
+sudo dd if=linux.iso of=/dev/sdX bs=4M status=progress oflag=sync
 </code></pre>
-<p>This will turn on the Bluetooth adapter, enable the agent for pairing, and start scanning for nearby Bluetooth devices.</p>
-<p><em>Note: <code>blueman</code> is a graphical Bluetooth manager that can be used as an alternative to <code>bluetoothctl</code> for those who prefer a GUI.</em></p>
-<h3 id="troubleshooting-bluetooth-issues"><a class="header" href="#troubleshooting-bluetooth-issues">Troubleshooting Bluetooth Issues</a></h3>
-<p>If you encounter issues with Bluetooth, here are some common troubleshooting steps:</p>
+<p>Replace <code>/dev/sdX</code> with the USB device, not a partition like <code>/dev/sdX1</code>.</p>
+<blockquote>
+<p><strong>Warning:</strong> Writing to the wrong disk with <code>dd</code> can destroy data immediately.</p>
+</blockquote>
+<h2 id="bios-and-uefi-settings"><a class="header" href="#bios-and-uefi-settings">BIOS and UEFI Settings</a></h2>
+<p>Before booting from USB, enter firmware settings and check:</p>
+<ul>
+<li>USB boot is enabled.</li>
+<li>Boot mode is UEFI for modern installs.</li>
+<li>Fast Boot is disabled if USB boot is ignored.</li>
+<li>Secure Boot is left on unless your distro or driver setup requires disabling it.</li>
+</ul>
+<p>If the USB does not appear in boot options, recreate it and try a different USB port.</p>
+<h2 id="partitioning-choices"><a class="header" href="#partitioning-choices">Partitioning Choices</a></h2>
+<p>For most beginners, use installer defaults unless you have a clear reason not to.</p>
+<h3 id="safe-default-layout"><a class="header" href="#safe-default-layout">Safe Default Layout</a></h3>
+<ul>
+<li>EFI System Partition (FAT32, usually 300 MiB to 1 GiB)</li>
+<li>Root partition (<code>/</code>, ext4)</li>
+<li>Optional home partition (<code>/home</code>, ext4)</li>
+<li>Optional swap partition or swap file</li>
+</ul>
+<h3 id="full-disk-vs-dual-boot"><a class="header" href="#full-disk-vs-dual-boot">Full Disk vs Dual-Boot</a></h3>
+<ul>
+<li><strong>Full disk Linux:</strong> simplest and most reliable install path.</li>
+<li><strong>Dual-boot:</strong> useful during transition, but requires extra care with disk space and boot entries.</li>
+</ul>
+<h3 id="how-much-space-should-you-allocate"><a class="header" href="#how-much-space-should-you-allocate">How Much Space Should You Allocate</a></h3>
+<p>Common desktop sizing guidance:</p>
+<ul>
+<li>Root (<code>/</code>): 100 to 200 GB for general desktop usage</li>
+<li>Home (<code>/home</code>): as much as possible for personal files</li>
+<li>Swap: often 2 to 8 GB, or larger if you rely on hibernation
+<em>Note: swap isn’t needed unless you have very low RAM or use hibernation.</em></li>
+</ul>
+<p>If you are unsure, keep layout simple: one root partition plus swap.</p>
+<h3 id="encryption-decision"><a class="header" href="#encryption-decision">Encryption Decision</a></h3>
+<p>Many installers offer full-disk or home encryption.</p>
+<ul>
+<li><strong>Use encryption</strong> on laptops and portable systems.</li>
+<li><strong>Skip encryption</strong> only if you have specific performance or recovery requirements.</li>
+</ul>
+<p>If you enable encryption, store recovery details safely and do not forget the passphrase.</p>
+<p>If dual-booting:</p>
+<ul>
+<li>Shrink Windows from Windows Disk Management first.</li>
+<li>Disable Windows Fast Startup.</li>
+<li>Keep a recovery USB for both OSes.</li>
+</ul>
+<h2 id="during-installation"><a class="header" href="#during-installation">During Installation</a></h2>
+<p>Recommended beginner choices:</p>
+<ul>
+<li>Create a normal user account and strong password.</li>
+<li>Enable automatic time zone and network if available.</li>
+<li>Install third-party codecs and drivers when offered by trusted installers.</li>
+<li>Use default bootloader settings unless you understand custom changes.</li>
+</ul>
+<h3 id="timezone-locale-and-keyboard-notes"><a class="header" href="#timezone-locale-and-keyboard-notes">Timezone, Locale, and Keyboard Notes</a></h3>
+<p>These settings cause daily friction when incorrect:</p>
+<ul>
+<li>Confirm timezone and clock source.</li>
+<li>Confirm keyboard layout and compose behavior.</li>
+<li>Confirm locale so package manager and logs use expected language and formatting.</li>
+</ul>
+<h2 id="first-boot-checklist"><a class="header" href="#first-boot-checklist">First Boot Checklist</a></h2>
+<p>After first login:</p>
 <ol>
-<li><strong>Check Bluetooth Service Status</strong>:
-Ensure that the Bluetooth service is running:
-<pre><code>sudo systemctl status bluetooth
-</code></pre>
-If it is not running, start it with:
-<pre><code>sudo systemctl start bluetooth
-</code></pre>
-</li>
-<li><strong>Restart Bluetooth Service</strong>:
-Sometimes, restarting the Bluetooth service can resolve connectivity issues:
-<pre><code>sudo systemctl restart bluetooth
-</code></pre>
-</li>
-<li><strong>Check for Blocked Devices</strong>:
-Use <code>rfkill</code> to check if Bluetooth is blocked:
-<pre><code>rfkill list
-</code></pre>
-If Bluetooth is blocked, unblock it with:
-<pre><code>sudo rfkill unblock bluetooth
-</code></pre>
-</li>
-<li><strong>Update Bluetooth Drivers</strong>:
-Ensure that your system has the latest Bluetooth drivers installed. You can update your system packages using
-your package manager. For example, on Ubuntu:
-<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
-</code></pre>
-</li>
-<li><strong>Check Logs</strong>:
-Review system logs for Bluetooth-related errors:
-<pre><code>journalctl -xe | grep bluetooth
-</code></pre>
-</li>
-<li><strong>Re-pair Devices</strong>:
-If a device is not connecting, try removing it and re-pairing:
-<pre><code>bluetoothctl
-remove &lt;device_address&gt;
-pair &lt;device_address&gt;
-connect &lt;device_address&gt;
-</code></pre>
-</li>
+<li>Connect to wired or wireless network.</li>
+<li>Update system packages.</li>
+<li>Reboot once after updates.</li>
+<li>Verify audio, graphics, and Bluetooth.</li>
+<li>Install one browser and one editor you trust.</li>
+<li>Create a basic backup of your home folder.</li>
 </ol>
-<p>By following these steps, you should be able to configure and troubleshoot Bluetooth on your Linux system effectively.</p>
-<h4 id="known-bluetooth-issues"><a class="header" href="#known-bluetooth-issues">Known Bluetooth Issues</a></h4>
+<h3 id="first-boot-validation-commands"><a class="header" href="#first-boot-validation-commands">First Boot Validation Commands</a></h3>
+<p>Use these checks to confirm the system is healthy:</p>
+<pre><code class="language-bash">uname -r
+lsblk -f
+ip address
+systemctl --failed
+</code></pre>
 <ul>
-<li>Some Bluetooth adapters may require proprietary firmware to function correctly. Check your distribution’s documentation for information on installing necessary firmware.</li>
-<li>Interference from other wireless devices can affect Bluetooth performance. Try moving away from potential sources of interference.</li>
-<li>Not all Bluetooth profiles may be supported by your adapter or the connected device. Verify compatibility if you experience issues with specific functionalities (e.g., audio streaming, file transfer).</li>
-<li>Certain desktop environments may have their own Bluetooth management tools that could conflict with <code>bluetoothctl</code>. Consider using the native tool provided by your desktop environment if you encounter issues.</li>
-<li>Xbox One Controllers have connectivity issues with Linux Bluetooth on early firmware versions. Make sure your controller firmware is updated to the latest version to ensure proper Bluetooth functionality. This requires a Windows or Xbox console to update the firmware.</li>
+<li><code>uname -r</code>: confirms active kernel.</li>
+<li><code>lsblk -f</code>: confirms partition and mount layout.</li>
+<li><code>ip address</code>: confirms interface detection.</li>
+<li><code>systemctl --failed</code>: checks for failed services.</li>
 </ul>
-<footer id="last-change">Last change: <time datetime="2025-11-02">2025-11-02</time></footer>
+<p>Cross-distribution update commands:</p>
+<pre><code class="language-bash"># Debian and Ubuntu
+sudo apt update &amp;&amp; sudo apt upgrade -y
+
+# Fedora and RHEL-based
+sudo dnf upgrade --refresh -y
+
+# Arch-based
+sudo pacman -Syu
+</code></pre>
+<h2 id="common-install-problems"><a class="header" href="#common-install-problems">Common Install Problems</a></h2>
+<h3 id="installer-does-not-boot"><a class="header" href="#installer-does-not-boot">Installer Does Not Boot</a></h3>
+<ul>
+<li>Recreate USB media.</li>
+<li>Try another USB port.</li>
+<li>Disable Fast Boot.</li>
+<li>Verify ISO checksum.</li>
+</ul>
+<h3 id="no-wi-fi-after-install"><a class="header" href="#no-wi-fi-after-install">No Wi-Fi After Install</a></h3>
+<ul>
+<li>Check if hardware is detected with <code>lspci</code> or <code>lsusb</code>.</li>
+<li>Open networking chapter and verify NetworkManager status.</li>
+<li>Install required firmware package for your chipset.</li>
+</ul>
+<h3 id="boots-straight-into-old-os"><a class="header" href="#boots-straight-into-old-os">Boots Straight into Old OS</a></h3>
+<ul>
+<li>Enter firmware boot menu and choose Linux boot entry.</li>
+<li>Confirm EFI entry exists.</li>
+<li>Reinstall bootloader from live media if needed.</li>
+</ul>
+<h3 id="black-screen-after-first-reboot"><a class="header" href="#black-screen-after-first-reboot">Black Screen After First Reboot</a></h3>
+<ul>
+<li>Try booting an older kernel from advanced boot options.</li>
+<li>Switch display session type (Wayland or Xorg) at login.</li>
+<li>For NVIDIA hardware, verify matching driver and kernel module versions. nomodeset kernel option may be needed for older hardware.</li>
+</ul>
+<h3 id="system-boots-but-feels-unstable"><a class="header" href="#system-boots-but-feels-unstable">System Boots but Feels Unstable</a></h3>
+<ul>
+<li>Re-run updates and reboot again.</li>
+<li>Check failed services with <code>systemctl --failed</code>.</li>
+<li>Check disk usage with <code>df -h</code>.</li>
+<li>Remove experimental tweaks until baseline stability returns.</li>
+</ul>
+<h2 id="post-install-hardening-basics"><a class="header" href="#post-install-hardening-basics">Post-Install Hardening Basics</a></h2>
+<p>Once the system is stable, do these security basics:</p>
+<ol>
+<li>Keep the system updated weekly.</li>
+<li>Use strong user and disk encryption passwords.</li>
+<li>Enable firewall defaults.</li>
+<li>Avoid random install scripts and unknown repositories.</li>
+<li>Keep backups current before major updates.</li>
+</ol>
+<h2 id="first-week-stabilization-plan"><a class="header" href="#first-week-stabilization-plan">First Week Stabilization Plan</a></h2>
+<p>During your first week, prioritize consistency over customization.</p>
+<p>Day 1 to Day 2:</p>
+<ul>
+<li>Confirm updates complete without errors.</li>
+<li>Confirm suspend, reboot, and shutdown behavior.</li>
+<li>Confirm browser, audio, and input devices are stable.</li>
+</ul>
+<p>Day 3 to Day 5:</p>
+<ul>
+<li>Add your core applications only.</li>
+<li>Avoid adding multiple third-party repositories at once.</li>
+<li>Start documenting any change you make to system configs.</li>
+</ul>
+<p>Day 6 to Day 7:</p>
+<ul>
+<li>Run a full backup.</li>
+<li>Export a package list or notes for reproducibility.</li>
+<li>Capture a baseline health snapshot (<code>systemctl --failed</code>, <code>df -h</code>, <code>free -h</code>).</li>
+</ul>
+<p>This approach gives you a known-good baseline before deeper customization.</p>
+<div class="chapter-resources">
+<p><strong>Companion resources</strong></p>
+<ul>
+<li><a href="https://linuxmint-installation-guide.readthedocs.io">Linux Mint Install Guide</a></li>
+<li><a href="https://docs.fedoraproject.org/en-US/workstation-docs/">Fedora Workstation Docs</a></li>
+<li><a href="https://wiki.archlinux.org/title/Installation_guide">ArchWiki Installation Guide</a></li>
+</ul>
+</div>
+
+<div class="chapter-summary">
+<p><strong>Key takeaways</strong></p>
+<ul>
+<li>Installation succeeds when you prepare firmware, media, and partition choices ahead of time.</li>
+<li>UEFI with default installer partitioning is the most beginner-safe path.</li>
+<li>Dual-boot is possible, but full-disk Linux is usually simpler and more stable.</li>
+<li>First boot should always include updates, hardware checks, and a starter backup.</li>
+</ul>
+</div>
+
+<footer id="last-change">Last change: <time datetime="2026-05-02">2026-05-02</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter4.2-networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter3-bootloaders.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4.4-audio.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter4-servercli.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -275,11 +458,11 @@ connect &lt;device_address&gt;
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter4.2-networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter3-bootloaders.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4.4-audio.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter4-servercli.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

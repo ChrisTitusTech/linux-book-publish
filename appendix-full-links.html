@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Bluetooth Configuration - The Linux Desktop Guide</title>
+        <title>Appendix: Full Link Directory - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -177,97 +177,211 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="bluetooth-configuration"><a class="header" href="#bluetooth-configuration">Bluetooth Configuration</a></h2>
-<p>To configure Bluetooth, you can use the <code>bluetoothctl</code> command-line tool. This tool allows you to manage Bluetooth devices and settings directly from the terminal.</p>
-<p>Syntax for <code>bluetoothctl</code> commands:</p>
-<pre><code class="language-bash">bluetoothctl [command]
-</code></pre>
-<h3 id="common-bluetoothctl-commands"><a class="header" href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></h3>
+                        <h1 id="appendix-full-link-directory"><a class="header" href="#appendix-full-link-directory">Appendix: Full Link Directory</a></h1>
 <ul>
-<li><code>power on</code> - Turn on the Bluetooth adapter.</li>
-<li><code>power off</code> - Turn off the Bluetooth adapter.</li>
-<li><code>agent on</code> - Enable the agent for pairing.</li>
-<li><code>scan on</code> - Start scanning for nearby Bluetooth devices.</li>
-<li><code>scan off</code> - Stop scanning for Bluetooth devices.</li>
-<li><code>pair &lt;device_address&gt;</code> - Pair with a specific Bluetooth device.</li>
-<li><code>connect &lt;device_address&gt;</code> - Connect to a paired Bluetooth device.</li>
-<li><code>disconnect &lt;device_address&gt;</code> - Disconnect from a connected Bluetooth device.</li>
-<li><code>devices</code> - List all known Bluetooth devices.</li>
-<li><code>info &lt;device_address&gt;</code> - Show detailed information about a specific Bluetooth device.</li>
+<li><a href="#quick-note">Quick Note</a></li>
+<li><a href="#foreword">Foreword</a></li>
+<li><a href="#why-linux">Why Linux</a></li>
+<li><a href="#what-linux-is-made-of">What Linux is Made Of</a></li>
+<li><a href="#bootloaders">Bootloaders</a></li>
+<li><a href="#installing-linux-live-usb-to-first-boot">Installing Linux: Live USB to First Boot</a></li>
+<li><a href="#the-terminal">The Terminal</a></li>
+<li><a href="#system-services-and-configuration">System Services and Configuration</a></li>
+<li><a href="#networking">Networking</a></li>
+<li><a href="#remote-access-and-ssh">Remote Access and SSH</a></li>
+<li><a href="#web-servers">Web Servers</a></li>
+<li><a href="#package-management-essentials">Package Management Essentials</a></li>
+<li><a href="#text-editors-for-linux">Text Editors for Linux</a></li>
+<li><a href="#troubleshooting-and-logs">Troubleshooting and Logs</a></li>
+<li><a href="#drives-and-filesystems">Drives and Filesystems</a></li>
+<li><a href="#backups-and-recovery-basics">Backups and Recovery Basics</a></li>
+<li><a href="#hardware-compatibility">Hardware Compatibility</a></li>
+<li><a href="#linux-programs">Linux Programs</a></li>
+<li><a href="#linux-gaming">Linux Gaming</a></li>
+<li><a href="#setting-up-the-linux-environment">Setting up the Linux Environment</a></li>
+<li><a href="#the-perfect-linux-setup">The Perfect Linux Setup</a></li>
+<li><a href="#beginner-daily-playbook">Beginner Daily Playbook</a></li>
+<li><a href="#copyright">Copyright</a></li>
 </ul>
-<h4 id="example-usage"><a class="header" href="#example-usage">Example Usage:</a></h4>
-<pre><code class="language-bash">bluetoothctl
-power on
-agent on
-scan on
-</code></pre>
-<p>This will turn on the Bluetooth adapter, enable the agent for pairing, and start scanning for nearby Bluetooth devices.</p>
-<p><em>Note: <code>blueman</code> is a graphical Bluetooth manager that can be used as an alternative to <code>bluetoothctl</code> for those who prefer a GUI.</em></p>
-<h3 id="troubleshooting-bluetooth-issues"><a class="header" href="#troubleshooting-bluetooth-issues">Troubleshooting Bluetooth Issues</a></h3>
-<p>If you encounter issues with Bluetooth, here are some common troubleshooting steps:</p>
-<ol>
-<li><strong>Check Bluetooth Service Status</strong>:
-Ensure that the Bluetooth service is running:
-<pre><code>sudo systemctl status bluetooth
-</code></pre>
-If it is not running, start it with:
-<pre><code>sudo systemctl start bluetooth
-</code></pre>
-</li>
-<li><strong>Restart Bluetooth Service</strong>:
-Sometimes, restarting the Bluetooth service can resolve connectivity issues:
-<pre><code>sudo systemctl restart bluetooth
-</code></pre>
-</li>
-<li><strong>Check for Blocked Devices</strong>:
-Use <code>rfkill</code> to check if Bluetooth is blocked:
-<pre><code>rfkill list
-</code></pre>
-If Bluetooth is blocked, unblock it with:
-<pre><code>sudo rfkill unblock bluetooth
-</code></pre>
-</li>
-<li><strong>Update Bluetooth Drivers</strong>:
-Ensure that your system has the latest Bluetooth drivers installed. You can update your system packages using
-your package manager. For example, on Ubuntu:
-<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
-</code></pre>
-</li>
-<li><strong>Check Logs</strong>:
-Review system logs for Bluetooth-related errors:
-<pre><code>journalctl -xe | grep bluetooth
-</code></pre>
-</li>
-<li><strong>Re-pair Devices</strong>:
-If a device is not connecting, try removing it and re-pairing:
-<pre><code>bluetoothctl
-remove &lt;device_address&gt;
-pair &lt;device_address&gt;
-connect &lt;device_address&gt;
-</code></pre>
-</li>
-</ol>
-<p>By following these steps, you should be able to configure and troubleshoot Bluetooth on your Linux system effectively.</p>
-<h4 id="known-bluetooth-issues"><a class="header" href="#known-bluetooth-issues">Known Bluetooth Issues</a></h4>
+<p>This appendix lists all external links referenced in this book using full URLs so paperback readers can type them directly.</p>
+<h2 id="quick-note"><a class="header" href="#quick-note">Quick Note</a></h2>
 <ul>
-<li>Some Bluetooth adapters may require proprietary firmware to function correctly. Check your distribution’s documentation for information on installing necessary firmware.</li>
-<li>Interference from other wireless devices can affect Bluetooth performance. Try moving away from potential sources of interference.</li>
-<li>Not all Bluetooth profiles may be supported by your adapter or the connected device. Verify compatibility if you experience issues with specific functionalities (e.g., audio streaming, file transfer).</li>
-<li>Certain desktop environments may have their own Bluetooth management tools that could conflict with <code>bluetoothctl</code>. Consider using the native tool provided by your desktop environment if you encounter issues.</li>
-<li>Xbox One Controllers have connectivity issues with Linux Bluetooth on early firmware versions. Make sure your controller firmware is updated to the latest version to ensure proper Bluetooth functionality. This requires a Windows or Xbox console to update the firmware.</li>
+<li>URLs are grouped by chapter.</li>
+<li>If a link appears in more than one chapter, it may be listed more than once for convenience.</li>
 </ul>
-<footer id="last-change">Last change: <time datetime="2025-11-02">2025-11-02</time></footer>
+<h2 id="foreword"><a class="header" href="#foreword">Foreword</a></h2>
+<ul>
+<li>Official Website: https://christitus.com</li>
+<li>GitHub Projects: https://github.com/ChrisTitusTech</li>
+<li>YouTube Tutorials: https://www.youtube.com/c/ChrisTitusTech</li>
+<li>Digital Downloads: https://cttstore.com</li>
+<li>Latest Book Version: https://thelinuxbook.com</li>
+</ul>
+<h2 id="why-linux"><a class="header" href="#why-linux">Why Linux</a></h2>
+<ul>
+<li>Why Choose Linux over Windows or macOS?: https://links.thelinuxbook.com/whychooselinux</li>
+<li>Overview of All Distributions on Linux: https://links.thelinuxbook.com/alldistros</li>
+<li>LTS vs Rolling Release: https://links.thelinuxbook.com/ltsvsrolling</li>
+<li>Linux Mint Official Site: https://linuxmint.com</li>
+<li>CachyOS Official Site: https://cachyos.org</li>
+<li>Bazzite Official Site: https://bazzite.gg</li>
+<li>Nobara Official Site: https://nobaraproject.org</li>
+<li>Arch Linux Wiki: https://wiki.archlinux.org</li>
+<li>Fedora Official Site: https://getfedora.org</li>
+</ul>
+<h2 id="what-linux-is-made-of"><a class="header" href="#what-linux-is-made-of">What Linux is Made Of</a></h2>
+<ul>
+<li>Xorg vs Wayland: https://links.thelinuxbook.com/xvswayland</li>
+<li>LightDM Customization: https://links.thelinuxbook.com/lightdmcustomization</li>
+<li>Overview of Desktop Environments: https://links.thelinuxbook.com/desktopenvironments</li>
+<li>KDE Customization Video: https://links.thelinuxbook.com/kdecustomization</li>
+<li>Cinnamon Customization Video: https://links.thelinuxbook.com/cinnamoncustomization</li>
+<li>XFCE Customization Video: https://links.thelinuxbook.com/xfcecustomization</li>
+<li>DWM by ChrisTitusTech: https://github.com/ChrisTitusTech/dwm-titus</li>
+<li>Build What You Want Video: https://links.thelinuxbook.com/buildanything</li>
+</ul>
+<h2 id="bootloaders"><a class="header" href="#bootloaders">Bootloaders</a></h2>
+<ul>
+<li>GRUB Manual Table of Contents: https://links.thelinuxbook.com/grubtoc</li>
+<li>Gentoo GRUB2 Wiki: https://wiki.gentoo.org/wiki/GRUB2</li>
+<li>Full list of GRUB configuration variables: https://links.thelinuxbook.com/grubconfig</li>
+<li>How to Repair Linux with Boot Failure: https://links.thelinuxbook.com/repairgrubbootfail</li>
+<li>Fix Multi-Boot Systems running GRUB and Windows: https://links.thelinuxbook.com/fixmultiboot</li>
+<li>Using SuperGRUBDisk to repair GRUB: https://links.thelinuxbook.com/supergrub</li>
+<li>Custom Bootloader Themes Project: https://links.thelinuxbook.com/bootloaderthemes</li>
+<li>Using GRUB Rescue: https://links.thelinuxbook.com/grubrescue</li>
+<li>systemd.io - Booting section: https://systemd.io/</li>
+<li>Arch Wiki - systemd-boot: https://wiki.archlinux.org/title/systemd-boot</li>
+<li>All kernel parameters reference: https://links.thelinuxbook.com/kernelparameters</li>
+<li>Limine GitHub Repository: https://github.com/limine-bootloader/limine</li>
+<li>Limine Configuration Reference (CONFIG.md): https://github.com/limine-bootloader/limine/blob/trunk/CONFIG.md</li>
+<li>Limine Usage Reference (USAGE.md): https://github.com/limine-bootloader/limine/blob/trunk/USAGE.md</li>
+<li>Arch Wiki - Limine: https://wiki.archlinux.org/title/Limine</li>
+<li>CachyOS Wiki - Limine: https://wiki.cachyos.org/configuration/boot_manager_configuration/#limine</li>
+<li>Limine INSTALL.md: https://github.com/limine-bootloader/limine/blob/trunk/INSTALL.md</li>
+<li>GRUB install manual page: https://www.gnu.org/software/grub/manual/grub/html_node/Installing-GRUB-using-grub_002dinstall.html</li>
+</ul>
+<h2 id="installing-linux-live-usb-to-first-boot"><a class="header" href="#installing-linux-live-usb-to-first-boot">Installing Linux: Live USB to First Boot</a></h2>
+<ul>
+<li>Linux Mint Install Guide: https://linuxmint-installation-guide.readthedocs.io</li>
+<li>Fedora Workstation Docs: https://docs.fedoraproject.org/en-US/workstation-docs/</li>
+<li>ArchWiki Installation Guide: https://wiki.archlinux.org/title/Installation_guide</li>
+</ul>
+<h2 id="the-terminal"><a class="header" href="#the-terminal">The Terminal</a></h2>
+<ul>
+<li>How to Make Bash Terminal look and feel GREAT!: https://links.thelinuxbook.com/prettybash</li>
+<li>Zoxide walkthrough: https://links.thelinuxbook.com/zoxide</li>
+<li>15 Useful Linux Commands Every Linux User Needs: https://www.youtube.com/watch?v=XK81cfvrElg</li>
+<li>HTOP - Terminal Task Manager: https://www.youtube.com/watch?v=MKxh-PXciTE</li>
+<li>How to Make Bash Terminal look Good: https://www.youtube.com/watch?v=D6HmEi9C5K8</li>
+</ul>
+<h2 id="system-services-and-configuration"><a class="header" href="#system-services-and-configuration">System Services and Configuration</a></h2>
+<ul>
+<li>Why Systemd is the Devil but I Love It: https://www.youtube.com/watch?v=hc7J-zWEty8</li>
+<li>Systemd companion link: https://links.thelinuxbook.com/systemd</li>
+</ul>
+<h2 id="networking"><a class="header" href="#networking">Networking</a></h2>
+<ul>
+<li>Network Security Basics - Are you doing these things?: https://www.youtube.com/watch?v=n7cjd5E_nsc</li>
+<li>Networking Basics Tutorial | IP Address | Subnet | Gateway: https://www.youtube.com/watch?v=ozG8BWbYY0M</li>
+<li>How to Use NetPlan in Ubuntu 18.04: https://www.youtube.com/watch?v=HlOY1ucz_DY</li>
+</ul>
+<h2 id="remote-access-and-ssh"><a class="header" href="#remote-access-and-ssh">Remote Access and SSH</a></h2>
+<ul>
+<li>How to Transfer Files Using SSH: https://www.youtube.com/watch?v=w_OwmqjAcn0</li>
+<li>Linux Remote Access | SSH and X11 Forwarding: https://www.youtube.com/watch?v=auePeI8vZA8</li>
+<li>How to setup Samba for File Sharing in Linux: https://www.youtube.com/watch?v=oRHSrnQueak</li>
+</ul>
+<h2 id="web-servers"><a class="header" href="#web-servers">Web Servers</a></h2>
+<ul>
+<li>How to Setup a Website | Domain Registration, DNS, and VPS: https://www.youtube.com/watch?v=1JBCKNIT2Ys</li>
+<li>Nextcloud Tutorial | Setting Up Your Server: https://www.youtube.com/watch?v=_eS5MST_zCw</li>
+<li>Optimizing Apache Memory Usage | Mpm prefork settings: https://www.youtube.com/watch?v=uGugeHVEeiU</li>
+</ul>
+<h2 id="package-management-essentials"><a class="header" href="#package-management-essentials">Package Management Essentials</a></h2>
+<ul>
+<li>I was WRONG! This is the BEST Package Manager.: https://www.youtube.com/watch?v=Ty8C2B910EI</li>
+<li>How to Use Flatpak: https://www.youtube.com/watch?v=bvybMVRaND0</li>
+<li>Using APT keys | GPG and Third Party Keys Explained: https://www.youtube.com/watch?v=aO8BuQITnRw</li>
+</ul>
+<h2 id="text-editors-for-linux"><a class="header" href="#text-editors-for-linux">Text Editors for Linux</a></h2>
+<ul>
+<li>Neovim is Better: https://www.youtube.com/watch?v=6VbOLOuiHUI</li>
+<li>VIM The Ultimate Editor: https://www.youtube.com/watch?v=P88ydZVcm1s</li>
+</ul>
+<h2 id="troubleshooting-and-logs"><a class="header" href="#troubleshooting-and-logs">Troubleshooting and Logs</a></h2>
+<ul>
+<li>GRUB Rescue | Repairing GRUB: https://www.youtube.com/watch?v=r7meKJsjqfY</li>
+<li>How to Repair Linux With Boot Failure: https://www.youtube.com/watch?v=9D3hvnnby9A</li>
+</ul>
+<h2 id="drives-and-filesystems"><a class="header" href="#drives-and-filesystems">Drives and Filesystems</a></h2>
+<ul>
+<li>Btrfs guide: https://christitus.com/btrfs-guide/</li>
+<li>ArchWiki: EFI system partition: https://wiki.archlinux.org/title/EFI_system_partition</li>
+<li>File Systems | Which One is the Best? ZFS, BTRFS, or EXT4: https://www.youtube.com/watch?v=HdEozE2gN9I</li>
+<li>BTRFS Guide | The Best Desktop File System: https://www.youtube.com/watch?v=J2QP4onqJKI</li>
+<li>LVM | Logical Volume Management | Combining Drives Together: https://www.youtube.com/watch?v=scMkYQxBtJ4</li>
+</ul>
+<h2 id="backups-and-recovery-basics"><a class="header" href="#backups-and-recovery-basics">Backups and Recovery Basics</a></h2>
+<ul>
+<li>The Best Free Backup for EVERY Operating System: https://www.youtube.com/watch?v=tXGVzMUsuE4</li>
+<li>Rsync Backup on Linux: https://www.youtube.com/watch?v=OEfboN-Nb2s</li>
+<li>How to Install Timeshift in Linux | Backup and Restore: https://www.youtube.com/watch?v=U-lMJHcjCVs</li>
+</ul>
+<h2 id="hardware-compatibility"><a class="header" href="#hardware-compatibility">Hardware Compatibility</a></h2>
+<ul>
+<li>Linux Hardware: https://linux-hardware.org/</li>
+<li>Ubuntu’s Hardware Compatibility: https://wiki.ubuntu.com/HardwareSupport</li>
+<li>LinuxQuestions.org: https://www.linuxquestions.org/</li>
+<li>Linux 4 Noobs Subreddit: https://www.reddit.com/r/linux4noobs/</li>
+<li>Stream Controller on Flathub: https://flathub.org/apps/com.core447.StreamController</li>
+<li>Solaar GitHub repository: https://github.com/pwr-Solaar/Solaar</li>
+</ul>
+<h2 id="linux-programs"><a class="header" href="#linux-programs">Linux Programs</a></h2>
+<ul>
+<li>Awesome Linux Software: https://github.com/luong-komorebi/Awesome-Linux-Software</li>
+<li>Chris Titus Tech Linux Utility: https://github.com/ChrisTitusTech/linutil</li>
+<li>Microsoft Office vs LibreOffice | How to Make the Change: https://www.youtube.com/watch?v=I0jeYe8iNWo</li>
+</ul>
+<h2 id="linux-gaming"><a class="header" href="#linux-gaming">Linux Gaming</a></h2>
+<ul>
+<li>ProtonDB: https://www.protondb.com/</li>
+<li>Winetricks GitHub repository: https://github.com/Winetricks/winetricks</li>
+<li>Proton GE GitHub repository: https://github.com/GloriousEggroll/proton-ge-custom/releases</li>
+<li>ProtonUp-Qt: https://github.com/ProtonUp/ProtonUp-Qt</li>
+</ul>
+<h2 id="setting-up-the-linux-environment"><a class="header" href="#setting-up-the-linux-environment">Setting up the Linux Environment</a></h2>
+<ul>
+<li>Xorg vs Wayland: https://links.thelinuxbook.com/xvswayland</li>
+<li>DWM by ChrisTitusTech: https://github.com/ChrisTitusTech/dwm-titus</li>
+<li>Desktop Environments Overview: https://links.thelinuxbook.com/desktopenvironments</li>
+</ul>
+<h2 id="the-perfect-linux-setup"><a class="header" href="#the-perfect-linux-setup">The Perfect Linux Setup</a></h2>
+<ul>
+<li>The Linux Tier List: https://www.youtube.com/watch?v=KyADkmRVe0U</li>
+<li>Why I Use Linux: https://www.youtube.com/watch?v=7-UCkYlTr50</li>
+<li>The Perfect System: https://www.youtube.com/watch?v=ZgHX8jPuHjE</li>
+</ul>
+<h2 id="beginner-daily-playbook"><a class="header" href="#beginner-daily-playbook">Beginner Daily Playbook</a></h2>
+<ul>
+<li>ArchWiki General Recommendations: https://wiki.archlinux.org/title/General_recommendations</li>
+<li>Fedora Docs: https://docs.fedoraproject.org/</li>
+<li>Ubuntu Documentation: https://help.ubuntu.com/</li>
+</ul>
+<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
+<ul>
+<li>Chris Titus site: https://christitus.com</li>
+<li>Book site: https://thelinuxbook.com</li>
+</ul>
+<footer id="last-change">Last change: <time datetime="2026-05-02">2026-05-02</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter4.2-networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter9.1-beginner-playbook.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4.4-audio.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -275,13 +389,10 @@ connect &lt;device_address&gt;
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter4.2-networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter9.1-beginner-playbook.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4.4-audio.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
-                    </a>
             </nav>
 
         </div>

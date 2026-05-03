@@ -8,27 +8,28 @@
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="">
+        <meta name="description" content="A practical, no-fluff guide to Linux for real desktop users. Learn how Linux works under the hood, set up your system with confidence, and solve everyday problems from boot to backups.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="./theme/catppuccin.css">
+        <link rel="stylesheet" href="./theme/book.css">
         <link rel="stylesheet" href="./theme/last-changed.css">
 
 
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "latte";
             const default_dark_theme = "frappe";
-            window.path_to_searchindex_js = "searchindex.js";
+            window.path_to_searchindex_js = "searchindex-33f2ce97.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="toc-10907e44.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -54,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div id="body-container">
+    <div id="mdbook-body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -83,12 +84,12 @@
             html.classList.add("js");
         </script>
 
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             let sidebar = null;
-            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -103,75 +104,78 @@
             }
         </script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
                 <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <div id="page-wrapper" class="page-wrapper">
+        <div id="mdbook-page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
                         </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
                         </button>
                     </div>
 
                     <h1 class="menu-title">The Linux Desktop Guide</h1>
 
                     <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
 
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
                         <div class="search-wrapper">
-                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
                             <div class="spinner-wrapper">
-                                <i class="fa fa-spinner fa-spin"></i>
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
                             </div>
                         </div>
                     </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
                         </ul>
                     </div>
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
 
-                <div id="content" class="content">
+                <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="bootloaders-how-linux-is-loaded"><a class="header" href="#bootloaders-how-linux-is-loaded">Bootloaders: How Linux is Loaded</a></h1>
 <ul>
@@ -205,41 +209,72 @@
 <li><a href="#installation-1">Installation</a></li>
 </ul>
 </li>
-</ul>
-<p>There are many bootloaders available, but this chapter focuses on the two most widely used: GRUB 2 and systemd-boot.</p>
-<h2 id="grub-2---the-most-widely-used"><a class="header" href="#grub-2---the-most-widely-used">GRUB 2 - The Most Widely Used</a></h2>
-<p>GRUB 2 is the most popular bootloader for Linux, offering extensive functionality. It supports themes, multiboot setups, and various other features that make it highly versatile. For Windows/Linux multiboot systems, GRUB 2 is my recommended choice.</p>
+<li><a href="#limine---modern-multiprotocol-bootloader">Limine - Modern Multiprotocol Bootloader</a>
 <ul>
-<li><strong>GRUB Manual Table of Contents:</strong> <a href="https://links.thelinuxbook.com/grubtoc">https://links.thelinuxbook.com/grubtoc</a></li>
-</ul>
-<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
-<p>Before installing or updating GRUB, you need to create configuration files. One of the best resources for understanding GRUB is the <a href="https://wiki.gentoo.org/wiki/GRUB2">https://wiki.gentoo.org/wiki/GRUB2</a>.</p>
-<h4 id="files-used-for-configuration"><a class="header" href="#files-used-for-configuration">Files Used for Configuration</a></h4>
-<div class="table-wrapper"><table><thead><tr><th>File Location</th><th style="text-align: center">Editable</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>/boot/grub/grub.cfg</code></td><td style="text-align: center">No</td><td>Generated by <code>grub-mkconfig</code> and will be overwritten. Do not edit directly.</td></tr>
-<tr><td><code>/etc/grub.d/*</code></td><td style="text-align: center">Yes</td><td>Contains scripts processed in numerical order (e.g., <code>10-boot</code>, <code>11-os</code>).</td></tr>
-<tr><td><code>/etc/default/grub</code></td><td style="text-align: center">Yes</td><td>Primary configuration file for GRUB edits. Start here for modifications.</td></tr>
-</tbody></table>
-</div>
-<h4 id="editing-grub-configuration-in-etcdefaultgrub"><a class="header" href="#editing-grub-configuration-in-etcdefaultgrub">Editing GRUB Configuration in <code>/etc/default/grub</code></a></h4>
-<p>Below are common configuration entries in <code>/etc/default/grub</code>:</p>
+<li><a href="#configuration-1">Configuration</a>
 <ul>
-<li><strong><code>GRUB_DEFAULT</code></strong>: Specifies the default boot entry. Typically set to <code>0</code> for the first entry. Use <code>1</code> for the second entry, <code>2</code> for the third, and so on.</li>
-<li><strong><code>GRUB_TIMEOUT_STYLE</code></strong>: Determines whether to display a menu (<code>MENU</code>) or hide it (<code>HIDDEN</code>). If hidden, the <code>GRUB_HIDDEN_TIMEOUT</code> variable controls the splash screen display.</li>
-<li><strong><code>GRUB_TIMEOUT</code></strong>: Sets the menu display duration. If set to <code>-1</code>, the menu will never timeout and will wait for user input.</li>
-<li><strong><code>GRUB_CMDLINE_LINUX_DEFAULT</code></strong>: Adds kernel options. Common examples:
-<ul>
-<li><code>quiet splash</code>: Hides verbose text output during boot.</li>
-<li><code>nomodeset</code>: Bypasses modesetting, useful for booting NVIDIA systems to install drivers.</li>
-<li><code>single</code>: Boots into single-user mode, useful for system modifications or resetting user passwords.</li>
-<li>Variable declarations: Add system-specific variables, such as <code>keymap</code> or <code>vfio</code> for PCI passthrough.</li>
+<li><a href="#basic-limineconf-structure">Basic <code>limine.conf</code> Structure</a></li>
 </ul>
 </li>
-<li><strong><code>GRUB_DISABLE_RECOVERY</code></strong>: Disables recovery entries. Setting this to <code>true</code> is recommended if recovery entries are rarely needed. You can edit GRUB directly during boot by pressing <code>e</code> when the menu appears.</li>
+<li><a href="#installation-2">Installation</a></li>
 </ul>
-<p>For a complete list of GRUB configuration variables, refer to the <a href="https://links.thelinuxbook.com/grubconfig">https://links.thelinuxbook.com/grubconfig</a>.</p>
+</li>
+</ul>
+<div class="chapter-outline">
+<p><strong>In this chapter:</strong></p>
+<ul>
+<li>What a bootloader does and the difference between EFI and Legacy BIOS</li>
+<li>GRUB 2 — configuration, installation, and common options</li>
+<li>systemd-boot — EFI-only minimal bootloader setup</li>
+<li>Limine — modern multiprotocol bootloader with Secure Boot support</li>
+<li>When to use each bootloader</li>
+</ul>
+</div>
+
+<p>There are many bootloaders available, but this chapter focuses on three common choices in 2026: GRUB 2, systemd-boot, and Limine.</p>
+<blockquote>
+<p><strong>Rule of thumb:</strong> Use GRUB 2 for dual-boot or multiboot setups, and for any system where you want theme support and a boot menu. Use systemd-boot for single-OS EFI systems where you prefer a minimal, fast bootloader without extra packages.</p>
+</blockquote>
+<h2 id="grub-2---the-most-widely-used"><a class="header" href="#grub-2---the-most-widely-used">GRUB 2 - The Most Widely Used</a></h2>
+<p>GRUB 2 is the most popular bootloader for Linux. It supports themes, multiboot setups, rescue modes, and a wide range of configuration options. For Windows/Linux dual-boot systems, GRUB 2 is the recommended choice.</p>
+<blockquote>
+<p><strong>Resource:</strong> <a href="https://links.thelinuxbook.com/grubtoc">GRUB Manual Table of Contents</a></p>
+</blockquote>
+<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
+<p>Before installing or updating GRUB, you need to generate configuration files. The authoritative reference is the <a href="https://wiki.gentoo.org/wiki/GRUB2">Gentoo GRUB2 Wiki</a>.</p>
+<h4 id="files-used-for-configuration"><a class="header" href="#files-used-for-configuration">Files Used for Configuration</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>File</th><th>Editable</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>/boot/grub/grub.cfg</code></td><td>No</td><td>Generated by <code>grub-mkconfig</code>; do not edit directly</td></tr>
+<tr><td><code>/etc/grub.d/*</code></td><td>Yes</td><td>Scripts processed in numerical order</td></tr>
+<tr><td><code>/etc/default/grub</code></td><td>Yes</td><td>Primary configuration file; start all edits here</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="editing-grub-configuration-in-etcdefaultgrub"><a class="header" href="#editing-grub-configuration-in-etcdefaultgrub">Editing GRUB Configuration in <code>/etc/default/grub</code></a></h4>
+<p>Common settings in <code>/etc/default/grub</code>:</p>
+<ul>
+<li><strong><code>GRUB_DEFAULT</code></strong> — Default boot entry. <code>0</code> selects the first entry, <code>1</code> the second, and so on.</li>
+<li><strong><code>GRUB_TIMEOUT_STYLE</code></strong> — <code>menu</code> shows the boot menu; <code>hidden</code> skips it (controlled by <code>GRUB_HIDDEN_TIMEOUT</code>).</li>
+<li><strong><code>GRUB_TIMEOUT</code></strong> — Seconds to display the menu before auto-booting. <code>-1</code> waits indefinitely for user input.</li>
+<li><strong><code>GRUB_CMDLINE_LINUX_DEFAULT</code></strong> — Kernel options passed on boot. Common values:
+<ul>
+<li><code>quiet splash</code> — hides boot output and shows a splash screen</li>
+<li><code>nomodeset</code> — disables kernel modesetting; useful for installing NVIDIA drivers</li>
+<li><code>single</code> — boots into single-user mode for maintenance or password resets</li>
+</ul>
+</li>
+<li><strong><code>GRUB_DISABLE_RECOVERY</code></strong> — Set to <code>true</code> to hide recovery entries from the menu.</li>
+</ul>
+<blockquote>
+<p><strong>Resource:</strong> <a href="https://links.thelinuxbook.com/grubconfig">Full list of GRUB configuration variables</a></p>
+</blockquote>
 <h4 id="sample-grub-configuration-etcdefaultgrub"><a class="header" href="#sample-grub-configuration-etcdefaultgrub">Sample GRUB Configuration (<code>/etc/default/grub</code>)</a></h4>
-<p>Here’s an example configuration with no menu:</p>
+<p>Example with no boot menu (instant boot to default entry):</p>
 <pre><code>GRUB_DEFAULT="0"
 GRUB_TIMEOUT_STYLE="hidden"
 GRUB_TIMEOUT="0"
@@ -250,141 +285,208 @@ GRUB_DISABLE_RECOVERY="true"
 GRUB_DISABLE_LINUX_RECOVERY="true"
 </code></pre>
 <h4 id="make-configuration-files"><a class="header" href="#make-configuration-files">Make Configuration files</a></h4>
-<p>Make the configuration files with <code>grub-mkconfig</code> or <code>update-grub</code> on debian-based systems.</p>
-<pre><code>grub-mkconfig -o /boot/grub/grub.cfg
+<p>After editing <code>/etc/default/grub</code>, regenerate the main GRUB configuration file:</p>
+<pre><code class="language-bash">grub-mkconfig -o /boot/grub/grub.cfg
 </code></pre>
-<p>Manual page for grub-mkconfig: <a href="https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html#Simple-configuration">https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html#Simple-configuration</a></p>
-<p>OR</p>
-<pre><code>update-grub
+<p>On Debian-based systems you can also use the shorthand:</p>
+<pre><code class="language-bash">update-grub
 </code></pre>
-<p>Manual page for update-grub: <a href="https://manpages.debian.org/buster/grub-legacy/update-grub.8.en.html">https://manpages.debian.org/buster/grub-legacy/update-grub.8.en.html</a></p>
 <h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
-<p>Once your configuration files are created, you can install GRUB onto your hard disk for booting. First, determine whether the installation is EFI or Legacy BIOS.</p>
-<p>To check if you are using EFI:</p>
-<pre><code>ls /sys/firmware/efi
+<p>Once configuration files are ready, install GRUB onto your disk. First, confirm whether your system uses EFI or Legacy BIOS:</p>
+<pre><code class="language-bash">ls /sys/firmware/efi
 </code></pre>
-<p><em>If files are listed with the ls command you are on EFI</em></p>
+<p>If the command lists files, you are on EFI. If it errors with “No such file or directory,” you are on Legacy BIOS.</p>
 <h4 id="efi-installation"><a class="header" href="#efi-installation">EFI Installation</a></h4>
-<p>Efi installations consist of two partitions where Legacy BIOS can have one. This makes it unique, but can also cause a multiple problems when using manual partitioning. Prior to running these commands you need to make sure the partition is mounted!</p>
-<p>Next, we need to install EFI to this partition with this command</p>
-<pre><code>grub-install --efi-directory=/boot/efi
+<p>EFI systems require a dedicated EFI System Partition (ESP) mounted at <code>/boot/efi</code>. Make sure the partition is mounted before running the installer:</p>
+<pre><code class="language-bash">grub-install --efi-directory=/boot/efi
 </code></pre>
 <h4 id="bios-legacy-installation"><a class="header" href="#bios-legacy-installation">BIOS Legacy Installation</a></h4>
-<p>Typically in a BIOS legacy setup you have one main partition mounted to / and you run the following command to install GRUB. <strong>Note: DO NOT USE Legacy where you can use EFI!</strong></p>
-<pre><code>grub-install 
+<blockquote>
+<p><strong>Warning:</strong> Only use Legacy BIOS installation on hardware that does not support EFI. For all modern hardware, prefer EFI.</p>
+</blockquote>
+<p>On a typical single-drive Legacy setup, run:</p>
+<pre><code class="language-bash">grub-install /dev/sda
 </code></pre>
-<p>You can also do a variation of this if you have multiple drives or are dual booting. Find the drive you are installing it on using the command <code>lsblk</code> OR <code>blkid</code> as these give more information about your drive setup</p>
-<p>Example usage when specifying a drive:</p>
-<pre><code>grub-install /dev/sda
-</code></pre>
-<p>For the full usage of grub-install here is the manual page: <a href="https://www.gnu.org/software/grub/manual/grub/html_node/Installing-GRUB-using-grub_002dinstall.html">https://www.gnu.org/software/grub/manual/grub/html_node/Installing-GRUB-using-grub_002dinstall.html</a></p>
+<p>Replace <code>/dev/sda</code> with your actual target disk. Use <code>lsblk</code> or <code>blkid</code> to identify the correct drive if you are unsure.</p>
+<p>For the full <code>grub-install</code> reference: <a href="https://www.gnu.org/software/grub/manual/grub/html_node/Installing-GRUB-using-grub_002dinstall.html">https://www.gnu.org/software/grub/manual/grub/html_node/Installing-GRUB-using-grub_002dinstall.html</a></p>
 <h3 id="grub-videos"><a class="header" href="#grub-videos">GRUB Videos</a></h3>
-<p>These are the videos I've done on GRUB via YouTube:</p>
 <ul>
-<li>How to Repair Linux With Boot Failure: <a href="https://links.thelinuxbook.com/repairgrubbootfail">https://links.thelinuxbook.com/repairgrubbootfail</a></li>
-<li>Fix Multi-Boot Systems running GRUB and Windows: <a href="https://links.thelinuxbook.com/fixmultiboot">https://links.thelinuxbook.com/fixmultiboot</a></li>
-<li>Using SuperGRUBDisk to repair GRUB: <a href="https://links.thelinuxbook.com/supergrub">https://links.thelinuxbook.com/supergrub</a></li>
-<li>Custom Bootloader Themes Project: <a href="https://links.thelinuxbook.com/bootloaderthemes">https://links.thelinuxbook.com/bootloaderthemes</a></li>
-<li>Using GRUB Rescue: <a href="https://links.thelinuxbook.com/grubrescue">https://links.thelinuxbook.com/grubrescue</a></li>
+<li><a href="https://links.thelinuxbook.com/repairgrubbootfail">How to Repair Linux with Boot Failure</a></li>
+<li><a href="https://links.thelinuxbook.com/fixmultiboot">Fix Multi-Boot Systems running GRUB and Windows</a></li>
+<li><a href="https://links.thelinuxbook.com/supergrub">Using SuperGRUBDisk to repair GRUB</a></li>
+<li><a href="https://links.thelinuxbook.com/bootloaderthemes">Custom Bootloader Themes Project</a></li>
+<li><a href="https://links.thelinuxbook.com/grubrescue">Using GRUB Rescue</a></li>
 </ul>
 <h2 id="systemd-boot---minimal-built-in-boot"><a class="header" href="#systemd-boot---minimal-built-in-boot">Systemd Boot - Minimal Built-In boot</a></h2>
-<p>Many distributions are now starting to ship with systemd boot instead of GRUB (PopOS! is one example) and is an interesting boot manager when you don't want a menu or extra packages to boot into your Linux.</p>
-<p><em>Note: systemd boot has the capabilities of menus and dual boot, but setting this up is much more cumbersome and why I recommend using GRUB instead of doing this</em></p>
-<p>Systemd-boot is also an <em>EFI ONLY</em> bootloader. So if you aren't booted in using UEFI, you can NOT install systemd-boot. Verify that you are in efi mode using <code>ls /sys/firmware/efi</code></p>
-<p>Systemd has a dedicated site for documentation. Check it out @ <a href="https://systemd.io/">https://systemd.io/</a> and look at the Booting Section for systemd-boot. Another good source for systemd-boot information is the Arch Wiki @ <a href="https://wiki.archlinux.org/title/systemd-boot">https://wiki.archlinux.org/title/systemd-boot</a></p>
+<p>Systemd-boot is shipping with more distributions as a lightweight alternative to GRUB for single-OS EFI systems.</p>
+<blockquote>
+<p><strong>Important:</strong> systemd-boot is EFI only. Verify before proceeding: <code>ls /sys/firmware/efi</code></p>
+</blockquote>
+<p>Dual-boot and multiboot setups are possible with systemd-boot, but configuration is more cumbersome than GRUB. For multiboot systems, use GRUB.</p>
+<ul>
+<li><a href="https://systemd.io/">systemd.io — Booting section</a></li>
+<li><a href="https://wiki.archlinux.org/title/systemd-boot">Arch Wiki — systemd-boot</a></li>
+</ul>
 <h3 id="configuraiton"><a class="header" href="#configuraiton">Configuraiton</a></h3>
-<p>Here is the directory breakdown for systemd-boot</p>
-<ul>
-<li>Main Directory: /boot/efi (Sometimes this can be /boot in rare instances and some systems it adds a EFI subdirectory, ex. /boot/efi/EFI)</li>
-<li>Configuration files: /boot/efi/loader (General configuration in loader.conf)</li>
-<li>OS Entries: /boot/efi/loader/entries (Each .conf is a boot entry)</li>
-</ul>
+<p>Directory layout for systemd-boot:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Path</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>/boot/efi</code></td><td>Main EFI directory (sometimes <code>/boot</code>)</td></tr>
+<tr><td><code>/boot/efi/loader/loader.conf</code></td><td>Global loader configuration</td></tr>
+<tr><td><code>/boot/efi/loader/entries/*.conf</code></td><td>One file per boot entry</td></tr>
+</tbody>
+</table>
+</div>
 <h4 id="general-configuration"><a class="header" href="#general-configuration">General Configuration</a></h4>
-<p>The general configuration will be the loader.conf in the root of the <code>/loader</code> directory. Here is the syntax:</p>
+<p><code>/boot/efi/loader/loader.conf</code> options:</p>
 <ul>
-<li>default – Default boot option and it can be a wildcard like arch-*.conf.</li>
-<li>timeout – menu timeout in seconds before the default entry is booted. If this is not set, the menu will only be shown on key press during boot.</li>
-<li>editor – yes is default, but this allows editing boot entries and can be used to reset password or get system level access. Set to no if security is a concern.</li>
-<li>auto-entries – shows automatic entries for Windows, EFI Shell, and Default Loader if set to 1 (default), 0 to hide;</li>
-<li>auto-firmware – shows entry for rebooting into UEFI firmware settings if set to 1 (default), 0 to hide;</li>
-<li>console-mode – changes UEFI console mode:
-<ul>
-<li>0 for 80x25</li>
-<li>1 for 80x50</li>
-<li>2 and above for non-standard modes provided by the device firmware</li>
-<li>auto picks a suitable mode automatically</li>
-<li>max for highest available mode</li>
-<li>keep (default) for the firmware selected mode.</li>
+<li><strong><code>default</code></strong> — Default boot entry filename or wildcard (e.g., <code>arch-*.conf</code>)</li>
+<li><strong><code>timeout</code></strong> — Seconds to show the menu; omit to show menu only on keypress</li>
+<li><strong><code>editor</code></strong> — <code>yes</code> (default) allows editing boot entries at startup; set to <code>no</code> on shared or public systems</li>
+<li><strong><code>auto-entries</code></strong> — <code>1</code> shows automatic Windows/EFI Shell entries; <code>0</code> hides them</li>
+<li><strong><code>console-mode</code></strong> — <code>auto</code> picks a suitable display mode; <code>max</code> uses the highest available</li>
 </ul>
-</li>
-</ul>
-<p><em>boot/efi/loader/loader.conf</em> example</p>
+<p>Example <code>/boot/efi/loader/loader.conf</code>:</p>
 <pre><code>default  arch.conf
 timeout  4
 console-mode max
 editor   no
 </code></pre>
 <h4 id="adding-boot-entries"><a class="header" href="#adding-boot-entries">Adding Boot Entries</a></h4>
-<p>Every boot entry will be loaded from the <code>/loader/entries</code> directory. Here is that syntax:</p>
+<p>Each file in <code>/boot/efi/loader/entries/</code> defines one boot entry.</p>
+<p>Key fields:</p>
 <ul>
-<li>
-<p>title – operating system name. Required.</p>
-</li>
-<li>
-<p>version – kernel version. Optional.</p>
-</li>
-<li>
-<p>machine-id – machine identifier from /etc/machine-id. Optional.</p>
-</li>
-<li>
-<p>efi – EFI program to start. Either this parameter or linux is <em>required</em>.</p>
-</li>
-<li>
-<p>options – space-separated command line options to pass to the EFI program or kernel parameters. <code>root="UUID=3255683f-53a2-4fdf-91cf" OR root="LABEL=OS Label"</code> is required for booting Linux. Here are common options:</p>
-<ul>
-<li>rw = Read-Write needed for most installs</li>
-<li>root = UUID or Label used for identifying the root partition</li>
-<li>silent = do NOT display any console output</li>
-<li>splash = display OS Splash screen</li>
-<li>nomodeset = disable Kernel mode setting. Often needed if using NVIDIA cards and you do not have the drivers installed.</li>
-<li>S = run in single mode (often required for resetting root password or modifying root file system)</li>
+<li><strong><code>title</code></strong> — OS name displayed in the menu (required)</li>
+<li><strong><code>linux</code></strong> — Path to the kernel image (required unless using <code>efi</code>)</li>
+<li><strong><code>initrd</code></strong> — Path to initramfs and optional CPU microcode images</li>
+<li><strong><code>options</code></strong> — Kernel parameters; <code>root=</code> is required for Linux</li>
 </ul>
-<p>Q: How do you find the UUID?
-A: The command <code>sudo blkid</code></p>
-<p>_Note: To identify specific drive labels I recommend <code>sudo lsblk</code> which gives a readout of all drives and where they are mounted. When used in conjunction with <code>blkid</code> you will be able to tell what each drive is.</p>
-</li>
-</ul>
-<p>Check all kernel parameters @ <a href="https://links.thelinuxbook.com/kernelparameters">https://links.thelinuxbook.com/kernelparameters</a></p>
-<p>Example Arch Linux Entry <code>/boot/efi/loader/entries/arch.conf</code></p>
+<p>To find the UUID of your root partition:</p>
+<pre><code class="language-bash">sudo blkid
+</code></pre>
+<p>Example Arch Linux entry <code>/boot/efi/loader/entries/arch.conf</code>:</p>
 <pre><code>title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
 options root="LABEL=arch" rw
 </code></pre>
-<p>Example Windows 10 Entry <code>/boot/efi/loader/entries/win10.conf</code></p>
+<p>Example Windows 10 entry <code>/boot/efi/loader/entries/win10.conf</code>:</p>
 <pre><code>title Windows 10
 efi /EFI/Microsoft/Boot/bootmgfw.efi
 </code></pre>
-<p>Automatic EFI Entry creation with the <code>efibootmgr</code> package - You can check to see what efi options are installed to you with <code>efibootmgr -v</code>.</p>
-<pre><code>efibootmgr --create --disk /dev/sda --part 1 --loader "\EFI\systemd\systemd-bootx64.efi" --label "Linux OS" --verbose
-</code></pre>
-<p><em>Note: This command is used if your Linux EFI system partition is located @ /dev/sda1 and the EFI file located @ /boot/efi/EFI/systemd/systemd-bootx64.efi</em></p>
+<blockquote>
+<p><strong>Resource:</strong> <a href="https://links.thelinuxbook.com/kernelparameters">All kernel parameters reference</a></p>
+</blockquote>
 <h3 id="installation-1"><a class="header" href="#installation-1">Installation</a></h3>
-<p>The default install is very easy once configuration is done. You simply type <code>bootctl install</code> and you are done!</p>
-<p>There are configurations with multiple boot partitions, but I do not recommend using systemd-boot for this.</p>
-<p>In most instances this will auto update when boot options change, but you can force an update if you manually add more entries with <code>bootctl update</code></p>
-<footer id="last-change">Last change: <time datetime="2025-06-17">2025-06-17</time></footer>
+<p>Install systemd-boot with:</p>
+<pre><code class="language-bash">bootctl install
+</code></pre>
+<p>To update after adding new entries manually:</p>
+<pre><code class="language-bash">bootctl update
+</code></pre>
+<h2 id="limine---modern-multiprotocol-bootloader"><a class="header" href="#limine---modern-multiprotocol-bootloader">Limine - Modern Multiprotocol Bootloader</a></h2>
+<p>Limine is a modern, advanced, multiprotocol bootloader and boot manager that has become more popular in 2026, including as a default in distributions such as CachyOS and Omarchy.</p>
+<p>Compared with GRUB and systemd-boot, Limine is often chosen for modern setups that want clean configuration, broad protocol support, and strong Secure Boot and measured boot capabilities.</p>
+<ul>
+<li><a href="https://github.com/limine-bootloader/limine">Limine GitHub Repository</a></li>
+<li><a href="https://github.com/limine-bootloader/limine/blob/trunk/CONFIG.md">Limine Configuration Reference (CONFIG.md)</a></li>
+<li><a href="https://github.com/limine-bootloader/limine/blob/trunk/USAGE.md">Limine Usage Reference (USAGE.md)</a></li>
+<li><a href="https://wiki.archlinux.org/title/Limine">Arch Wiki — Limine</a></li>
+<li><a href="https://wiki.cachyos.org/configuration/boot_manager_configuration/#limine">CachyOS Wiki — Limine</a></li>
+</ul>
+<h3 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h3>
+<p>Limine uses a plain-text configuration file named <code>limine.conf</code>.</p>
+<p>Common config file locations (from the Limine docs):</p>
+<ul>
+<li>On EFI, Limine first checks for <code>limine.conf</code> next to the EFI executable.</li>
+<li>If not found there (or on BIOS), it scans standard paths such as <code>/boot/limine/limine.conf</code> and <code>/limine.conf</code>.</li>
+</ul>
+<h4 id="basic-limineconf-structure"><a class="header" href="#basic-limineconf-structure">Basic <code>limine.conf</code> Structure</a></h4>
+<p>The config contains:</p>
+<ul>
+<li>Global options like <code>timeout:</code> and <code>default_entry:</code></li>
+<li>Menu entries beginning with <code>/Entry Name</code></li>
+<li>Per-entry options like <code>protocol:</code>, <code>path:</code>, and <code>cmdline:</code></li>
+</ul>
+<p>Example Linux entry:</p>
+<pre><code class="language-text">timeout: 5
+default_entry: 1
+
+/Linux
+protocol: linux
+path: boot():/vmlinuz-linux
+module_path: boot():/initramfs-linux.img
+cmdline: root=UUID=REPLACE_WITH_ROOT_UUID rw quiet
+</code></pre>
+<p>Important syntax notes:</p>
+<ul>
+<li>Limine options use <code>name: value</code> format.</li>
+<li>Menu entries begin with <code>/</code> and can be nested using additional <code>/</code> characters.</li>
+<li><code>boot():/</code> points to the partition containing <code>limine.conf</code>; if your kernel/initramfs live on a different partition, use <code>uuid(&lt;PARTUUID&gt;):/path</code> (as documented on Arch Wiki).</li>
+<li>In Secure Boot mode, Limine enforces stronger integrity checks; see <code>CONFIG.md</code> for file-hash requirements and editor restrictions.</li>
+</ul>
+<h3 id="installation-2"><a class="header" href="#installation-2">Installation</a></h3>
+<p>Limine installation differs from distro to distro. In general:</p>
+<ol>
+<li>Install the <code>limine</code> package from your distribution or use official release binaries.</li>
+<li>Place Limine files on the target disk/ESP according to the official usage docs.</li>
+<li>Create or update <code>limine.conf</code>.</li>
+<li>Reboot and validate boot entries.</li>
+</ol>
+<p>For exact, up-to-date commands, follow:</p>
+<ul>
+<li><a href="https://github.com/limine-bootloader/limine/blob/trunk/INSTALL.md">INSTALL.md</a></li>
+<li><a href="https://github.com/limine-bootloader/limine/blob/trunk/USAGE.md">USAGE.md</a></li>
+</ul>
+<blockquote>
+<p><strong>Tip:</strong> If you need traditional Linux/Windows dual-boot convenience and broad distro documentation, GRUB is still usually easier. If you want a modern boot manager with a clean config model and strong Secure Boot features, Limine is an excellent option.</p>
+</blockquote>
+<div class="chapter-resources">
+<p><strong>Useful Links</strong></p>
+<ul>
+<li><a href="https://links.thelinuxbook.com/grubtoc">GRUB Manual</a></li>
+<li><a href="https://links.thelinuxbook.com/grubconfig">GRUB Configuration Variables</a></li>
+<li><a href="https://links.thelinuxbook.com/repairgrubbootfail">Repair GRUB Boot Failure</a></li>
+<li><a href="https://links.thelinuxbook.com/fixmultiboot">Fix Multi-Boot with GRUB and Windows</a></li>
+<li><a href="https://links.thelinuxbook.com/supergrub">SuperGRUBDisk</a></li>
+<li><a href="https://systemd.io/">systemd.io</a></li>
+<li><a href="https://wiki.archlinux.org/title/systemd-boot">Arch Wiki — systemd-boot</a></li>
+<li><a href="https://github.com/limine-bootloader/limine">Limine GitHub Repository</a></li>
+<li><a href="https://github.com/limine-bootloader/limine/blob/trunk/CONFIG.md">Limine CONFIG.md</a></li>
+<li><a href="https://github.com/limine-bootloader/limine/blob/trunk/USAGE.md">Limine USAGE.md</a></li>
+<li><a href="https://wiki.archlinux.org/title/Limine">Arch Wiki — Limine</a></li>
+<li><a href="https://wiki.cachyos.org/configuration/boot_manager_configuration/#limine">CachyOS Wiki — Limine</a></li>
+<li><a href="https://links.thelinuxbook.com/kernelparameters">Kernel Parameters Reference</a></li>
+</ul>
+</div>
+
+<div class="chapter-summary">
+<p><strong>Chapter Summary</strong></p>
+<ul>
+<li>GRUB 2 is the most widely used bootloader. Configuration lives in <code>/etc/default/grub</code>; changes take effect after running <code>grub-mkconfig</code> or <code>update-grub</code>.</li>
+<li>GRUB supports EFI and Legacy BIOS installations, themes, multiboot menus, and rescue modes.</li>
+<li>systemd-boot is a lightweight EFI-only alternative. It is simpler but less flexible than GRUB for multi-OS setups.</li>
+<li>Limine is a modern multiprotocol bootloader with growing adoption, clean configuration, and strong Secure Boot/measured boot support.</li>
+<li>Always prefer EFI over Legacy BIOS on modern hardware.</li>
+</ul>
+</div>
+
+<footer id="last-change">Last change: <time datetime="2026-05-02">2026-05-02</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                             <a rel="prev" href="chapter2-linuxmadeof.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4-servercli.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
+                            <a rel="next prefetch" href="chapter3.1-installing-linux.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
                         <div style="clear: both"></div>
@@ -394,16 +496,21 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="chapter2-linuxmadeof.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4-servercli.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
+                    <a rel="next prefetch" href="chapter3.1-installing-linux.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
 
         </div>
 
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
 
 
@@ -412,13 +519,13 @@ efi /EFI/Microsoft/Boot/bootmgfw.efi
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
 

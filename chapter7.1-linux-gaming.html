@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Bluetooth Configuration - The Linux Desktop Guide</title>
+        <title>Linux Gaming - The Linux Desktop Guide</title>
 
 
         <!-- Custom HTML head -->
@@ -177,95 +177,134 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="bluetooth-configuration"><a class="header" href="#bluetooth-configuration">Bluetooth Configuration</a></h2>
-<p>To configure Bluetooth, you can use the <code>bluetoothctl</code> command-line tool. This tool allows you to manage Bluetooth devices and settings directly from the terminal.</p>
-<p>Syntax for <code>bluetoothctl</code> commands:</p>
-<pre><code class="language-bash">bluetoothctl [command]
-</code></pre>
-<h3 id="common-bluetoothctl-commands"><a class="header" href="#common-bluetoothctl-commands">Common <code>bluetoothctl</code> Commands:</a></h3>
-<ul>
-<li><code>power on</code> - Turn on the Bluetooth adapter.</li>
-<li><code>power off</code> - Turn off the Bluetooth adapter.</li>
-<li><code>agent on</code> - Enable the agent for pairing.</li>
-<li><code>scan on</code> - Start scanning for nearby Bluetooth devices.</li>
-<li><code>scan off</code> - Stop scanning for Bluetooth devices.</li>
-<li><code>pair &lt;device_address&gt;</code> - Pair with a specific Bluetooth device.</li>
-<li><code>connect &lt;device_address&gt;</code> - Connect to a paired Bluetooth device.</li>
-<li><code>disconnect &lt;device_address&gt;</code> - Disconnect from a connected Bluetooth device.</li>
-<li><code>devices</code> - List all known Bluetooth devices.</li>
-<li><code>info &lt;device_address&gt;</code> - Show detailed information about a specific Bluetooth device.</li>
-</ul>
-<h4 id="example-usage"><a class="header" href="#example-usage">Example Usage:</a></h4>
-<pre><code class="language-bash">bluetoothctl
-power on
-agent on
-scan on
-</code></pre>
-<p>This will turn on the Bluetooth adapter, enable the agent for pairing, and start scanning for nearby Bluetooth devices.</p>
-<p><em>Note: <code>blueman</code> is a graphical Bluetooth manager that can be used as an alternative to <code>bluetoothctl</code> for those who prefer a GUI.</em></p>
-<h3 id="troubleshooting-bluetooth-issues"><a class="header" href="#troubleshooting-bluetooth-issues">Troubleshooting Bluetooth Issues</a></h3>
-<p>If you encounter issues with Bluetooth, here are some common troubleshooting steps:</p>
+                        <h2 id="linux-gaming"><a class="header" href="#linux-gaming">Linux Gaming</a></h2>
+<p>Linux gaming has come a long way in recent years, and many popular games
+are now available natively on the platform. Tools like Proton (a
+compatibility layer for running Windows games on Linux) and Lutris (a
+gaming platform for managing games from various sources) have also made
+gaming on Linux much easier.</p>
+<p>If you want to play a lot of games and avoid heavy setup, I recommend
+using Bazzite or Nobara Linux. Both are gaming-focused distributions
+that come pre-configured with many of the tools and drivers you need.
+Starting from a blank distribution like Debian or Arch Linux can work,
+but it usually requires more manual configuration.</p>
+<h3 id="understanding-wine-and-proton"><a class="header" href="#understanding-wine-and-proton">Understanding WINE and Proton</a></h3>
+<p>WINE (Wine Is Not an Emulator) is a compatibility layer that allows you
+to run Windows applications on Linux. It translates Windows API calls
+into POSIX calls, so many Windows applications can run without a full
+Windows installation. Proton is a Valve-maintained version of WINE,
+designed specifically to run Windows games through Steam.</p>
+<p>While WINE and Proton can run many Windows applications and games, they
+are not perfect. Some applications require extra configuration, and some
+may not work at all. Check compatibility reports on
+<a href="https://www.protondb.com/">ProtonDB</a> to see whether a game is supported
+and what tweaks may be needed.</p>
+<p>Lutris is a front-end for managing games on Linux, with a user-friendly
+interface for installing and launching games from sources like Steam,
+GOG, and Battle.net. It supports both WINE and Proton and includes
+community install scripts that can simplify setup.</p>
+<p>Heroic Games Launcher is an open-source launcher for the Epic Games
+Store. It lets you install and play Epic Games on Linux with a simple
+interface and useful per-game configuration options.</p>
+<p>Bottles is a front-end for WINE that simplifies running Windows
+applications on Linux. It provides a user-friendly interface for managing
+WINE prefixes and configuration profiles.</p>
+<h4 id="wine-usage"><a class="header" href="#wine-usage">WINE Usage</a></h4>
+<p>WINE is a powerful tool for running Windows applications on Linux, but it can be complex to set up and use effectively. Here are some tips for using WINE:</p>
 <ol>
-<li><strong>Check Bluetooth Service Status</strong>:
-Ensure that the Bluetooth service is running:
-<pre><code>sudo systemctl status bluetooth
+<li>
+<p><strong>Installation</strong>: Install WINE using your distribution’s package manager. For example, on Ubuntu, you can use:</p>
+<pre><code class="language-bash">sudo apt install wine
 </code></pre>
-If it is not running, start it with:
-<pre><code>sudo systemctl start bluetooth
-</code></pre>
-</li>
-<li><strong>Restart Bluetooth Service</strong>:
-Sometimes, restarting the Bluetooth service can resolve connectivity issues:
-<pre><code>sudo systemctl restart bluetooth
+<p>On Arch Linux, you can use:</p>
+<pre><code class="language-bash">sudo pacman -S wine
 </code></pre>
 </li>
-<li><strong>Check for Blocked Devices</strong>:
-Use <code>rfkill</code> to check if Bluetooth is blocked:
-<pre><code>rfkill list
+<li>
+<p><strong>Configuration</strong>: After installing WINE, you can run <code>winecfg</code> in the terminal to configure WINE settings. This will create a default WINE prefix in your home directory (<code>~/.wine</code>) and allow you to set various options, such as the Windows version to emulate, graphics settings, and audio configurations.</p>
+</li>
+<li>
+<p><strong>Installing Windows Applications</strong>: To install a Windows application using WINE, you can run the installer executable with the <code>wine</code> command. For example:</p>
+<pre><code class="language-bash">wine setup.exe
 </code></pre>
-If Bluetooth is blocked, unblock it with:
-<pre><code>sudo rfkill unblock bluetooth
+<p>Replace <code>setup.exe</code> with the actual name of the installer file. WINE will create a virtual C: drive in your WINE prefix, where the application will be installed.</p>
+</li>
+<li>
+<p><strong>Running Windows Applications</strong>: After installation, you can run the application using WINE by executing the application’s executable file. For example:</p>
+<pre><code class="language-bash">wine /path/to/application.exe
+</code></pre>
+<p>Replace <code>/path/to/application.exe</code> with the actual path to the application’s executable file.</p>
+</li>
+<li>
+<p><strong>Managing WINE Prefixes</strong>: WINE uses a concept called “prefixes” to manage different environments for running Windows applications. By default, WINE uses the <code>~/.wine</code> directory as its prefix. You can create additional prefixes by setting the <code>WINEPREFIX</code> environment variable before running WINE commands. For example:</p>
+<pre><code class="language-bash">WINEPREFIX="/path/to/custom/prefix" wine /path/to/application.exe
+</code></pre>
+<p>This allows you to maintain separate configurations and installations for different applications, which can be useful for managing dependencies and settings.</p>
+</li>
+<li>
+<p><strong>Using Winetricks</strong>: Winetricks is a script that helps you install
+Windows libraries and components in a WINE prefix. It is useful for
+installing dependencies like .NET Framework or DirectX.</p>
+<p>You can install Winetricks with your package manager or download it
+from the <a href="https://github.com/Winetricks/winetricks">Winetricks GitHub repository</a>.</p>
+</li>
+</ol>
+<p>WINE prefixes can get complicated when you add .NET and other components
+with Winetricks. Unlike Windows, you cannot uninstall .NET cleanly from
+a WINE prefix in many cases, so it is best to create a new prefix per
+application when different dependency versions are required.</p>
+<p>Once an application is working, avoid changing that prefix by adding or
+removing libraries, because that can break it. If you need major changes,
+create a new prefix and set it up again.</p>
+<h4 id="proton-usage"><a class="header" href="#proton-usage">Proton Usage</a></h4>
+<p>Proton is a compatibility layer developed by Valve that allows you to run
+Windows games through Steam on Linux. It is built on top of WINE and
+includes extra libraries and optimizations for game compatibility and
+performance. Here are some tips for using Proton:</p>
+<ol>
+<li>
+<p><strong>Installation</strong>:
+Proton is integrated into the Steam client, so you do not need to install it separately.
+Make sure you have the latest version of Steam installed on your Linux system. You can install Steam using your distribution’s package manager. For example, on Ubuntu, you can use:</p>
+<pre><code class="language-bash">sudo apt install steam
+</code></pre>
+<p>On Arch Linux, you can use:</p>
+<pre><code class="language-bash">sudo pacman -S steam
 </code></pre>
 </li>
-<li><strong>Update Bluetooth Drivers</strong>:
-Ensure that your system has the latest Bluetooth drivers installed. You can update your system packages using
-your package manager. For example, on Ubuntu:
-<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
-</code></pre>
+<li>
+<p><strong>Enabling Proton for all games</strong>:
+To enable Proton for all games, open the Steam client, go to “Settings,” then “Steam Play.” Check the box for “Enable Steam Play for all other titles” and select the desired Proton version from the dropdown menu.</p>
 </li>
-<li><strong>Check Logs</strong>:
-Review system logs for Bluetooth-related errors:
-<pre><code>journalctl -xe | grep bluetooth
+<li>
+<p><strong>Installing Proton GE</strong>:
+Proton GE (Glorious Eggroll) is a community-maintained version of
+Proton that includes additional patches and optimizations for specific
+games. You can download it from the
+<a href="https://github.com/GloriousEggroll/proton-ge-custom/releases">Proton GE GitHub repository</a>.</p>
+<p>After downloading, extract the contents to your Steam directory, typically located at <code>~/.steam/root/compatibilitytools.d/</code>. If the <code>compatibilitytools.d</code> directory does not exist, you can create it.
+Once extracted, restart the Steam client, and you should see Proton GE listed as an available compatibility tool in the Steam Play settings.</p>
+<p>For updates, I recommend using
+<a href="https://github.com/ProtonUp/ProtonUp-Qt">ProtonUp-Qt</a>, which provides
+a user-friendly interface for managing Proton GE installs. If you
+prefer the terminal, use:</p>
+<pre><code class="language-bash">protonup -u
 </code></pre>
-</li>
-<li><strong>Re-pair Devices</strong>:
-If a device is not connecting, try removing it and re-pairing:
-<pre><code>bluetoothctl
-remove &lt;device_address&gt;
-pair &lt;device_address&gt;
-connect &lt;device_address&gt;
+<p>This will update Proton GE to the latest version available. Install protonup through python pip:</p>
+<pre><code class="language-bash">pip install protonup
 </code></pre>
 </li>
 </ol>
-<p>By following these steps, you should be able to configure and troubleshoot Bluetooth on your Linux system effectively.</p>
-<h4 id="known-bluetooth-issues"><a class="header" href="#known-bluetooth-issues">Known Bluetooth Issues</a></h4>
-<ul>
-<li>Some Bluetooth adapters may require proprietary firmware to function correctly. Check your distribution’s documentation for information on installing necessary firmware.</li>
-<li>Interference from other wireless devices can affect Bluetooth performance. Try moving away from potential sources of interference.</li>
-<li>Not all Bluetooth profiles may be supported by your adapter or the connected device. Verify compatibility if you experience issues with specific functionalities (e.g., audio streaming, file transfer).</li>
-<li>Certain desktop environments may have their own Bluetooth management tools that could conflict with <code>bluetoothctl</code>. Consider using the native tool provided by your desktop environment if you encounter issues.</li>
-<li>Xbox One Controllers have connectivity issues with Linux Bluetooth on early firmware versions. Make sure your controller firmware is updated to the latest version to ensure proper Bluetooth functionality. This requires a Windows or Xbox console to update the firmware.</li>
-</ul>
-<footer id="last-change">Last change: <time datetime="2025-11-02">2025-11-02</time></footer>
+<footer id="last-change">Last change: <time datetime="2026-05-02">2026-05-02</time></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter4.2-networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter7-linuxprograms.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="chapter4.4-audio.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter8-environment.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -275,11 +314,11 @@ connect &lt;device_address&gt;
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter4.2-networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter7-linuxprograms.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="chapter4.4-audio.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter8-environment.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
