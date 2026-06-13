@@ -39,15 +39,246 @@
 blockquote {
   margin: 1.1rem 0;
   padding: 0.85rem 1rem;
-  border-left: 0.3rem solid rgba(82, 94, 133, 0.7);
+  border: 1px solid rgba(82, 94, 133, 0.7);
   border-radius: 0.5rem;
   background: rgba(127, 132, 156, 0.07);
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 blockquote p {
   margin: 0.4rem 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 hr {
   margin: 1.8rem 0;
 }
+
+.link-key-marker {
+  margin-left: 0.14em;
+  font-size: 0.68em;
+  line-height: 0;
+  vertical-align: super;
+}
+
+.link-key-footer {
+  margin-top: 2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(96, 106, 132, 0.35);
+}
+
+.link-key-title {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+}
+
+.link-key-list {
+  margin: 0;
+  padding-left: 0;
+  list-style-position: inside;
+}
+
+.link-key-item {
+  margin: 0.12rem 0;
+}
+
+.link-key-item-marker {
+  display: none;
+}
+
+.link-key-item a {
+  overflow-wrap: anywhere;
+}
+
+.title-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.15rem;
+  min-height: 72vh;
+  margin: 0;
+  text-align: center;
+}
+
+.title-page h1 {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(4.2rem, 9vw, 6.8rem);
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+}
+
+.title-page-author {
+  margin: 0;
+  font-size: clamp(2.2rem, 4.1vw, 3.3rem);
+  font-weight: 600;
+}
+
+.title-page-tagline {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+  line-height: 1.3;
+}
+
+.title-page + #last-change {
+  display: none;
+}
+
+#mdbook-page-wrapper:has(.title-page) #mdbook-menu-bar-hover-placeholder,
+#mdbook-page-wrapper:has(.title-page) #mdbook-menu-bar {
+  display: none;
+}
+
+.chapter li.chapter-item > .chapter-link-wrapper > a[href$="titlepage.html"] {
+  display: none;
+}
+
+.interleaf-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.8rem;
+  min-height: 65vh;
+  border: 1px solid rgba(94, 110, 138, 0.45);
+  border-radius: 0.45rem;
+  background: #fff;
+  padding: 0.55rem 0.65rem 0.6rem;
+}
+
+.interleaf-half-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.8rem;
+  min-height: 32vh;
+  border: 1px solid rgba(94, 110, 138, 0.45);
+  border-radius: 0.45rem;
+  background: #fff;
+  padding: 0.55rem 0.65rem 0.6rem;
+}
+
+.interleaf-title {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.08rem 0.36rem;
+  border: 1px solid rgba(94, 110, 138, 0.55);
+  border-radius: 0.28rem;
+  background: rgba(95, 111, 140, 0.14);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.interleaf-lines {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.interleaf-half-lines {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.interleaf-line {
+  flex: 1;
+  border-bottom: 1px solid rgba(78, 94, 123, 0.34);
+}
+
+.blank-page {
+  min-height: 65vh;
+}
+
+.content main h1[id^="interleaf"] {
+  display: none !important;
+}
+
+.chapter li.chapter-item > .chapter-link-wrapper > a[href*="interleaf-"] {
+  display: none;
+}
+
+.content pre {
+  margin: 0.8rem 0 1rem;
+  border: 1px solid #354153;
+  border-radius: 0.55rem;
+  overflow: hidden;
+  background: #121823;
+  box-shadow: 0 6px 20px rgba(5, 9, 16, 0.28);
+}
+
+.content pre::before {
+  content: "\2022 \2022 \2022  terminal";
+  display: block;
+  padding: 0.38rem 0.75rem;
+  border-bottom: 1px solid #354153;
+  background: #1b2534;
+  color: #b8c6e0;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+.content pre {
+  margin: 0;
+  background: transparent !important;
+}
+
+.content pre code {
+  display: block;
+  padding: 0.9rem 1rem;
+  color: #d7e5ff;
+}
+
+.print-toc ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.print-toc > ul > li {
+  margin: 0.14rem 0;
+}
+
+.print-toc li ul {
+  margin-top: 0.05rem;
+  margin-left: 1rem;
+}
+
+.print-toc a {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.3rem;
+  text-decoration: none;
+}
+
+.print-toc .toc-title {
+  order: 1;
+}
+
+.print-toc .toc-title::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+}
+
+.print-toc .toc-page {
+  order: 3;
+  min-width: 2ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.print-toc a::before {
+  content: "";
+  order: 2;
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 1px dotted currentColor;
+  transform: translateY(-0.2rem);
+}
+
