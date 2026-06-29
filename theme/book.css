@@ -230,6 +230,98 @@ hr {
   color: #d7e5ff;
 }
 
+.latte .content pre code,
+.latte .content pre .hljs {
+  color: #d7e5ff;
+}
+
+.latte .content pre .hljs-keyword,
+.latte .content pre .hljs-name,
+.latte .content pre .hljs-variable,
+.latte .content pre .hljs-variable.language_ {
+  color: #d6a3f0;
+}
+
+.latte .content pre .hljs-built_in,
+.latte .content pre .hljs-doctag,
+.latte .content pre .hljs-emphasis,
+.latte .content pre .hljs-strong {
+  color: #f09698;
+}
+
+.latte .content pre .hljs-type,
+.latte .content pre .hljs-title.class_,
+.latte .content pre .hljs-selector-tag {
+  color: #f0d69a;
+}
+
+.latte .content pre .hljs-literal,
+.latte .content pre .hljs-number,
+.latte .content pre .hljs-meta,
+.latte .content pre .hljs-variable.constant_ {
+  color: #f5b08a;
+}
+
+.latte .content pre .hljs-operator,
+.latte .content pre .hljs-link {
+  color: #a6e4ee;
+}
+
+.latte .content pre .hljs-punctuation,
+.latte .content pre .hljs-params,
+.latte .content pre .hljs-subst {
+  color: #c6d0f5;
+}
+
+.latte .content pre .hljs-property,
+.latte .content pre .hljs-tag,
+.latte .content pre .hljs-bullet,
+.latte .content pre .hljs-formula,
+.latte .content pre .hljs-selector-class,
+.latte .content pre .hljs-selector-pseudo {
+  color: #9adbd2;
+}
+
+.latte .content pre .hljs-regexp {
+  color: #f5c9ea;
+}
+
+.latte .content pre .hljs-string,
+.latte .content pre .hljs-char.escape_,
+.latte .content pre .hljs-attribute,
+.latte .content pre .hljs-code,
+.latte .content pre .hljs-quote {
+  color: #b7df9d;
+}
+
+.latte .content pre .hljs-symbol,
+.latte .content pre .hljs-template-tag,
+.latte .content pre .hljs-template-variable {
+  color: #f2caca;
+}
+
+.latte .content pre .hljs-title,
+.latte .content pre .hljs-title.function_,
+.latte .content pre .hljs-attr,
+.latte .content pre .hljs-section,
+.latte .content pre .hljs-selector-id {
+  color: #a4bdf7;
+}
+
+.latte .content pre .hljs-comment {
+  color: #aeb7d4;
+}
+
+.latte .content pre .hljs-addition {
+  color: #b7df9d;
+  background: rgba(183, 223, 157, 0.15);
+}
+
+.latte .content pre .hljs-deletion {
+  color: #f09698;
+  background: rgba(240, 150, 152, 0.15);
+}
+
 .print-toc ul {
   margin: 0;
   padding-left: 0;
