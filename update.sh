@@ -85,6 +85,7 @@ css = css.replace(
   display: block;
   overflow-x: auto;
   padding: 0.9rem 1rem;
+  background: #121823;
   color: #d7e5ff;
 }""",
 )
@@ -92,6 +93,7 @@ light_mode_code_css = """
 
 .latte .content pre code,
 .latte .content pre .hljs {
+  background: #121823;
   color: #d7e5ff;
 }
 

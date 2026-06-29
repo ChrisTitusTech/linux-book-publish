@@ -227,12 +227,14 @@ hr {
   display: block;
   overflow-x: auto;
   padding: 0.9rem 1rem;
+  background: #121823;
   color: #d7e5ff;
 }
 
 
 .latte .content pre code,
 .latte .content pre .hljs {
+  background: #121823;
   color: #d7e5ff;
 }
 
@@ -370,4 +372,3 @@ hr {
   border-bottom: 1px dotted currentColor;
   transform: translateY(-0.2rem);
 }
-
