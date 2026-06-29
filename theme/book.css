@@ -223,13 +223,9 @@ hr {
   text-transform: lowercase;
 }
 
-.content pre {
-  margin: 0;
-  background: transparent !important;
-}
-
 .content pre code {
   display: block;
+  overflow-x: auto;
   padding: 0.9rem 1rem;
   color: #d7e5ff;
 }
@@ -281,4 +277,3 @@ hr {
   border-bottom: 1px dotted currentColor;
   transform: translateY(-0.2rem);
 }
-

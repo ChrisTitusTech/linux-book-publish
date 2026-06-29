@@ -11,6 +11,7 @@ else
 fi
 
 BOOK_DIR="${HOME_PATH}/github/linux-book"
+PUBLISH_DIR="${HOME_PATH}/github/linux-book-publish"
 BOOK_TOML="${BOOK_DIR}/book.toml"
 BOOK_TOML_BACKUP="${BOOK_DIR}/book.toml.backup"
 
@@ -55,7 +56,41 @@ mdbook build "$BOOK_DIR"
 # Restore original book.toml
 mv "$BOOK_TOML_BACKUP" "$BOOK_TOML"
 
-rsync -avP "${BOOK_DIR}/book/" "${HOME_PATH}/github/linux-book-publish/" --exclude=book/
-git add .
-git commit -m "Update book content"
-git push
+rsync -avP "${BOOK_DIR}/book/" "${PUBLISH_DIR}/" --exclude=book/
+
+# Keep the generated HTML site publish-only. The source book still uses the
+# shared CSS for PDF and EPUB, so fix the copied HTML CSS after each rebuild.
+PUBLISH_DIR="$PUBLISH_DIR" python - << 'PY'
+import os
+from pathlib import Path
+
+css_path = Path(os.environ["PUBLISH_DIR"]) / "theme/book.css"
+css = css_path.read_text()
+css = css.replace(
+    """
+.content pre {
+  margin: 0;
+  background: transparent !important;
+}
+""",
+    "",
+)
+css = css.replace(
+    """.content pre code {
+  display: block;
+  padding: 0.9rem 1rem;
+  color: #d7e5ff;
+}""",
+    """.content pre code {
+  display: block;
+  overflow-x: auto;
+  padding: 0.9rem 1rem;
+  color: #d7e5ff;
+}""",
+)
+css_path.write_text(css)
+PY
+
+git -C "$PUBLISH_DIR" add .
+git -C "$PUBLISH_DIR" commit -m "Update book content"
+git -C "$PUBLISH_DIR" push
