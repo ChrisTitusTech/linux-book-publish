@@ -230,6 +230,7 @@ hr {
   color: #d7e5ff;
 }
 
+
 .latte .content pre code,
 .latte .content pre .hljs {
   color: #d7e5ff;
@@ -369,3 +370,4 @@ hr {
   border-bottom: 1px dotted currentColor;
   transform: translateY(-0.2rem);
 }
+
